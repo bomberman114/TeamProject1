@@ -1,6 +1,7 @@
 package com.green.company.recruit.vo;
 
 public class CompanyRecruitVo {
+
 	
 	  private int    company_recruit_idx;             // 채용공고 번호
 	  private String company_id;                      // 기업회원 아이디
@@ -152,5 +153,6 @@ public class CompanyRecruitVo {
 				+ company_recruit_regdate + "]";
 	}
 	  
+
 
 }
