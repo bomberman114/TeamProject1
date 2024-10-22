@@ -25,6 +25,33 @@
 		WHERE 
 			COMPANY_ID = #{company_id}
  	</select>
+ 	
+ 	<select id="getCompanyRecruit">
+ 		SELECT
+		    *
+		FROM
+		    COMPANY_RECRUIT CR
+		JOIN
+		    COMMON_COMPANY_RECRUIT_SKILL CCRS
+		ON
+		    CR.COMPANY_RECRUIT_IDX = CCRS.COMPANY_RECRUIT_IDX
+		WHERE
+		    CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+ 		
+ 	</select>
+ 	
+ 	<select id="getCompanyRecruitAlications">
+ 		SELECT
+		 *
+		FROM
+		    COMPANY_RECRUIT CR
+		JOIN 
+		    APPLICATIONS A
+		ON
+		    CR.COMPANY_RECRUIT_IDX = A.COMPANY_RECRUIT_IDX
+		WHERE
+    		CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+ 	</select>
   
   
 </mapper>
