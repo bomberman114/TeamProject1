@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
+import com.green.region.mapper.RegeionMapper;
+import com.green.region.vo.RegionVo;
 
 @Controller
 @RequestMapping("/Company")
@@ -21,9 +23,21 @@ public class CompanyController {
 	@Autowired
 	private CompanyRecruitMapper companyRecruitMapper;
 	
+	@Autowired
+	private RegeionMapper regionMapper;
+	
 	
 	@RequestMapping("/List")
 	public ModelAndView list () {
+		return mv;
+	}
+	
+	@RequestMapping("/RecruitWriteForm")
+	public ModelAndView recruitWriteForm () {
+		List<RegionVo> regionList = regionMapper.getRegionList();
+		System.out.println(regionList);
+		mv.addObject("regionList", regionList);
+		mv.setViewName("/company/recruitWriteForm");
 		return mv;
 	}
 	

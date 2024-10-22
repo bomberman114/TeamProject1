@@ -118,6 +118,8 @@ button:last-child {
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">로그인</a></li>
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
+                <!-- 회사측 로그인후 보이게 나중에 처리 -->
+                <li>우리회사의 채용공고</li>
             </ul>
         </nav>
     </header>
