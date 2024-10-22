@@ -109,6 +109,7 @@ button:last-child {
 
 </style>
 <body>
+
     <header>
         <nav>
             <ul>
@@ -140,5 +141,6 @@ button:last-child {
             <div class="card">인기공고 6<br>Title<br>Description</div>
         </div>
     </main>
+
 </body>
 </html>
