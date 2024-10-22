@@ -158,6 +158,7 @@
     </style>
 </head>
 <body>
+
     <header>
         <nav>
         <a href="#">
@@ -182,6 +183,7 @@
             <p><a href="#">메뉴 항목 2</a></p>
             <p><a href="#">메뉴 항목 3</a></p>
         </div>
+
         
         <main>
             <h1>사이트 ~~ 배경은 사진 넣거나 맘대로</h1>
@@ -214,5 +216,6 @@
             sidebar.classList.remove('active');
         });
     </script>
+
 </body>
 </html>
