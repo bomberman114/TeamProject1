@@ -1,5 +1,6 @@
 package com.green.company.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class CompanyController {
 	
 	
 	@RequestMapping("/RecruitList")
-	public ModelAndView list (CompanyUserVo companyUserVo) {
+	public ModelAndView recruitList () {
+		CompanyUserVo companyUserVo = new CompanyUserVo();
 		companyUserVo.setCompany_id("kaka01");
 		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.selectCompanyRecruitList(companyUserVo);
 		System.out.println(companyRecruitList);
@@ -37,5 +39,22 @@ public class CompanyController {
 		return mv;
 	}
 	
+	@RequestMapping("/Recruit")
+	public ModelAndView recruit (CompanyRecruitVo companyRecruitVo) {
+		companyRecruitVo.setCompany_recruit_idx(1);
+		HashMap<String, Object> companyRecruitMap = companyRecruitMapper.getCompanyRecruit(companyRecruitVo);
+		System.out.println(companyRecruitMap);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/RecruitAplications")
+	public ModelAndView recruitAplications (CompanyRecruitVo companyRecruitVo) {
+		companyRecruitVo.setCompany_recruit_idx(1);
+		HashMap<String, Object> recruitAplicationsMap = companyRecruitMapper.getCompanyRecruitAlications(companyRecruitVo);
+		System.out.println(recruitAplicationsMap);
+		
+		return mv;
+	}
 	
 }

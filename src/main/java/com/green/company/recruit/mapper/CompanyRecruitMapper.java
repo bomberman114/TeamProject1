@@ -1,5 +1,6 @@
 package com.green.company.recruit.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +19,12 @@ public interface CompanyRecruitMapper {
 	List<CompanyRecruitVo> searchByKeyword(String keyword);
 
 	List<CompanyRecruitVo> selectCompanyRecruitList(CompanyUserVo companyUserVo);
+
+
+	HashMap<String, Object> getCompanyRecruit(CompanyRecruitVo companyRecruitVo);
+
+	HashMap<String, Object> getCompanyRecruitAlications(CompanyRecruitVo companyRecruitVo);
+
 
 
 }

@@ -12,7 +12,7 @@
 		<div>
 			<c:forEach var="companyRecruit" items="${ companyRecruitList }">
 				<input type="hidden" name="company_recruit_idx" value="${companyRecruit.company_recruit_idx }">
-				<div>${ companyRecruit.idx }</div>
+				<div>${ companyRecruit.company_recruit_idx }</div>
 			</c:forEach>
 		</div>
 	</main>
