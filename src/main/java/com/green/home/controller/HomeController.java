@@ -29,6 +29,5 @@ public class HomeController {
 
 
 /*
-2. 공고검색 연결
 4. 메뉴바 연결
 */
