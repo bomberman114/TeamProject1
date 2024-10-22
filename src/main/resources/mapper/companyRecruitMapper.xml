@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.company.recruit.mapper.CompanyRecruitMapper">  
+
  
  <select id="companyRecruitList">
  
@@ -35,6 +36,33 @@
 	WHERE RECRUIT_TITLE LIKE '%' || #{keyword} || '%'
  </select>
  
+
+   
+ 	<insert id="insertUserResume">
+ 	
+ 	</insert>
+ 	
+ 	<select id="selectCompanyRecruitList">
+ 		SELECT
+		    COMPANY_ID,
+		    COMPANY_PASSWD,
+		    COMPANY_USER_NAME,
+		    COMPANY_PHONE,
+		    COMPANY_NAME,
+		    COMPANY_BCODE,
+		    COMPANY_BOSS_NAME,
+		    COMPANY_EMAIL,
+		    COMPANY_USER_EMAIL,
+		    COMPANY_REGDATE,
+		    COMPANY_ESTABLISH
+		FROM
+		    COMPANY_USERS
+		WHERE 
+			COMPANY_ID = #{company_id}
+ 	</select>
+  
+  
+
 </mapper>
 
 
