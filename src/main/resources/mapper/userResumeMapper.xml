@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.user.resume.mapper.UserResumeMapper">  
+   
+ 	<insert id="insertUserResume">
+ 		INSERT INTO USER_RESUME (
+		    USER_TITLE,
+		    USER_ID,
+		    USER_NAME,
+		    USER_BIRTH,
+		    USER_PHONE,
+		    USER_EMAIL,
+		    REGION_IDX,
+		    REGION_ADDRESS,
+		    USER_INTRO,
+		) VALUES (
+		      #{user_title}
+		    , #{user_id}
+		    , #{user_name}
+		    , #{user_birth}
+		    , #{user_phone}
+		    , #{user_email}
+		    , #{region_idx}
+		    , #{region_address}
+		    , #{user_intro}
+			)
+ 	</insert>
+ 	
+ 	<select id="selectUserResumeList">
+ 		SELECT
+		    USER_RESUME_IDX,
+		    USER_TITLE,
+		    USER_ID,
+		    USER_NAME,
+		    USER_BIRTH,
+		    USER_PHONE,
+		    USER_EMAIL,
+		    REGION_IDX,
+		    REGION_ADDRESS,
+		    USER_INTRO,
+		    USER_RESUME_REGDATE
+		FROM
+    		USER_RESUME
+    	WHERE USER_ID = #{userid}
+ 	</select>
+  
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
