@@ -1,18 +1,29 @@
 package com.green.company.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.company.mapper.CompanyMapper;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
 import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
+import com.green.skill.mapper.SkillMapper;
+import com.green.skills.vo.SkillVo;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/Company")
@@ -26,6 +37,12 @@ public class CompanyController {
 	@Autowired
 	private RegeionMapper regionMapper;
 	
+	@Autowired
+	private SkillMapper skillMapper;
+	
+	@Autowired
+	private CompanyMapper companyMapper;
+	
 	
 	@RequestMapping("/List")
 	public ModelAndView list () {
@@ -33,13 +50,55 @@ public class CompanyController {
 	}
 	
 	@RequestMapping("/RecruitWriteForm")
-	public ModelAndView recruitWriteForm () {
+	public ModelAndView recruitWriteForm (CompanyUserVo companyUserVo) {
 		List<RegionVo> regionList = regionMapper.getRegionList();
-		System.out.println(regionList);
-		mv.addObject("regionList", regionList);
+		List<SkillVo> skillList   = skillMapper.getSkillList();
+		companyUserVo.setCompany_id("kaka01");
+		companyUserVo 			  = companyMapper.getCompanyUser(companyUserVo);
+		//System.out.println(companyUserVo);
+		//System.out.println(skillList);
+		
+		mv.addObject("companyUserVo", companyUserVo);
+		mv.addObject("skillList",     skillList);
+		mv.addObject("regionList",    regionList);
 		mv.setViewName("/company/recruitWriteForm");
 		return mv;
 	}
+	
+	@RequestMapping("/RecruitWrite")
+	public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
+		System.out.println("HI--------------");
+		Map<String, String[]> map = request.getParameterMap();
+		String [] skills = map.get("skill_name");
+		System.out.println( Arrays.toString(skills));
+		System.out.println( companyRecruitVo );
+		
+		//System.out.println(skill_name);
+		//System.out.println(companyRecruitVo);
+		//companyRecruitMapper.setCompanyRecruitDate(map);
+		
+		mv.setViewName("/company/recruitWriteForm");
+		return mv;
+	}
+		
+		/*
+	}@RequestMapping("/Write2")
+	public  String  write(HttpServletRequest request) {
+		Map<String, String[]> parms = request.getParameterMap();
+		String [] job1 = parms.get("job1");
+		System.out.println( Arrays.toString(job1) );
+		System.out.println("-------------------");
+		for (Map.Entry<String, String[]> entry : parms.entrySet()) {
+			String   key  = entry.getKey();
+			String[] vals = entry.getValue();
+			for (int i = 0; i < vals.length; i++) {
+				System.out.println(key + ":" + vals[i]);				
+			}
+		}
+			
+		return "home1";
+	}
+	*/
 	
 	
 	@RequestMapping("/RecruitList")
@@ -47,7 +106,7 @@ public class CompanyController {
 		CompanyUserVo companyUserVo = new CompanyUserVo();
 		companyUserVo.setCompany_id("kaka01");
 		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.selectCompanyRecruitList(companyUserVo);
-		System.out.println(companyRecruitList);
+		//System.out.println(companyRecruitList);
 		mv.addObject("companyRecruitList", companyRecruitList);
 		mv.setViewName("/company/recruitList");
 		return mv;

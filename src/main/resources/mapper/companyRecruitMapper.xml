@@ -87,7 +87,40 @@
 		WHERE
     		CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
  	</select>
-  
+  	
+  	<insert id="setCompanyRecruitDate">
+  		INSERT 
+  			INTO 
+  		COMPANY_RECRUIT (
+		    COMPANY_RECRUIT_IDX,
+		    COMPANY_ID,
+		    COMPANY_NAME,
+		    RECRUIT_TITLE,
+		    COMPANY_JOB,
+		    GETMAN,
+		    REGION_IDX,
+		    COMPANY_ADDRESS,
+		    COMPANY_INFO,
+		    APPLICATION_DEADLINE,
+		    COMPANY_ESTABLISH,
+		    COMPANY_RECRUIT_REGDATE,
+    		VIEWS
+				) VALUES (
+				      COMPANY_RECRUIT_SEQ.NEXTVAL,
+				      #{company_id}
+				    , #{company_name}
+				    , #{recruit_title}
+				    , #{company_job}
+				    , #{getman}
+				    , #{region_idx}
+				    , #{company_address}
+				    , #{company_info}
+				    , #{application_deadline}
+				    , #{company_establish}
+				    , #{company_recruit_regdate}
+		    		, #{views}
+				)
+  	</insert>
   
 
 </mapper>

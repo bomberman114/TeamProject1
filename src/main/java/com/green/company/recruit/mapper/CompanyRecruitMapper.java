@@ -25,6 +25,8 @@ public interface CompanyRecruitMapper {
 
 	HashMap<String, Object> getCompanyRecruitAlications(CompanyRecruitVo companyRecruitVo);
 
+	void setCompanyRecruitDate(HashMap<String, Object> map);
+
 
 
 }
