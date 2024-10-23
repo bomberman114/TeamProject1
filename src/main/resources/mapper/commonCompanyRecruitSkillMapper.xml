@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.common.company.recruit.skill.mapper.CommonCompanyRecruitSkillMapper">  
+
+ 	<insert id="setCommonCompanyRecruitSkill">
+ 		INSERT INTO 
+ 			COMMON_COMPANY_RECRUIT_SKILL (
+		    COMMON_COMPANY_IDX
+		   , SKILL_NAME
+		   , COMPANY_RECRUIT_IDX
+		) VALUES (
+		    COMMON_COMPANY_RECRUIT_SKILL_SEQ.NEXTVAL
+		    <foreach collection="skillList"  >
+		    
+		    
+		    </foreach>
+		    
+		)
+ 	</insert>
+  	
+  
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
