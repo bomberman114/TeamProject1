@@ -1,14 +1,14 @@
-package com.green.common.user.resum.skill.vo;
+package com.green.common.user.resume.skill.vo;
 
-public class CommonUserResumSkillVo {
+public class CommonUserResumeSkillVo {
 
 	private int    common_user_idx;
 	private String skill_name;        // 스킬명
 	private int    user_resume_idx;   // 이력서 번호
 
-	public CommonUserResumSkillVo () {}
+	public CommonUserResumeSkillVo () {}
 
-	public CommonUserResumSkillVo(int common_user_idx, String skill_name, int user_resume_idx) {
+	public CommonUserResumeSkillVo(int common_user_idx, String skill_name, int user_resume_idx) {
 		super();
 		this.common_user_idx = common_user_idx;
 		this.skill_name = skill_name;

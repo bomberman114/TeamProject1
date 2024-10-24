@@ -109,7 +109,6 @@ button:last-child {
 
 </style>
 <body>
-
     <header>
         <nav>
             <ul>
@@ -117,8 +116,18 @@ button:last-child {
                 <li><a href="#">고객센터</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
-                <li><a href="#">로그인</a></li>
+                <% if ((Boolean) request.getAttribute("logInUser")) {%>
+                <li><a href="/Users/LoginForm">로그인</a></li>
+                <% } %>
+                <% if ((Boolean) request.getAttribute("logOutUser")) {%>
+                <li><a href="/Users/Logout">로그아웃</a></li>
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
+                <% } %>
+                <% if ((Boolean) request.getAttribute("admin")) { %>
+                    <li><a href="/Users/List">회원목록</a></li>
+                <% } %>
+                <li><a href="/User/RegisterResumeForm">이력서 작성</a></li>
+                <li><a href="/User/ResumeList">이력서 목록</a></li>
             </ul>
         </nav>
     </header>

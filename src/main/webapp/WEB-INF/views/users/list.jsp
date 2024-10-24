@@ -17,7 +17,7 @@
 </head>
 <body>
     <main>  
-        <h2>개인회원 목록</h2>
+        <h2>개인회원 목록 (관리자:${login.user_id})</h2>
         <table>
             <tr>
                 <td>아이디</td>
@@ -30,22 +30,19 @@
             </tr>
             <tr>
                 <td colspan="7">
-                    [<a href="/Users/RegisterForm">개인회원 등록</a>]	      
+                    [<a href="/Users/RegisterForm">개인회원 등록</a>]
                 </td>
             </tr>
-            
             <c:forEach var="user" items="${userList}">
                 <tr>
-                    <td>${user.user_id}</td>
-                    <td>${user.user_name}</td>
+                    <td><a href="/Users/View?user_id=${user.user_id}">${user.user_name}</a></td>
                     <td>${user.user_email}</td>
                     <td>${user.user_phone}</td>
                     <td>${user.user_regdate}</td>
                     <td>
-                        <a href="/Users/Delete?user_id=${user.user_id}" 
-                           onclick="return confirmDeletion('${user.user_id}');">삭제</a>
+                        <a href="/Users/Delete?user_id=${user.user_id}"
+                           onclick="return confirmDeletion('${user.user_id}');">회원삭제</a>
                     </td>
-                    <td><a href="/Users/CheckPassword?user_id=${user.user_id}">수정</a></td>
                 </tr> 
             </c:forEach>	    
         </table>
