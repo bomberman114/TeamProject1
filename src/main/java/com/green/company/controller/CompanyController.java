@@ -88,12 +88,13 @@ public class CompanyController {
 		companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
 		int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
 		commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+
 		
 		mv.setViewName("/company/recruitWriteForm");
 		return mv;
 	}
 		
-	
+
 	
 	
 	@RequestMapping("/RecruitList")
