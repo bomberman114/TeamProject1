@@ -10,13 +10,31 @@
 	 	FROM
 	 		COMPANY_USERS
 	 	WHERE 
-	 		COMPANY_ID = #{company_id}
+	 		COMPANY_ID = #{ company_id }
 	 	
 	 </select>
+	 
+	 
+	 
+	 
+	 
+	 
+	 <select id="getInfoUser">
+	 	SELECT
+	 		*
+	 	FROM 
+	       COMPANY_USERS
+	 	WHERE
+		   <if test="company_id != null">
+		    COMPANY_ID = #{ company_id } 
+		   </if>
+		 	   <if test="company_id == null">
+		    COMPANY_ID IS NULL 
+		   </if>
+	  </select>
   
 
 </mapper>
-
 
 
 

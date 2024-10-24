@@ -20,7 +20,6 @@ public class HomeController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView();
 		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.companyRecruitList();
-		System.out.println(companyRecruitList);
 		mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
 		mv.setViewName("home");
 		return mv;

@@ -1,7 +1,6 @@
 package com.green.user.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.company.mapper.CompanyMapper;
+import com.green.company.users.vo.CompanyUserVo;
 import com.green.user.resume.mapper.UserResumeMapper;
 import com.green.user.resume.vo.UserResumeVo;
 
@@ -40,12 +41,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("/Register")
-	public ModelAndView register (UserResumeVo userResumeVo) {
+	public ModelAndView register ( UserResumeVo userResumeVo) {
 		userResumeMapper.insertUserResume(userResumeVo);
 		
 		
 		return mv;
 	}
+	
+	
 	
 	
 }

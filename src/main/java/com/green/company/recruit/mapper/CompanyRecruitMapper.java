@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.green.company.recruit.vo.CompanyRecruitVo;
 
@@ -29,6 +30,18 @@ public interface CompanyRecruitMapper {
 	void setCompanyRecruit(CompanyRecruitVo companyRecruitVo);
 
 	int getCompanyRecruitIdx(String company_id);
+
+
+	int getCompanyRecruitCount(CompanyUserVo companyUserVo);
+
+
+	List<CompanyRecruitVo> selectCompanyRecruitListPaging
+							(@Param("company_id") String company_id, 
+							 @Param("startRow")   int startRow, 
+							 @Param("endRow") int endRow);
+	
+
+	 
 
 
 

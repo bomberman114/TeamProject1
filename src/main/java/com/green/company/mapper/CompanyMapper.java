@@ -1,6 +1,7 @@
 package com.green.company.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.green.company.users.vo.CompanyUserVo;
 
@@ -8,5 +9,7 @@ import com.green.company.users.vo.CompanyUserVo;
 public interface CompanyMapper {
 
 	CompanyUserVo getCompanyUser(CompanyUserVo companyUserVo);
+
+	CompanyUserVo getInfoUser( @Param ("company_id") String company_id);
 
 }
