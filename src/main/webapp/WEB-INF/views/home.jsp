@@ -172,6 +172,10 @@
                 <li><a href="/Users/LoginForm">로그인</a></li>
 
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
+
+                <!-- 회사측 로그인후 보이게 나중에 처리 -->
+                <li>우리회사의 채용공고</li>
+
                 <% } %>
                 <% if ((Boolean) request.getAttribute("logOutUser")) {%>
                 <li><a href="/Users/Logout">로그아웃</a></li>
@@ -179,6 +183,7 @@
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
+
 
             </ul>
         </nav>
