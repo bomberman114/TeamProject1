@@ -4,6 +4,8 @@ package com.green.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.green.users.vo.UserVo;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         HttpSession session = request.getSession();
-        Object login = session.getAttribute("login");
+        UserVo login = (UserVo) session.getAttribute("login");
 
         if (login == null) {
             // 로그인되어 있지 않다, 로그인 페이지로 이동

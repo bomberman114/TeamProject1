@@ -158,7 +158,6 @@
     </style>
 </head>
 <body>
-
     <header>
         <nav>
         <a href="#">
@@ -171,6 +170,7 @@
                 <li><a href="#">Contact</a></li>
                 <% if ((Boolean) request.getAttribute("logInUser")) {%>
                 <li><a href="/Users/LoginForm">로그인</a></li>
+
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
                 <% } %>
                 <% if ((Boolean) request.getAttribute("logOutUser")) {%>
@@ -179,6 +179,7 @@
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
+
             </ul>
         </nav>
         <button class="menu-toggle" id="menu-toggle">☰</button>

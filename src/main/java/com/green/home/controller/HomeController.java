@@ -20,6 +20,7 @@ public class HomeController {
 	@Autowired
 	private CompanyRecruitMapper companyRecruitMapper;
 	
+
 	   @GetMapping("/")
 	   public ModelAndView home(HttpServletRequest request) {
 	       ModelAndView mv = new ModelAndView();
@@ -51,6 +52,7 @@ public class HomeController {
 	       mv.setViewName("home");
 	       return mv;
 	   }
+
 }
 
 
