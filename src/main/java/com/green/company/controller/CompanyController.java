@@ -157,9 +157,6 @@ public class CompanyController {
 			pageSize=5;
 		};
 		 		
-		
-		
-        companyUserVo.setCompany_id("kaka01");
         companyUserVo = companyMapper.getCompanyUser(companyUserVo);
 		
 		int count = companyRecruitMapper.getCompanyRecruitCount(companyUserVo);
