@@ -84,7 +84,7 @@
     </style>
 </head>
 <body>
-    <div class="header">내 회사 정보</div>
+    <div class="header">회사 정보</div>
     <div class="container">
         <h1>내 회사 정보</h1>
         <div class="info-box">
