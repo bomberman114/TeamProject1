@@ -92,7 +92,7 @@
     <div class="container">
         <div class="info-box">
         	<h2>회사 정보</h2>
-        	<p>회사 이름:<span class="highlight">${ companyUserVo.company_name }</span></p>
+        <p>회사 이름:<span class="highlight">${ companyUserVo.company_name }</span></p>
         	<p>회사 아이디:<span class="highlight">${ companyUserVo.company_id }</span>
   
   		<div class="info-box">
