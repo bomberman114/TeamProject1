@@ -10,91 +10,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내 정보</title>
     <style>
-        body {
-            background-color: #f4f4f4;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align : center;
-        }
+       body {
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
 
-        .header {
-            background-color: #2e8b57;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
+.header {
+    background-color: #ffffff;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
 
-        .info-box {
-            background-color: #e6ffe6;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #b3ffb3;
-        }
+.info-box {
+    background-color: #e6ffe6;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #b3ffb3;
+}
 
-        h1 {
-            color: #2e8b57;
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+h1 {
+    color: #2e8b57;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
 
-        .info-item {
-            font-size: 18px;
-            margin: 10px 0;
-            text-align: center;
-        }
+.info-item {
+    font-size: 18px;
+    margin: 10px 0;
+    text-align: left;
+    margin-left: 30px;
+    font-weight: bold;
+}
 
-        .highlight {
-            font-weight: bold;
-            color: #2e8b57;
-        }
+.highlight {
+    font-weight: bold;
+    color: #2e8b57;
+}
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+/* 링크 박스가 컨테이너 밖에 위치하게 수정 */
+.link-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 20px; /* 박스와의 간격 조정 */
+}
 
-        li {
-            background-color: #e6ffe6;
-            border: 1px solid #b3ffb3;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
+.link-box {
+    background-color: #EBFFEE;
+    color: green;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    width: 200px;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid;
+}
 
-        .no-offers {
-            font-size: 18px;
-            color: #2e8b57;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+.link-box:hover {
+    background-color: #EBFFEE;
+}
+
+.no-offers {
+    font-size: 18px;
+    color: #2e8b57;
+    text-align: center;
+    margin-top: 20px;
+}
+</style>
 </head>
 <body>
-    <div class="header">회사 정보</div>
+    <!-- 링크 박스를 컨테이너 위로 이동 -->
+    <div class="link-container">
+        <a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
+        <a href="/Company/Info" class="link-box">내 정보</a>
+    </div>
+
+    <div class="header"></div>
+
+    <!-- "내 회사 정보" 컨테이너 -->
     <div class="container">
         <h1>내 회사 정보</h1>
+
         <div class="info-box">
-            <div class="info-item">회사 ID: <span class="highlight">${companyUser.companyId}</span></div>
-            <div class="info-item">회사 이름: <span class="highlight">${companyUser.companyName}</span></div>
-            <div class="info-item">대표자: <span class="highlight">${companyUser.companyBossName}</span></div>
-            <div class="info-item">전화번호: <span class="highlight">${companyUser.companyPhone}</span></div>
-            <div class="info-item">이메일: <span class="highlight">${companyUser.companyEmail}</span></div>
-            <div class="info-item">설립일: <span class="highlight">${companyUser.companyEstablish}</span></div>
-            <div class="info-item">등록일: <span class="highlight">${companyUser.companyRegDate}</span></div>
+            <div class="info-item">회사 ID: <span class="highlight">${companyUserVo.company_id}</span></div>
+            <div class="info-item">회사 이름: <span class="highlight">${companyUserVo.company_name}</span></div>
+            <div class="info-item">대표자: <span class="highlight">${companyUserVo.company_boss_name}</span></div>
+            <div class="info-item">전화번호: <span class="highlight">${companyUserVo.company_phone}</span></div>
+            <div class="info-item">이메일: <span class="highlight">${companyUserVo.company_email}</span></div>
+            <div class="info-item">설립일: <span class="highlight">${companyUserVo.company_establish}</span></div>
+            <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
         </div>
     </div>
 </body>

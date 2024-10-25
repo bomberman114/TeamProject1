@@ -24,15 +24,6 @@ public class HomeController {
 	private CompanyRecruitMapper companyRecruitMapper;
 	
 
-	@GetMapping("/")
-	public ModelAndView home() {
-		ModelAndView mv = new ModelAndView();
-		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.companyRecruitList();
-		mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
-		mv.setViewName("home");
-		return mv;
-	}
-
 
 	   @GetMapping("/")
 	   public ModelAndView home(HttpServletRequest request) {

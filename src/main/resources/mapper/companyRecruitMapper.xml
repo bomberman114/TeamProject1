@@ -178,6 +178,12 @@
     	FROM  company_recruit
    	    WHERE company_id = #{ company_id }
 	</select>
+	
+	<select id="getCompanyOneRecruit">
+		SELECT *
+		FROM company_recruit
+		WHERE company_recruit_idx = #{ company_recruit_idx}
+	</select>
   	
 
 </mapper>
