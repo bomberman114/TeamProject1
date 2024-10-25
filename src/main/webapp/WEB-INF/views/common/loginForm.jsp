@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 페이지</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+	<script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
+    
     <style>
         body {
             background-color: #e0f7e9;
@@ -63,17 +66,29 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="toggle">
-            <button>쓸만한데</button>
-            <button>무슨값을?</button>
+            <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
+            <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
+        <!-- 페이지를 따로 빼야함 -->
         </div>
         <div class="title">ALGO JJOB</div>
         <input type="text" placeholder="아이디" />
         <input type="password" placeholder="비밀번호" />
-        <button class="btn">Sign In</button>
+        <button class="btn">로그인</button>
         <button class="btn">회원가입</button>
     </div>
+    
+    <!-- 
+    <script>
+       const  goList = document.getElementById('goList')
+       goList.onclick = function() {
+          location.href = '/Users/RegisterForm'
+       }       
+    </script>
+    -->
+    
 </body>
 </html>

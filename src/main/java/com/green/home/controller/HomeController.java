@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.users.vo.UserVo;
+import com.green.company.users.vo.CompanyUserVo;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,9 +32,10 @@ public class HomeController {
 
 	       // 세션에서 로그인된 사용자 정보 가져오기
 	       HttpSession session = request.getSession();
-	       UserVo logInUser = (UserVo) session.getAttribute("login");
+	       UserVo logInUser = (UserVo) session.getAttribute("userlogin");
+	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companylogin");
 
-	       //로그인 여부 확인
+	       // 개인 로그인 여부 확인
 	       if (logInUser != null) {
 	          mv.addObject("logInUser", false);
 	          mv.addObject("logOutUser", true);
@@ -41,6 +44,19 @@ public class HomeController {
 	          mv.addObject("logInUser", true);
 	          mv.addObject("logOutUser", false);
 	       }
+	       
+	       
+	       // 기업 로그인 여부 확인
+	       if (logInCompanyUser != null) {
+	          mv.addObject("logInCompanyUser", false);
+	          mv.addObject("logOutCompanyUser", true);
+	       }
+	       else {
+	          mv.addObject("logInCompanyUser", true);
+	          mv.addObject("logOutCompanyUser", false);
+	       }
+	       
+	       
 	       // 관리자 여부 확인
 	       if (logInUser != null && "admin".equals(logInUser.getUser_id())) {
 	           mv.addObject("admin", true);

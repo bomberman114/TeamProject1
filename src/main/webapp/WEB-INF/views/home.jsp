@@ -183,9 +183,21 @@
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
+                
+                <% if ((Boolean) request.getAttribute("logInCompanyUser")) {%>
+                <!-- 
+                <li><a href="/Common/LoginForm">로그인</a></li>
+                <li><a href="/Users/LoginForm">로그인</a></li>
+                <li><a href="/Company/LoginForm">로그인</a></li>
+                <li><a href="/Users/RegisterForm">회원가입</a></li>
+                 -->
+                <% } %>
+                <% if ((Boolean) request.getAttribute("logOutCompanyUser")) {%>
+                <li><a href="/Company/Logout">로그아웃</a></li>
+                <% } %>
             </ul>
         </nav>
-        <button type="button" onclick="location.href='/Users/LoginForm' ">로그인</button>
+        <button type="button" onclick="location.href='/Common/LoginForm' ">로그인</button>
         <button type="button" onclick="location.href='/Users/RegisterForm' ">회원가입</button>
         <button class="menu-toggle" id="menu-toggle">☰</button>
     </header>

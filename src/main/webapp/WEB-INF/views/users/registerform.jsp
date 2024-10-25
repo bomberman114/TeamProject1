@@ -203,7 +203,7 @@
 		  }
 	      const  goListEl = document.getElementById('goList')
 	      goListEl.onclick = function() {
-	         location.href = '/Users/List'
+	         location.href = '/home'
 	      }
     	</script>
 	
