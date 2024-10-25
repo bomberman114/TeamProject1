@@ -72,7 +72,7 @@
         <div class="toggle">
             <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
             <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
-        <!-- 페이지를 따로 빼야함 -->
+
         </div>
         <div class="title">ALGO JJOB</div>
         <input type="text" name="company_id" placeholder="아이디" />
