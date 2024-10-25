@@ -130,7 +130,8 @@ public class CompanyUserVo {
 				+ ", company_establish=" + company_establish + "]";
 	}
 
-	
+
+
 	
 	
 	

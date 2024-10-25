@@ -45,22 +45,131 @@
     	WHERE USER_ID = #{userid}
  	</select>
   
-  
+<!-- 개인 -->
+
+    <!-- 이력서 목록 조회 -->
+    <select id="getUserResumeList">
+        SELECT
+            USER_RESUME_IDX
+            , USER_TITLE
+            , USER_NAME
+            , USER_RESUME_REGDATE
+        FROM
+            USER_RESUME
+    </select>
+
+    <!-- 이력서 작성 -->
+    <select id="getSkill">
+    SELECT SKILL_STACK, SKILL_NAME
+    FROM SKILLS
+    ORDER BY SKILL_STACK, SKILL_NAME
+    </select>
+    
+    
+    <select id="getRegion">
+    SELECT REGION_IDX, REGION_NAME 
+    FROM REGION
+    </select>
+    
+    
+	<insert id="insertUserResume">
+	    INSERT INTO USER_RESUME (
+	    	USER_RESUME_IDX,
+	        , USER_TITLE
+	        , USER_ID
+	        , USER_NAME
+	        , USER_BIRTH
+	        , USER_PHONE
+	        , USER_EMAIL
+	        , REGION_NAME
+	        , REGION_ADDRESS
+	        , USER_INTRO
+	    ) VALUES (
+	    	USER_RESUME_SEQ.NEXTVAL,
+	        #{user_title},
+	        #{user_id},
+	        #{user_name},
+	        #{user_birth},
+	        #{user_phone},
+	        #{user_email},
+	        (SELECT REGION_NAME 
+	        FROM REGION 
+	        WHERE REGION_IDX = #{region_idx}),
+	        #{region_address},
+	        #{user_intro}
+	    )
+	</insert>
+	
+	
+    <insert id="insertUserSkill">
+        INSERT INTO COMMON_USER_RESUME_SKILL (USER_RESUME_IDX, SKILL_NAME, SKILL_STACK)
+        SELECT #{user_resume_idx}, S.SKILL_NAME, S.SKILL_STACK
+        FROM SKILLS S
+        WHERE S.SKILL_NAME = #{skill_name}
+    </insert>
+    
+    
+    <!-- 이력서 조회 -->
+    <select id="getUserResume">
+        SELECT
+            UR.USER_RESUME_IDX,
+            UR.USER_TITLE,
+            UR.USER_ID,
+            UR.USER_NAME,
+            UR.USER_BIRTH,
+            UR.USER_PHONE,
+            UR.USER_EMAIL,
+            UR.REGION_IDX,
+            UR.REGION_ADDRESS,
+            UR.USER_INTRO,
+            UR.USER_RESUME_REGDATE,
+            US.SKILL_STACK,
+            SKILLS.SKILL_NAME
+        FROM
+            USER_RESUME UR 
+        LEFT JOIN 
+            COMMON_USER_RESUME_SKILL US
+        ON
+            UR.USER_RESUME_IDX = US.USER_RESUME_IDX
+        LEFT JOIN
+            SKILLS
+        ON 
+            US.SKILL_NAME = SKILLS.SKILL_NAME
+        WHERE UR.USER_RESUME_IDX = #{user_resume_idx}
+    </select>
+
+    <!-- 이력서 업데이트 -->
+    <update id="updateUserResume">
+        UPDATE USER_RESUME
+        SET
+            USER_TITLE = #{user_title},
+            USER_BIRTH = #{user_birth},
+            REGION_ADDRESS = #{region_address},
+            USER_INTRO = #{user_intro}
+        WHERE USER_RESUME_IDX = #{user_resume_idx};
+    </update>
+
+
+
+    <!-- 스킬 업데이트 -->
+    <update id="updateUserResumeSkills">
+        UPDATE COMMON_USER_RESUME_SKILL
+        SET
+            SKILL_NAME = #{skill_name}
+        WHERE USER_RESUME_IDX = #{user_resume_idx}
+    </update>
+
+
+
+    <!-- 이력서 삭제 (별도의 삭제 구문으로 처리) -->
+    <delete id="deleteUserResumeSkills">
+        DELETE FROM COMMON_USER_RESUME_SKILL
+        WHERE USER_RESUME_IDX = #{user_resume_idx}
+    </delete>
+
+    <delete id="deleteUserResume">
+        DELETE FROM USER_RESUME
+        WHERE USER_ID = #{user_id}
+    </delete>
+
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
