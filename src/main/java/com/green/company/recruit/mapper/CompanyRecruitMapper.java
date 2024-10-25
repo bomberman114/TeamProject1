@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.green.company.recruit.vo.CompanyRecruitVo;
 
 import com.green.company.users.vo.CompanyUserVo;
@@ -26,17 +28,27 @@ public interface CompanyRecruitMapper {
 
 	HashMap<String, Object> getCompanyRecruitAlications(CompanyRecruitVo companyRecruitVo);
 
-<<<<<<< HEAD
+
+
 	void setCompanyRecruit(CompanyRecruitVo companyRecruitVo);
 
 	int getCompanyRecruitIdx(String company_id);
 
 
 
+	int getCompanyRecruitCount(CompanyUserVo companyUserVo);
 
-=======
+
+	List<CompanyRecruitVo> selectCompanyRecruitListPaging
+							(@Param("company_id") String company_id, 
+							 @Param("startRow")   int startRow, 
+							 @Param("endRow") int endRow);
+	
+
+	 
+
+
 	void setCompanyRecruitDate(HashMap<String, Object> map);
->>>>>>> c1c4ee035dc6bdbce73177a8c1317b653fbe6b1f
 
 
 

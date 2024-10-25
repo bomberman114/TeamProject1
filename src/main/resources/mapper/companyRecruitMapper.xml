@@ -44,22 +44,25 @@
  	
  	<select id="selectCompanyRecruitList">
  		SELECT
-		    COMPANY_ID,
-		    COMPANY_PASSWD,
-		    COMPANY_USER_NAME,
-		    COMPANY_PHONE,
-		    COMPANY_NAME,
-		    COMPANY_BCODE,
-		    COMPANY_BOSS_NAME,
-		    COMPANY_EMAIL,
-		    COMPANY_USER_EMAIL,
-		    COMPANY_REGDATE,
-		    COMPANY_ESTABLISH
+			COMPANY_RECRUIT_IDX
+		   ,COMPANY_ID
+		   ,COMPANY_NAME
+		   ,RECRUIT_TITLE
+		   ,COMPANY_JOB
+		   ,GETMAN
+		   ,REGION_IDX
+		   ,COMPANY_ADDRESS
+		   ,COMPANY_INFO
+		   ,APPLICATION_DEADLINE
+		   ,COMPANY_ESTABLISH
+		   ,COMPANY_RECRUIT_REGDATE
+		   ,VIEWS
 		FROM
-		    COMPANY_USERS
+		    COMPANY_RECRUIT
 		WHERE 
 			COMPANY_ID = #{company_id}
  	</select>
+ 	
  	
  	<select id="getCompanyRecruit">
  		SELECT
@@ -88,7 +91,7 @@
     		CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
  	</select>
   	
-<<<<<<< HEAD
+
   	<insert id="setCompanyRecruit" > 
   		INSERT 
   			INTO 
@@ -108,7 +111,8 @@
 				) VALUES (
 				      COMPANY_RECRUIT_SEQ.NEXTVAL
 				    , #{company_id}
-=======
+	</insert>
+
   	<insert id="setCompanyRecruitDate">
   		INSERT 
   			INTO 
@@ -129,7 +133,7 @@
 				) VALUES (
 				      COMPANY_RECRUIT_SEQ.NEXTVAL,
 				      #{company_id}
->>>>>>> c1c4ee035dc6bdbce73177a8c1317b653fbe6b1f
+
 				    , #{company_name}
 				    , #{recruit_title}
 				    , #{company_job}
@@ -139,11 +143,12 @@
 				    , #{company_info}
 				    , #{application_deadline}
 				    , #{company_establish}
-<<<<<<< HEAD
+				    , #{company_recruit_regdate}
+		    		, #{views}
 				)
-				
   	</insert>
-  	
+
+
   	<select id="getCompanyRecruitIdx">
   		SELECT 
   			COMPANY_RECRUIT_IDX
@@ -156,30 +161,23 @@
 		FETCH FIRST 1 ROW ONLY
   	</select>
   	
+  	<select id="selectCompanyRecruitListPaging" >
+      SELECT
+         *
+      FROM
+         COMPANY_RECRUIT
+      WHERE 
+         COMPANY_ID = #{ company_id }
+      ORDER  BY  COMPANY_RECRUIT_REGDATE DESC
+      OFFSET #{ startRow } ROWS FETCH NEXT #{ endRow } ROWS ONLY
+    </select>
+
+
+	<select id="getCompanyRecruitCount">
+    	SELECT COUNT( * )
+    	FROM  company_recruit
+   	    WHERE company_id = #{ company_id }
+	</select>
   	
-=======
-				    , #{company_recruit_regdate}
-		    		, #{views}
-				)
-  	</insert>
->>>>>>> c1c4ee035dc6bdbce73177a8c1317b653fbe6b1f
-  
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
