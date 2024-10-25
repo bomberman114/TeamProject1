@@ -15,13 +15,13 @@ public class CompanyRecruitVo {
 	  private String application_deadline;            // 접수기간 (데드라인)
 	  private String company_establish;               // 기업     설립일
 	  private String company_recruit_regdate;         // 채용공고 등록일
+	  private int    views;
 	  
 	  public CompanyRecruitVo () {}
 
 	public CompanyRecruitVo(int company_recruit_idx, String company_id, String company_name, String recruit_title,
-			 String company_job, String getman, int region_idx, String company_address,
-			String company_info, String application_deadline, String company_establish,
-			String company_recruit_regdate) {
+			String company_job, String getman, int region_idx, String company_address, String company_info,
+			String application_deadline, String company_establish, String company_recruit_regdate, int views) {
 		super();
 		this.company_recruit_idx = company_recruit_idx;
 		this.company_id = company_id;
@@ -35,6 +35,7 @@ public class CompanyRecruitVo {
 		this.application_deadline = application_deadline;
 		this.company_establish = company_establish;
 		this.company_recruit_regdate = company_recruit_regdate;
+		this.views = views;
 	}
 
 	public int getCompany_recruit_idx() {
@@ -133,6 +134,14 @@ public class CompanyRecruitVo {
 		this.company_recruit_regdate = company_recruit_regdate;
 	}
 
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
 	@Override
 	public String toString() {
 		return "CompanyRecruitVo [company_recruit_idx=" + company_recruit_idx + ", company_id=" + company_id
@@ -140,8 +149,10 @@ public class CompanyRecruitVo {
 				+ ", getman=" + getman + ", region_idx=" + region_idx + ", company_address=" + company_address
 				+ ", company_info=" + company_info + ", application_deadline=" + application_deadline
 				+ ", company_establish=" + company_establish + ", company_recruit_regdate=" + company_recruit_regdate
-				+ "]";
+				+ ", views=" + views + "]";
 	}
+      
+	
 
 	  
 

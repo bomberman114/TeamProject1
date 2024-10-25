@@ -49,6 +49,11 @@ public interface CompanyRecruitMapper {
 
 
 	void setCompanyRecruitDate(HashMap<String, Object> map);
+	
+
+	CompanyRecruitVo getCompanyOneRecruit(int company_recruit_idx);
+
+	void deleteRecruit(int company_recruit_idx);
 
 
 

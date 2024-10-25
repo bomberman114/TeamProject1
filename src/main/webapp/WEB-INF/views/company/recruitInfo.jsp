@@ -10,10 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 정보</title>
+    <title>채용공고</title>
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -21,7 +21,7 @@
         }
 
         .header {
-            background-color: #2e8b57;
+            background-color: #71f0a9;
             color: white;
             padding: 20px;
             text-align: center;
@@ -36,14 +36,15 @@
             background-color: #ffffff;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            font-weight: bold;
         }
 
         .info-box {
-            background-color: #e6ffe6;
+            background-color: #EBFFEE;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 1px solid #b3ffb3;
+            border: 10px solid #ffffff;
         }
 
         h1 {
@@ -51,6 +52,7 @@
             text-align: center;
             font-size: 28px;
             margin-bottom: 20px;
+            background-color:ffffff;
         }
 
         .info-item {
@@ -70,8 +72,8 @@
         }
 
         li {
-            background-color: #e6ffe6;
-            border: 1px solid #b3ffb3;
+            background-color: #EBFFEE;
+            border: 10px solid #ffffff;
             padding: 10px;
             margin-bottom: 5px;
             border-radius: 5px;
@@ -83,11 +85,41 @@
             text-align: center;
             margin-top: 20px;
         }
+        
+        .link-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 20px; /* 박스와의 간격 조정 */
+}
+
+.link-box {
+    background-color: #EBFFEE;
+    color: green;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    width: 200px;
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid;
+}
+
+.link-box:hover {
+    background-color: #EBFFEE;
+}
     </style>
 </head>
 <body>
+ <!-- 링크 박스를 컨테이너 위로 이동 -->
+    <div class="link-container">
+    	<a href="/Company/Info" class="link-box">내 정보</a>
+        <a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
+    </div>
 
-    <div class="header">내가 올린 채용 공고</div>
 
     <div class="container">
         <div class="info-box">
@@ -98,14 +130,14 @@
   		<div class="info-box">
             <h1>채용 공고 관리</h1>
             <p class="info-item">내가 올린 채용 공고: <span class="highlight">${recruitCount}</span> 개 </p>
-				<span class="highlight">페이지 당 개수${fn:length( companyRecruitList) }</span> 개
+				
             </div>
             
             <c:if test="${ not empty companyRecruitList }">
                 <ul>
                     <c:forEach var="recruit" items="${ companyRecruitList }">
                         <li>
-                        	<span>채용 공고 제목: ${ recruit.recruit_title }<br></br>
+                        	<span><a href="/Company/OneRecruit?company_recruit_idx=${recruit.company_recruit_idx}">채용 공고 제목: ${ recruit.recruit_title }</a><br></br>
                    				  채용 공고 날짜: ${ recruit.company_recruit_regdate }
                         	</span>
                         </li>
