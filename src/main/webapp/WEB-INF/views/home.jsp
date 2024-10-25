@@ -165,13 +165,17 @@
             <img src="https://www.notion.so/11b0c1a80a6080daa13afd53c5ac04ad?pvs=4#1210c1a80a608019a7f6e55480a1895a" alt="사이트 로고" style="height: 60px;"> <!-- 이미지 URL -->
         </a>
             <ul>
-                <li><a href="/Company/LoginForm">커뮤니티</a></li>
+                <li><a href="#">커뮤니티</a></li>
                 <li><a href="#">고객센터</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
                 <% if ((Boolean) request.getAttribute("logInUser")) {%>
+                <!-- 
+                <li><a href="/Common/LoginForm">로그인</a></li>
                 <li><a href="/Users/LoginForm">로그인</a></li>
+                <li><a href="/Company/LoginForm">로그인</a></li>
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
+                 -->
                 <% } %>
                 <% if ((Boolean) request.getAttribute("logOutUser")) {%>
                 <li><a href="/Users/Logout">로그아웃</a></li>
@@ -181,6 +185,8 @@
                 <% } %>
             </ul>
         </nav>
+        <button type="button" onclick="location.href='/Users/LoginForm' ">로그인</button>
+        <button type="button" onclick="location.href='/Users/RegisterForm' ">회원가입</button>
         <button class="menu-toggle" id="menu-toggle">☰</button>
     </header>
     
