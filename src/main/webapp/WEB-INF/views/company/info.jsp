@@ -86,7 +86,7 @@
 <body>
     <div class="header">내 회사 정보</div>
     <div class="container">
-        <h1>회사 정보</h1>
+        <h1>내 회사 정보</h1>
         <div class="info-box">
             <div class="info-item">회사 ID: <span class="highlight">${companyUser.companyId}</span></div>
             <div class="info-item">회사 이름: <span class="highlight">${companyUser.companyName}</span></div>
