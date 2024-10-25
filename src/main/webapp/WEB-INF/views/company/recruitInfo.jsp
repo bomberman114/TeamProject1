@@ -97,7 +97,7 @@
   
   		<div class="info-box">
             <h1>채용 공고 관리</h1>
-            <p class="info-item">내가 올린 채용 공고 수: <span class="highlight">${recruitCount}</span> 개 </p>
+            <p class="info-item">내가 올린 채용 공고: <span class="highlight">${recruitCount}</span> 개 </p>
 				<span class="highlight">페이지 당 개수${fn:length( companyRecruitList) }</span> 개
             </div>
             
