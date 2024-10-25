@@ -92,12 +92,12 @@
      <tr>
       <td>아이디</td>
       <td>
-      <input type="text"  name="user_id" value="admin"/>     
+      <input type="text"  name="user_id" value="admin" required/>     
       </td>
      </tr>
      <tr>
       <td>암호</td>
-      <td><input type="password" name="user_passwd" value="1234"/></td>
+      <td><input type="password" name="user_passwd" value="1234" required/></td>
      </tr>
      <tr>
       <td colspan="2">

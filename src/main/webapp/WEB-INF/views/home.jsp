@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
     <title>사이트</title>
     <style>
         body {
@@ -158,7 +161,6 @@
     </style>
 </head>
 <body>
-
     <header>
         <nav>
         <a href="#">
@@ -170,12 +172,12 @@
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
                 <% if ((Boolean) request.getAttribute("logInUser")) {%>
-                <!-- 
-                <li><a href="/Common/LoginForm">로그인</a></li>
-                <li><a href="/Users/LoginForm">로그인</a></li>
-                <li><a href="/Company/LoginForm">로그인</a></li>
+  
+
+
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
-                 -->
+
+
                 <% } %>
                 <% if ((Boolean) request.getAttribute("logOutUser")) {%>
                 <li><a href="/Users/Logout">로그아웃</a></li>
@@ -183,6 +185,7 @@
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
+
                 
                 <% if ((Boolean) request.getAttribute("logInCompanyUser")) {%>
                 <!-- 
@@ -195,6 +198,7 @@
                 <% if ((Boolean) request.getAttribute("logOutCompanyUser")) {%>
                 <li><a href="/Company/Logout">로그아웃</a></li>
                 <% } %>
+
             </ul>
         </nav>
         <button type="button" onclick="location.href='/Users/LoginForm' ">로그인</button>
@@ -245,3 +249,4 @@
 
 </body>
 </html>
+
