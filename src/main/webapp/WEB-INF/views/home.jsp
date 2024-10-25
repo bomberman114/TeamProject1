@@ -197,7 +197,7 @@
                 <% } %>
             </ul>
         </nav>
-        <button type="button" onclick="location.href='/Common/LoginForm' ">로그인</button>
+        <button type="button" onclick="location.href='/Users/LoginForm' ">로그인</button>
         <button type="button" onclick="location.href='/Users/RegisterForm' ">회원가입</button>
         <button class="menu-toggle" id="menu-toggle">☰</button>
     </header>
