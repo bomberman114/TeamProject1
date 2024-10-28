@@ -1,64 +1,268 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" type="image/png" href="/img/favicon.png" />
-<script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
+    <meta charset="UTF-8">
+    <title>개인회원가입</title>
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+	    html, body {
+	    height: 100%; /* 전체 높이를 100%로 설정 */
+	    margin: 0; /* 기본 마진 제거 */
+		}
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: medium;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        main {
+		    max-height: 90vh; /* 최대 높이를 90vh로 설정 */
+		    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus, select:focus {
+            border-color: #6A5ACD;
+            box-shadow: 0 0 8px rgba(106, 90, 205, 0.5);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button, input[type="submit"] {
+            background-color: #6A5ACD;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background-color: #5A4FCF;
+        }
+
+        .input-container, .checkbox-group, .form-group {
+            margin-bottom: 20px;
+        }
+
+        .skill-category {
+            font-weight: bold;
+            color: #6A5ACD;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .address-container input {
+            margin-top: 10px;
+        }
+
+        #dupResult {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+
+    </style>
 </head>
 <body>
-  <main>  
-    <h2>회원 수정</h2>
-    <form action="/Users/Update"  method="POST">
-    <table>
-     <tr>
-      <td>아이디</td>
-      <td><input type="text" name="user_id" value="${user.user_id}" readonly/></td>
-      <!-- primary key가 외래키로 쓰일때는 수정하는것이 아니기때무에 수정x -->
-     </tr>
-     <tr>
-      <td>새 비밀번호</td>
-      <td><input type="password" name="user_passwd" id="passwd1" value="${user.user_passwd}" /></td>
-     </tr>
-      <tr>
-      <td>새 비밀번호 확인</td>
-      <td><input type="password" id="passwd2" value="${user.user_passwd}" /></td>
-     </tr>
-     <tr>
-      <td>이름</td>
-      <td><input type="text" name="user_name" value="${user.user_name}" /></td>
-     </tr>
-      <tr>
-	 	<td>연락처</td>
-		<td><input type="text" name="user_phone" value="${user.user_phone}" placeholder="-없이 입력해주세요" >
-	 </tr>
-     <tr>
-      	<td>이메일</td>
-      	<td><input type="email" name="user_email" value="${user.user_email}" /></td>
-      	<td><select><option>@gmail.com</option></select></td>
-     </tr>
-      <td colspan="3">
-       <input type="submit" value="수정" />
-       <input type="button" value="목록" id="goList" />
-      </td>
-     </tr>
-    
-    </table>    
-    </form>
-  
+    <main>
+        <h2>이력서 수정하기</h2>
+        <form action="/User/RegisterResume" method="POST" id="form">
+         <input type="hidden" name="user_id" value="${userResume.user_id}">
+             <div class="form-group">
+                <label><span class="red">*</span> 제목</label>
+                <input type="text" name="user_title" value="${userResume.user_title}" required />
+            </div>
+            <div class="form-group">
+                <label><span class="red">*</span> 이름</label>
+                <input type="text" name="user_name" value="${userResume.user_name}" readonly />
+            </div>
+            <div class="form-group">
+                <label><span class="red">*</span>생일</label>
+                <input type="date" id="dateInput">
+    			<input type="text" name="user_birth" id="textOutput" placeholder="YYYY-MM-DD" required readonly/>
+            </div>
+            <div class="form-group">
+                <label><span class="red">*</span>이메일</label>
+                <input type="email" name="user_email" value="${userResume.user_email}" required />
+            </div>
+            <div class="form-group">
+                <label><span class="red">*</span> 연락처</label>
+                <input type="text" name="user_phone" value="${userResume.user_phone}" readonly />
+            </div>
+
+            <!-- 스킬 섹션 -->
+            <div class="input-container"><span class="red">*</span>사용 스킬
+                <div class="skill-category">백엔드</div>
+                <div class="checkbox-group">
+                    <c:forEach var="skillList" items="${skillList}">
+                        <c:if test="${skillList.skill_stack eq '백엔드'}">
+                            <div>
+                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
+                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+
+                <div class="skill-category">프론트엔드</div>
+                <div class="checkbox-group">
+                    <c:forEach var="skillList" items="${skillList}">
+                        <c:if test="${skillList.skill_stack eq '프론트엔드'}">
+                            <div>
+                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
+                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+
+                <div class="skill-category">데이터베이스</div>
+                <div class="checkbox-group">
+                    <c:forEach var="skillList" items="${skillList}">
+                        <c:if test="${skillList.skill_stack eq '데이터베이스'}">
+                            <div>
+                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
+                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+
+                <div class="skill-category">모바일</div>
+                <div class="checkbox-group">
+                    <c:forEach var="skillList" items="${skillList}">
+                        <c:if test="${skillList.skill_stack eq '모바일'}">
+                            <div>
+                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
+                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+
+                <div class="skill-category">협업툴</div>
+                <div class="checkbox-group">
+                    <c:forEach var="skillList" items="${skillList}">
+                        <c:if test="${skillList.skill_stack eq '협업툴'}">
+                            <div>
+                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
+                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </div>
+
+            <!-- 지역 및 주소 -->
+            <div class="input-container">
+                <div class="address-container">
+                    <label><span class="red">*</span>근무 희망 지역</label>
+                    <select name="region_idx">
+                        <c:forEach var="region" items="${regionList}">
+                            <option value="${region.region_idx}">${region.region_name}</option>
+                        </c:forEach>
+                    </select>
+                    <label><span class="red">*</span>거주지 상세 주소</label>
+                    <div class="form-group">
+                	<input type="text" name="region_address" id="roadFullAddr" value="${userResume.region_address}" />
+                    </div>
+					<button type="button" onclick="searchAddress()">주소 검색</button>
+                </div>
+            </div>
+
+            <!-- 자소서 -->
+            <div class="form-group">
+                <label><span class="red">*</span> 자소서</label>
+                <textarea name="user_intro" required>ㄴㄷㄹ</textarea>
+            </div>
+
+            <div>
+                <input type="submit" value="제출" />
+            </div>
+        </form>
+    </main>
+
     <script>
-       const  goList = document.getElementById('goList')
-       goList.onclick = function() {
-          location.href = '/Users/List'
-       } 
-       // 서버에서 전달된 error 메시지가 있을 경우 alert로 출력
-       <% if (request.getAttribute("error") != null) { %>
-         alert("request.getAttribute("error")");
-       <% } %>
-    </script> 
-  
-  </main>
+    function searchAddress() {
+        window.open("/User/SearchAddress","pop","width=570,height=430, scrollbars=yes, resizable=yes");
+    }
+    function jusoCallBack(roadFullAddr){
+    document.getElementById('roadFullAddr').value = roadFullAddr;
+    }
+    
+    const dateInput = document.getElementById('dateInput');
+    const textOutput = document.getElementById('textOutput');
+
+    dateInput.addEventListener('change', function() {
+        const selectedDate = new Date(dateInput.value);
+        
+        const formattedDate = String(selectedDate.getFullYear()) + '년 ' +
+                              String(selectedDate.getMonth() + 1) + '월 ' +
+                              String(selectedDate.getDate()) + '일';
+
+        textOutput.value = formattedDate;
+        console.log(typeof(textOutput.value), textOutput.value)
+    });
+	</script>
 </body>
 </html>

@@ -67,60 +67,22 @@
 </head>
 
 <body>
-    <form action="/Users/Login"  method="POST">
+    <form action="/Company/Login"  method="POST">
     <div class="container">
         <div class="toggle">
             <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
             <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
-        <!-- 페이지를 따로 빼야함 -->
+
         </div>
         <div class="title">ALGO JJOB</div>
-        <input type="text" name="user_id" placeholder="아이디" />
-        <input type="password" name="user_passwd" placeholder="비밀번호" />
-        <button class="btn" type=submit id=login >로그인</button>
-        <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
+        <input type="text" name="company_id" placeholder="아이디" />
+        <input type="password" name="company_passwd" placeholder="비밀번호" />
+        <button class="btn" type=submit id=login>로그인</button>
+        <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
 	</form>
-
-<!-- 	
-</head>
-<body>
-  <main>  
-    <h2>로그인</h2>
-    <form action="/Users/Login"  method="POST">
-    <table>
-     <tr>
-      <td>아이디</td>
-      <td>
-      <input type="text"  name="user_id" value="admin" required/>     
-      </td>
-     </tr>
-     <tr>
-      <td>암호</td>
-      <td><input type="password" name="user_passwd" value="1234" required/></td>
-     </tr>
-     <tr>
-      <td colspan="2">
-       <input type="submit" value="로그인" />
-       <input type="button" onclick="location.href='/Users/RegisterFrom'" value="회원가입" />
-      </td>
-     </tr>
-    
-    </table>    
-    </form>
-  
-    <script>
-       const  goList = document.getElementById('goList')
-       goList.onclick = function() {
-          location.href = '/Users/RegisterForm'
-       }    
-       
-    </script> 
-  </main>
-  -->
 </body>
 </html>
-
 
 
 

@@ -3,6 +3,7 @@ package com.green.skill.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.green.skills.vo.SkillVo;
 
@@ -10,5 +11,6 @@ import com.green.skills.vo.SkillVo;
 public interface SkillMapper {
 
 	List<SkillVo> getSkillList();
+
 
 }
