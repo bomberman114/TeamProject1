@@ -110,10 +110,22 @@
 	 	<td><span class="red">*</span>연락처</td>
 		<td><input type="text" name="user_phone" placeholder="-없이 입력해주세요">
 	 </tr>
-     <tr>
-      	<td>이메일</td>
-      	<td><input type="email" name="user_email" /></td>
-     </tr>
+	<tr>
+	    <td>이메일</td>
+	    <td>
+	        <input type="email" id="user_email" name="user_email" placeholder="이메일 입력" required />
+	    </td>
+	    <td>
+	        <select id="email_domain">
+	            <option value="" selected>직접입력</option> <!-- 기본 선택값으로 설정 -->
+	            <option value="gmail.com">gmail.com</option>
+	            <option value="naver.com">naver.com</option>
+	            <option value="kakao.com">kakao.com</option>
+	            <option value="yahoo.com">yahoo.com</option>
+	            <option value="outlook.com">outlook.com</option>
+	        </select>
+	    </td>
+	</tr>
 	 <tr>
 		<td colspan="2">
        		<input type="submit" value="등록" />
@@ -133,7 +145,20 @@
 	    const phoneEl   	     = document.querySelector('[name=user_phone]');
 	    const checkDuplicationEl = document.querySelector('#checkDuplication');
 	    let   dupCheckClicked 	 = false;
-      
+	    
+	    const emailInput = document.getElementById('user_email');
+	    const emailDomain = document.getElementById('email_domain');
+
+	    // 도메인 선택 시 입력값 업데이트
+	    emailDomain.addEventListener('change', function() {
+	        const selectedDomain = this.value;
+	        if (selectedDomain) {
+	            emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
+	        } else {
+	            emailInput.value = emailInput.value.split('@')[0]; // 직접 입력
+	        }
+	    });
+	    
 	    checkDuplicationEl.onclick = function() {
 	        const useridInput = useridEl.value.trim();
 	        console.log('User ID Input:', useridInput); // Debugging line
@@ -144,7 +169,6 @@
 	            return;
 	        }
 	        
-	        //fetch('/Users/CheckDuplication?userid=' + useridInput)
 	        fetch('/Users/CheckDuplication?user_id=' + useridInput)
 	        .then((response) => response.text())
 	        .then((data) => {

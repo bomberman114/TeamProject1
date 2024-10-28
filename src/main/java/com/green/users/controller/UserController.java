@@ -77,30 +77,29 @@ public class UserController {
 	
 	// 회원정보 수정
 	// 비밀번호 확인 후 수정 페이지로 이동
-
-    
-
   	@RequestMapping("/CheckPassword")
-  	public ModelAndView checkPassword(@RequestParam("user_id") String user_id, @RequestParam(value = "inputPassword", required = false) String inputPassword) {
-    UserVo user = userMapper.getUserById(user_id);
-    ModelAndView mv = new ModelAndView();
-    
-    
-    // 입력된 비밀번호가 null이거나 비어있는 경우
-    if (inputPassword == null || inputPassword.isEmpty()) {
-        mv.setViewName("users/checkPassword");
-        return mv;
-    }
-    // 입력된 비밀번호와 DB의 비밀번호를 비교
-    if (user.getUser_passwd().equals(inputPassword)) {
-        // 비밀번호가 일치하면 수정 페이지로 이동
-        mv.setViewName("redirect:/Users/UpdateForm?user_id=" + user_id);
-    } else {
-        // 비밀번호가 틀리면 오류 메시지와 함께 비밀번호 확인 페이지로 다시 이동
-        mv.setViewName("users/checkPassword");
-        mv.addObject("error", "비밀번호가 일치하지 않습니다.");
-    }
-    return mv;
+  	public ModelAndView checkPassword(
+  			@RequestParam("user_id") String user_id,
+  			@RequestParam(value = "inputPassword", required = false) String inputPassword) {
+	    UserVo user = userMapper.getUserById(user_id);
+	    ModelAndView mv = new ModelAndView();
+	    
+	    
+	    // 입력된 비밀번호가 null이거나 비어있는 경우
+	    if (inputPassword == null || inputPassword.isEmpty()) {
+	        mv.setViewName("users/checkPassword");
+	        return mv;
+	    }
+	    // 입력된 비밀번호와 DB의 비밀번호를 비교
+	    if (user.getUser_passwd().equals(inputPassword)) {
+	        // 비밀번호가 일치하면 수정 페이지로 이동
+	        mv.setViewName("redirect:/Users/UpdateForm?user_id=" + user_id);
+	    } else {
+	        // 비밀번호가 틀리면 오류 메시지와 함께 비밀번호 확인 페이지로 다시 이동
+	        mv.setViewName("users/checkPassword");
+	        mv.addObject("error", "비밀번호가 일치하지 않습니다.");
+	    }
+	    return mv;
   	}
 
 	@RequestMapping("/UpdateForm")
@@ -120,13 +119,24 @@ public class UserController {
 		mv.setViewName("redirect:/Users/List");
 		return        mv;
 	}
+
+
+	// 개인정보 보기
+	@RequestMapping("/View")
+	public  ModelAndView  view(UserVo userVo) {
+		UserVo  user =  userMapper.getUser( userVo );
+		ModelAndView  mv  =  new ModelAndView();
+		mv.addObject("user", user);
+		mv.setViewName("users/view");
+		return        mv;
+	}
+	
 	//-------------------------------------------------------------------
 	// Login
-	// /Users/LoginForm
 	@GetMapping("/LoginForm")
 	public  String  loginForm(
 			@RequestParam(value = "uri", required = false) String uri, Model model) {
-		model.addAttribute("uri",     uri);
+		model.addAttribute("uri", uri);
 		//model.addAttribute("nowpage", nowpage);
 		return "users/loginform";
 	}
@@ -141,12 +151,10 @@ public class UserController {
 		String userid  = request.getParameter("user_id");
 		String passwd  = request.getParameter("user_passwd");
 		
-		// db 조회
-		UserVo       vo      = userMapper.login(userid, passwd);
-		System.out.println(vo);
+		UserVo userVo = userMapper.login(userid, passwd);
 			
 		HttpSession  session = request.getSession();
-		session.setAttribute("login", vo );
+		session.setAttribute("login", userVo );
 		
 		return  "redirect:/";
 		

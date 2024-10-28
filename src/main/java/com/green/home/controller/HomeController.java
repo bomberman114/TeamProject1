@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
+
 import com.green.users.vo.UserVo;
 import com.green.company.users.vo.CompanyUserVo;
 
@@ -22,6 +23,17 @@ public class HomeController {
 	@Autowired
 	private CompanyRecruitMapper companyRecruitMapper;
 	
+
+	@GetMapping("/")
+	public ModelAndView home() {
+		ModelAndView mv = new ModelAndView();
+		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.companyRecruitList();
+		mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
+		mv.setViewName("home");
+		return mv;
+	}
+
+
 	   @GetMapping("/")
 	   public ModelAndView home(HttpServletRequest request) {
 	       ModelAndView mv = new ModelAndView();
@@ -67,9 +79,14 @@ public class HomeController {
 	       mv.setViewName("home");
 	       return mv;
 	   }
+
 }
 
 
 /*
+
+2. 공고검색 연결
+
+
 4. 메뉴바 연결
 */
