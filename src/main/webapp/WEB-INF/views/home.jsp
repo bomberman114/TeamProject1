@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>사이트</title>
 </head>
 <style>
@@ -126,8 +125,8 @@ button:last-child {
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
-                <li><a href="/User/RegisterResumeForm">이력서 작성</a></li>
-                <li><a href="/User/ResumeList">이력서 목록</a></li>
+                <li><a href="/User/RegisterResumeForm?user_id=${login.user_id}">이력서 작성</a></li>
+                <li><a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a></li>
             </ul>
         </nav>
     </header>

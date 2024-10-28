@@ -121,42 +121,48 @@
             color: red;
         }
 
-        @media (max-width: 768px) {
-            main {
-                padding: 20px;
-                width: 95%;
-            }
-        }
     </style>
 </head>
 <body>
     <main>
         <h2>이력서 작성하기</h2>
-        <form action="/User/ResumeRegister" method="POST" id="form">
-<%--         <input type="hidden" name="user_id" value="${user_id}">
- --%>            <div class="form-group">
+        <form action="/User/RegisterResume" method="POST" id="form">
+         <input type="hidden" name="user_id" value="${user_id}">
+             <div class="form-group">
                 <label><span class="red">*</span> 제목</label>
-                <input type="text" name="user_title" required />
+                <input type="text" name="user_title" value="이력서10" required />
             </div>
             <div class="form-group">
                 <label><span class="red">*</span> 이름</label>
-                <input type="text" name="user_name" id="user_name" required />
+                <input type="text" name="user_name" value="${user_name}" readonly />
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 생일</label>
-                <input type="text" name="user_birth" required />
+                <label><span class="red">*</span>생일</label>
+                <input type="date" id="dateInput">
+    			<input type="text" name="user_birth" id="textOutput" placeholder="YYYY-MM-DD" required readonly/>
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 이메일</label>
-                <input type="email" name="user_email" required />
+                <label><span class="red">*</span>이메일</label>
+                <input type="email" name="user_email" value="ftht@ghf" required />
+<%--                 <input type="email" name="user_email" value="${user_email}" required /> --%>
             </div>
             <div class="form-group">
                 <label><span class="red">*</span> 연락처</label>
-                <input type="text" name="user_phone" placeholder="-없이 입력해주세요" required />
+                <input type="text" name="user_phone" value="${user_phone}" readonly />
             </div>
 
             <!-- 스킬 섹션 -->
-            <div class="input-container">
+         <c:forEach var="skillList" items="${selectedSkills}">
+            <div class="skill-category">${skillList.key}</div>
+            <ul>
+                <c:forEach var="skill" items="${skillList.value}">
+                    <li>${skill}</li>
+                </c:forEach>
+            </ul>
+        </c:forEach>
+        
+        
+            <div class="input-container"><span class="red">*</span>사용 스킬
                 <div class="skill-category">백엔드</div>
                 <div class="checkbox-group">
                     <c:forEach var="skillList" items="${skillList}">
@@ -221,16 +227,15 @@
             <!-- 지역 및 주소 -->
             <div class="input-container">
                 <div class="address-container">
-                    <label>지역</label>
+                    <label><span class="red">*</span>근무 희망 지역</label>
                     <select name="region_idx">
                         <c:forEach var="region" items="${regionList}">
                             <option value="${region.region_idx}">${region.region_name}</option>
                         </c:forEach>
                     </select>
-                    <label>상세 주소</label>
+                    <label><span class="red">*</span>거주지 상세 주소</label>
                     <div class="form-group">
-<!--                     	<input type="text" class="form-control" name="region_address" id="roadFullAddr" />-->
-                	<input type="text" class="form-control" name="region_address" id="roadFullAddr" />
+                	<input type="text" name="region_address" id="roadFullAddr" value="이력서10" />
                     </div>
 					<button type="button" onclick="searchAddress()">주소 검색</button>
                 </div>
@@ -239,11 +244,11 @@
             <!-- 자소서 -->
             <div class="form-group">
                 <label><span class="red">*</span> 자소서</label>
-                <textarea name="user_intro" required></textarea>
+                <textarea name="user_intro" required>ㄴㄷㄹ</textarea>
             </div>
 
             <div>
-                <input type="submit" value="제출" />
+                <input type="submit" value="제출"  onclick="return getSelectSkills()" />
             </div>
         </form>
     </main>
@@ -252,13 +257,37 @@
     function searchAddress() {
         window.open("/User/SearchAddress","pop","width=570,height=430, scrollbars=yes, resizable=yes");
     }
-    function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, engAddr, jibunAddr, admCd, rnMgtSn, bdMgtSn, 
-    		detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo){
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-		document.form.roadFullAddr.value = roadFullAddr; // 전체 주소
-		document.form.addrDetail.value = addrDetail;
-		//document.form.roadAddrPart1.value = roadAddrPart1;
-		//document.form.roadAddrPart2.value = roadAddrPart2;
-		</script>
+    function jusoCallBack(roadFullAddr){
+    document.getElementById('roadFullAddr').value = roadFullAddr;
+    }
+    
+    const dateInput = document.getElementById('dateInput');
+    const textOutput = document.getElementById('textOutput');
+
+    dateInput.addEventListener('change', function() {
+        const selectedDate = new Date(dateInput.value);
+        
+        const formattedDate = String(selectedDate.getFullYear()) + '년 ' +
+                              String(selectedDate.getMonth() + 1) + '월 ' +
+                              String(selectedDate.getDate()) + '일';
+
+        textOutput.value = formattedDate;
+        console.log(typeof(textOutput.value), textOutput.value)
+    });
+	</script>
+	
+	<script>
+	function getSelectedSkills() {
+	    const selectedSkills = [];
+	    var checkboxes = document.querySelectorAll("input[name='skill_name']:checked");
+
+	    for (var i = 0; i < checkboxes.length; i++) {
+	        selectedSkills.push(checkboxes[i].value);
+	    }
+	    
+	    console.log(selectedSkills); // 확인용 출력
+	    return selectedSkills;
+	}
+	</script>
 </body>
 </html>
