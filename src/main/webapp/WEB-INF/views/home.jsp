@@ -190,6 +190,9 @@
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
 
+                <li><a href="/User/RegisterResumeForm?user_id=${login.user_id}">이력서 작성</a></li>
+                <li><a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a></li>
+
                 
                 <% if ((Boolean) request.getAttribute("logInCompanyUser")) {%>
                 <!-- 

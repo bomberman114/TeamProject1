@@ -79,9 +79,6 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyUserMapper companyUserMapper;
-
-	@Autowired
-	private CompanyUserMapper companyUserMapper;
 	
 	
 	

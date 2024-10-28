@@ -8,6 +8,11 @@
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+ 	    html, body {
+	    height: 100%; /* 전체 높이를 100%로 설정 */
+	    margin: 0; /* 기본 마진 제거 */
+		}
+
         body {
             font-family: 'Arial', sans-serif;
             font-size: medium;
@@ -20,6 +25,8 @@
         }
 
         main {
+		    max-height: 90vh; /* 최대 높이를 90vh로 설정 */
+		    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
             background-color: #ffffff;
             padding: 40px;
             border-radius: 15px;
@@ -114,138 +121,81 @@
             color: red;
         }
 
-        @media (max-width: 768px) {
-            main {
-                padding: 20px;
-                width: 95%;
-            }
-        }
     </style>
 </head>
 <body>
     <main>
         <h2>내 이력서</h2>
-        <form action="/User/ResumeRegister" method="POST" id="form">
+         <input type="hidden" name="user_id" value="${user_id}">
+         <input type="hidden" name="user_resume_idx" value="${userResume.user_resume_idx}">
             <div class="form-group">
-                <label><span class="red">*</span> 제목</label>
-                <input type="text" name="user_title" required />
-                <input type="button" id="checkDuplication" value= "${user_title}"/>
-                <span id="dupResult"></span>
-            </div>
-            <div class="form-group">
-                <label><span class="red">*</span> 이름</label>
-                <input type="text" name="user_name" id="user_name" value = "${user_name}" required />
+            	<label>이력서 제목</label>
+                <input type="text" name="user_title" value="${userResume.user_title}"readonly />
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 생일</label>
-                <input type="text" name="user_birth" value ="${ user_birth}"required />
+                <label> 이름</label>
+                <input type="text" name="user_name" value = "${userResume.user_name}" readonly/>
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 이메일</label>
-                <input type="email" name="user_email" value="${ user_email}" required />
+                <label> 생일</label>
+                <input type="text" name="user_birth" value ="${userResume.user_birth}" readonly/>
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 연락처</label>
-                <input type="text" name="user_phone" placeholder="-없이 입력해주세요" value="${ user_phone}"required />
+                <label> 이메일</label>
+                <input type="email" name="user_email" value="${userResume.user_email}" readonly/>
+            </div>
+            <div class="form-group">
+                <label> 연락처</label>
+                <input type="text" name="user_phone" placeholder="-없이 입력해주세요" value="${userResume.user_phone}" readonly/>
             </div>
 
-            <!-- 스킬 섹션 -->
-            <div class="input-container">
-                <div class="skill-category">백엔드</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '백엔드'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-
-                <div class="skill-category">프론트엔드</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '프론트엔드'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-
-                <div class="skill-category">데이터베이스</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '데이터베이스'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-                <div class="skill-category">모바일</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '모바일'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-
-                <div class="skill-category">협업툴</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '협업툴'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
-
+			<!-- 스킬 섹션 -->
+			<div class="input-container"><span class="red">*</span>사용 스킬
+			
+				<c:set var="previousSkillStack" value="" />
+				<c:forEach var="skill" items="${selectedSkills}">
+				    <c:if test="${skill.skill_stack != previousSkillStack}">
+				        <div class="skill-category">${skill.skill_stack}</div>
+				        <c:set var="previousSkillStack" value="${skill.skill_stack}" />
+				    </c:if>
+				    <div>
+				        <label for="skill_name_${skill.skill_name}">${skill.skill_name}</label>
+				    </div>
+				
+				    <c:if test="${(skill != selectedSkills[selectedSkills.size() - 1]) && (selectedSkills[selectedSkills.indexOf(skill) + 1].skill_stack != skill.skill_stack)}">
+				        <div style="margin-top: 20px;"></div> <!-- 두 줄 띄우기 -->
+				        <div style="margin-top: 20px;"></div>
+				    </c:if>
+				</c:forEach>
+			</div>
+			
+				
             <!-- 지역 및 주소 -->
             <div class="input-container">
                 <div class="address-container">
-                    <label>지역</label>
-                    <select name="region_idx">
+                    <label>근무 희망 지역</label>
+                    <select name="region_idx" class="readonly" onChange="this.selectedIndex = this.initialSelect;">
                         <c:forEach var="region" items="${regionList}">
-                            <option value="${region.region_idx}">${region.region_name}</option>
+                            <option value="${userResume.region_idx}">${region.region_name}</option>
                         </c:forEach>
                     </select>
-                    <label>상세주소</label>
-                    <input type="text" name="company_address" />
+                    <label>거주지 상세 주소</label>
+                    <div class="form-group">
+                	<input type="text" name="region_address" id="roadFullAddr"  value="${userResume.region_address}" readonly/>
+                    </div>
                 </div>
             </div>
-
             <!-- 자소서 -->
             <div class="form-group">
-                <label><span class="red">*</span> 자소서</label>
-                <textarea name="user_content" required></textarea>
+                <label>자소서</label>
+                <textarea name="user_intro" readonly>${userResume.user_intro}</textarea>
             </div>
 
             <div>
-       <input type="button" value="목록" id="goList" />
+       			<a href="/User/UpdateResume?user_id=${login.user_id}&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
+       			<a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a>
             </div>
-        </form>
     </main>
 
-    <script>
-    const  goList = document.getElementById('goList')
-    goList.onclick = function() {
-       location.href = '/Users/List'
-    } 
-    // 서버에서 전달된 error 메시지가 있을 경우 alert로 출력
-    <% if (request.getAttribute("error") != null) { %>
-      alert("request.getAttribute("error")");
-    <% } %>
-    </script>
 </body>
 </html>
