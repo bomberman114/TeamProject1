@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.user.resume.mapper.UserResumeMapper">  
+
+<!-- 개인 -->
+
+    <!-- 이력서 목록 조회 -->
+    <select id="getUserResumeList">
+        SELECT
+            USER_RESUME_IDX
+            , USER_TITLE
+            , USER_RESUME_REGDATE
+        FROM
+            USER_RESUME
+        WHERE USER_ID=#{ user_id }
+        ORDER BY USER_RESUME_IDX DESC
+    </select>
+
+    <!-- 이력서 작성 -->
+    <select id="getSkill">
+    SELECT 
+     *
+    FROM 
+     SKILLS
+	</select>
+	
+    <select id="getRegion">
+    SELECT
+     *
+    FROM
+     REGION
+	</select>
+	
+	<insert id="insertUserResume">
+		INSERT INTO 
+		 USER_RESUME (
+		    USER_RESUME_IDX
+		  , USER_TITLE
+		  , USER_ID
+		  , USER_NAME
+		  , USER_BIRTH
+		  , USER_PHONE
+		  , USER_EMAIL
+		  , REGION_IDX
+		  , REGION_ADDRESS
+		  , USER_INTRO
+		) VALUES (
+		    USER_RESUME_SEQ.NEXTVAL
+		  , #{ user_title }
+		  , #{ user_id }
+		  , #{ user_name }
+		  , #{ user_birth }
+		  , #{ user_phone }
+		  , #{ user_email }
+		  , #{ region_idx }
+		  , #{ region_address }
+		  , #{ user_intro }
+		)
+	</insert>
+	
+	<insert id="insertUserSkill">
+	    <foreach collection = "skillList" item="skill" 
+	    index = "i" 
+	    open = "INSERT ALL" 
+	    close = "SELECT * FROM DUAL" 
+	    separator = " ">
+	        INTO COMMON_USER_RESUME_SKILL 
+	        VALUES (
+	            GET_FILENUM()
+	            , #{ skill.skill_name }
+	            , #{ user_resume_idx }
+	        )
+	    </foreach>
+	</insert>
+    
+<!-- 		INSERT ALL
+    INTO COMMON_USER_RESUME_SKILL (COMMON_USER_IDX, SKILL_NAME, USER_RESUME_IDX) VALUES (GET_FILENUM(), 'JAVA', 123)
+    INTO COMMON_USER_RESUME_SKILL (COMMON_USER_IDX, SKILL_NAME, USER_RESUME_IDX) VALUES (GET_FILENUM(), 'JAVASCRIPT', 123)
+SELECT * FROM DUAL; -->
+    <select id="getUserResumeIdx">
+  		SELECT
+  			USER_RESUME_IDX
+		FROM
+			USER_RESUME
+		WHERE
+		    USER_ID = #{ user_id }
+		ORDER BY 
+			USER_RESUME_IDX DESC
+		FETCH FIRST 1 ROW ONLY
+  	</select>
+
+    <!-- 이력서 조회 -->
+	<select id="getUserResume" 
+	parameterType="com.green.user.resume.vo.UserResumeVo" 
+	resultType="com.green.user.resume.vo.UserResumeVo">
+	    SELECT
+	        UR.USER_RESUME_IDX
+	        , UR.USER_TITLE
+	        , UR.USER_ID
+	        , UR.USER_NAME
+	        , UR.USER_BIRTH
+	        , UR.USER_PHONE
+	        , UR.USER_EMAIL
+	        , UR.REGION_IDX
+	        , UR.REGION_ADDRESS
+	        , UR.USER_INTRO
+	        , UR.USER_RESUME_REGDATE
+	        , LISTAGG(SKILLS.SKILL_NAME, ' ') WITHIN GROUP (ORDER BY SKILLS.SKILL_NAME) AS skillList
+	    FROM
+	        USER_RESUME UR
+	    LEFT JOIN 
+	        COMMON_USER_RESUME_SKILL CURS 
+	    ON 
+	        UR.USER_RESUME_IDX = CURS.USER_RESUME_IDX
+	    LEFT JOIN 
+	        SKILLS 
+	    ON 
+	        CURS.SKILL_NAME = SKILLS.SKILL_NAME
+	    WHERE 
+	        UR.USER_RESUME_IDX = ${user_resume_idx}
+	    GROUP BY 
+	        UR.USER_RESUME_IDX
+	        , UR.USER_TITLE
+	        , UR.USER_ID
+	        , UR.USER_NAME
+	        , UR.USER_BIRTH
+	        , UR.USER_PHONE
+	        , UR.USER_EMAIL
+	        , UR.REGION_IDX
+	        , UR.REGION_ADDRESS
+	        , UR.USER_INTRO
+	        , UR.USER_RESUME_REGDATE
+    </select>
+    
+    <select id="getSelectedSkills" parameterType="int" resultType="com.green.skills.vo.SkillVo">
+    SELECT 
+    SK.SKILL_NAME, SK.SKILL_STACK
+    FROM 
+    COMMON_USER_RESUME_SKILL CURS
+    JOIN 
+    SKILLS SK ON CURS.SKILL_NAME = SK.SKILL_NAME
+    WHERE CURS.USER_RESUME_IDX = #{user_resume_idx}
+	</select>
+
+    <!-- 이력서 업데이트 -->
+    <update id="updateUserResume">
+        UPDATE 
+        USER_RESUME
+        SET
+          , USER_TITLE = #{ user_title }
+          , USER_BIRTH = #{ user_birth }
+          , REGION_IDX = #{ region_idx }
+          , REGION_ADDRESS = #{ region_address }
+          , USER_INTRO = #{ user_intro }
+        WHERE USER_RESUME_IDX = #{ user_resume_idx };
+    </update>
+
+    <!-- 스킬 업데이트 -->
+    <update id="updateUserResumeSkills">
+        UPDATE 
+        COMMON_USER_RESUME_SKILL
+        SET
+        SKILL_NAME = #{ skill_name }
+        WHERE USER_RESUME_IDX = #{ user_resume_idx }
+        ORDER BY 
+		USER_RESUME_IDX DESC
+		FETCH FIRST 1 ROW ONLY
+    </update>
+
+    <!-- 이력서 삭제-->
+    <delete id="deleteUserResumeSkills">
+        DELETE FROM COMMON_USER_RESUME_SKILL
+        WHERE USER_RESUME_IDX = #{ user_resume_idx }
+    </delete>
+
+    <delete id="deleteUserResume">
+        DELETE FROM USER_RESUME
+        WHERE USER_RESUME_IDX = #{ user_resume_idx }
+    </delete>
+
+</mapper>
