@@ -16,9 +16,6 @@ public interface CompanyMapper {
 	CompanyUserVo getInfoUser( @Param ("company_id") String company_id);
 
 
-	void updateInfoUser(CompanyUserVo companyUserVo);
-
-
 
 
 }

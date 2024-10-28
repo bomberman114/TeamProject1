@@ -28,17 +28,6 @@
 		    COMPANY_ID IS NULL 
 		   </if>
 	   </select>
-	   
-	   
-	   <update id="updateInfoUser">
-	   	UPDATE COMPANY_USERS
-    	SET
-        COMPANY_NAME = #{company_name},
-        COMPANY_BOSS_NAME = #{company_boss_name},
-        COMPANY_PHONE = #{company_phone},
-        COMPANY_EMAIL = #{company_email}
-        WHERE COMPANY_ID = #{company_id}
-	   </update>
 	  
 
 </mapper>
