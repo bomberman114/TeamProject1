@@ -178,6 +178,10 @@
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
 
 
+                <!-- 회사측 로그인후 보이게 나중에 처리 -->
+                <li><a href="/Company/Info">내 정보</a>
+
+
                 <% } %>
                 <% if ((Boolean) request.getAttribute("logOutUser")) {%>
                 <li><a href="/Users/Logout">로그아웃</a></li>
@@ -185,6 +189,9 @@
                 <% if ((Boolean) request.getAttribute("admin")) { %>
                     <li><a href="/Users/List">회원목록</a></li>
                 <% } %>
+
+                <li><a href="/User/RegisterResumeForm?user_id=${login.user_id}">이력서 작성</a></li>
+                <li><a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a></li>
 
                 
                 <% if ((Boolean) request.getAttribute("logInCompanyUser")) {%>
