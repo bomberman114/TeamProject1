@@ -166,7 +166,7 @@ public class CompanyController {
 
 	
 	@RequestMapping("/RecruitInfo")
-    public ModelAndView recruitInfoPaging(@RequestParam(value="nowpage", required =false)  Integer nowpage ,
+    public ModelAndView recruitInfo(@RequestParam(value="nowpage", required =false)  Integer nowpage ,
     		                              @RequestParam(value = "pageSize", required = false) Integer pageSize , 
     		                              CompanyUserVo companyUserVo ) {
 
