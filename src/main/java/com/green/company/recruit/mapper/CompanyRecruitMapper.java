@@ -2,15 +2,14 @@ package com.green.company.recruit.mapper;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import org.apache.ibatis.annotations.Param;
 
 import com.green.company.recruit.vo.CompanyRecruitVo;
-
 import com.green.company.users.vo.CompanyUserVo;
+
+
 
 
 @Mapper

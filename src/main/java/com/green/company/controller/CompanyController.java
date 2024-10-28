@@ -396,12 +396,7 @@ public class CompanyController {
     }  
     
 
-    
-    
-    
-    
-    
-    
+
     @RequestMapping("/EditRecruit")
     public ModelAndView editRecruit(@RequestParam("company_recruit_idx") int company_recruit_idx) {
         ModelAndView mv = new ModelAndView();
@@ -417,6 +412,26 @@ public class CompanyController {
     public String deleteRecruit(@RequestParam("company_recruit_idx") int company_recruit_idx) {
         companyRecruitMapper.deleteRecruit(company_recruit_idx); // 삭제 로직
         return "redirect:/RecruitList"; // 삭제 후 이동할 페이지
+    }
+    
+    @RequestMapping("/InfoEdit")
+    public ModelAndView InfoEdit(HttpSession session) {
+        String company_id = (String) session.getAttribute("company_id");
+        company_id = "kaka01";
+
+        CompanyUserVo companyUserVo = companyMapper.getInfoUser(company_id);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("companyUserVo", companyUserVo);
+        mv.setViewName("/company/infoEdit");
+        
+        return mv;
+    }
+
+    @RequestMapping(value = "/InfoUpdate", method = RequestMethod.POST)
+    public String InfoUpdate(CompanyUserVo companyUserVo) {
+        companyMapper.updateInfoUser(companyUserVo);
+        return "redirect:/Company/Info";
     }
     
    
