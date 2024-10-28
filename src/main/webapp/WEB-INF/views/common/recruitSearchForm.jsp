@@ -355,6 +355,34 @@
     </div>
 
     <script type="text/javascript">
+    
+    // 모든 클릭 이벤트를 처리하는 함수
+    function handleEvent(event) {
+        // 기본 동작 방지
+        event.preventDefault();
+        
+        const titleEl = document.getElementById('searchKeyword');
+        var title = titleEl.value;
+        alert(title)
+        if(title == '' || ){
+        	alert('채용공고검색란이 비었습니다');
+        	return false;
+        };
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // 모든 <a> 태그에 클릭 이벤트 리스너 추가
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', handleEvent);
+        });
+
+        // 모든 <form>에 제출 이벤트 리스너 추가
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', handleEvent);
+        });
+    });
 	   
     function toggleSection(sectionId, element, forceOpen = false) {
         var section = document.getElementById(sectionId);

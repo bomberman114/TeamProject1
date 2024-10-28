@@ -46,7 +46,8 @@ public class CommonSearchController {
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		String recruit_title = null;
 		
-		mv.addObject("skillList", skillList);
+		
+		mv.addObject("recruit_title", recruit_title);
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
 		mv.setViewName("/common/recruitSearchForm");
@@ -125,9 +126,6 @@ public class CommonSearchController {
 		List<SkillVo> skillList = skillMapper.getSkillList(); 
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		
-		System.out.println(companyRecruitList);
-		System.out.println(searchVo);
-		System.out.println(pagination);
 		
 		
 		mv.addObject("nowpage" , nowpage);

@@ -77,6 +77,7 @@ public class CompanyController {
 	@Autowired
 	private CommonCompanyRecruitSkillMapper commonCompanyRecruitSkillMapper;
 	
+
 	@Autowired
 	private CompanyUserMapper companyUserMapper;
 	
