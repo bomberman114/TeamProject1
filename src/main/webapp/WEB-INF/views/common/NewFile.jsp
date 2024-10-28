@@ -1,8 +1,9 @@
-<%
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+
 		String id = (String)session.getAttribute("id");
 		UserVO userVo = getUserbyId(user_id);
-		
-	%>
 	<nav class="navbar navbar-default">
 	 <div class="navbar-header">
 	  <button type="button" class="navbar-toggle collapsed"
