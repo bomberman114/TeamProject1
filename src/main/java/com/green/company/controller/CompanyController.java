@@ -2,12 +2,19 @@ package com.green.company.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.green.paging.vo.Pagination;
+import com.green.paging.vo.PagingResponse;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +35,8 @@ import com.green.common.company.recruit.skill.mapper.CommonCompanyRecruitSkillMa
 import com.green.company.mapper.CompanyMapper;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
+import com.green.company.users.vo.CompanyUserVo;
+import com.green.paging.vo.SearchVo;
 import com.green.company.users.mapper.CompanyUserMapper;
 import com.green.company.users.vo.CompanyUserVo;
 
@@ -38,6 +47,8 @@ import com.green.skill.mapper.SkillMapper;
 import com.green.skills.vo.SkillVo;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,9 +80,8 @@ public class CompanyController {
 	@Autowired
 	private CompanyUserMapper companyUserMapper;
 
-
-
-	
+	@Autowired
+	private CompanyUserMapper companyUserMapper;
 	
 	
 	
@@ -80,7 +90,9 @@ public class CompanyController {
 		
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		List<SkillVo> skillList   = skillMapper.getSkillList();
+
 		companyUserVo.setCompany_id("naver01");
+
 		companyUserVo 			  = companyMapper.getCompanyUser(companyUserVo);
 		
 		mv.addObject("companyUserVo", companyUserVo);
@@ -95,6 +107,14 @@ public class CompanyController {
 	public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
 		Map<String, String[]> companyRecruitmap = request.getParameterMap();
 		String [] skills = companyRecruitmap.get("skill_name");
+
+		System.out.println( Arrays.toString(skills));
+		System.out.println( companyRecruitVo );
+		
+		companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
+		
+		
+	
 		
 		List<SkillVo> skillList = new ArrayList<>();
 		
@@ -114,9 +134,7 @@ public class CompanyController {
 		mv.setViewName("/company/recruitWriteForm");
 		return mv;
 	}
-		
 
-	
 	
 	@RequestMapping("/RecruitList")
 	public ModelAndView recruitList () {
@@ -132,6 +150,7 @@ public class CompanyController {
 	public ModelAndView recruit (CompanyRecruitVo companyRecruitVo) {
 		companyRecruitVo.setCompany_recruit_idx(1);
 		HashMap<String, Object> companyRecruitMap = companyRecruitMapper.getCompanyRecruit(companyRecruitVo);
+
 		
 		return mv;
 	}
@@ -140,9 +159,94 @@ public class CompanyController {
 	public ModelAndView recruitAplications (CompanyRecruitVo companyRecruitVo) {
 		companyRecruitVo.setCompany_recruit_idx(1);
 		HashMap<String, Object> recruitAplicationsMap = companyRecruitMapper.getCompanyRecruitAlications(companyRecruitVo);
+
 		
 		return mv;
-	}
+	} 
+
+	
+	@RequestMapping("/RecruitInfo")
+    public ModelAndView recruitInfoPaging(@RequestParam(value="nowpage", required =false)  Integer nowpage ,
+    		                              @RequestParam(value = "pageSize", required = false) Integer pageSize , 
+    		                              CompanyUserVo companyUserVo ) {
+
+		if( nowpage== null ) {
+			nowpage=1;
+			pageSize=5;
+		};
+		 		
+		
+		
+        companyUserVo.setCompany_id("kaka01");
+        companyUserVo = companyMapper.getCompanyUser(companyUserVo);
+		
+		int count = companyRecruitMapper.getCompanyRecruitCount(companyUserVo);
+		
+		PagingResponse<CompanyRecruitVo> response = null;
+	    if( count < 1 ) {   // 현재 Menu_id 조회한 자료가 없다면
+	    	response = new PagingResponse<>(
+	    		Collections.emptyList(), null);
+	    	// Collections.emptyList() : 자료는 없는 빈 리스트를 채운다
+	    }
+		
+	    
+		SearchVo  searchVo = new SearchVo();
+		searchVo.setPage(nowpage);   // 현재 페이지 정보
+		searchVo.setRecordSize(5);   // 페이지당 10개
+		searchVo.setPageSize(10);    // paging.jsp 에 출력할 페이지번호수  
+		
+		
+		
+		Pagination  pagination = new Pagination(count, searchVo);
+		searchVo.setPagination(pagination);
+	
+
+        //System.out.println(companyUserVo);
+        
+        int      startRow      =  searchVo.getOffset();
+	    int      endRow        =  searchVo.getRecordSize();
+	    
+        
+	   
+        List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.selectCompanyRecruitListPaging(
+                companyUserVo.getCompany_id(), startRow, endRow);
+        response = new PagingResponse<>(companyRecruitList, pagination);
+        
+        int totalPages = (int) Math.ceil((double) count / pageSize);
+        
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject( "companyUserVo", companyUserVo );
+        mv.addObject( "companyRecruitList", companyRecruitList );
+        mv.addObject( "currentPage", nowpage );
+        mv.addObject( "pageSize", pageSize );
+        mv.setViewName( "/company/recruitInfo" );
+        mv.addObject( "response" , response );
+        mv.addObject("recruitCount", count);
+        mv.addObject("totalPages", totalPages);
+        
+        return mv;      
+        }
+	
+
+	
+	    @RequestMapping("/Info")
+	    public ModelAndView Info(HttpSession session) {
+	        String company_id = (String) session.getAttribute("company_id");
+	        company_id = "kaka01";
+	        /*
+	        if (companyId == null) {
+	            mv.setViewName("redirect:/Company/login");
+	            return mv;
+	        }
+	        */
+	        CompanyUserVo companyUserVo = companyMapper.getInfoUser(company_id);
+
+	        mv.addObject("companyUserVo", companyUserVo);
+	        mv.setViewName("/company/info");
+
+	        return mv;
+	    }
 
 	
 	// 기업회원 추가
@@ -269,6 +373,49 @@ public class CompanyController {
         session.invalidate(); // 세션 무효화
         return "redirect:/"; // 홈으로 리다이렉트
     }
-	
+    
+    
+    @RequestMapping("/OneRecruit")
+    public ModelAndView onerecruit(HttpSession session,
+    		                       @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
+        String company_id = (String) session.getAttribute("company_id");
+
+        System.out.println(company_recruit_idx);
+        CompanyRecruitVo companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(company_recruit_idx); 
+        
+        
+        
+        mv.addObject("companyRecruitVo",companyRecruitVo);
+        mv.setViewName("/company/oneRecruit");
+        
+
+        return mv;
+    }  
+    
+
+    
+    
+    
+    
+    
+    
+    @RequestMapping("/EditRecruit")
+    public ModelAndView editRecruit(@RequestParam("company_recruit_idx") int company_recruit_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        CompanyRecruitVo companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(company_recruit_idx);
+        mv.addObject("companyRecruitVo", companyRecruitVo);
+        mv.setViewName("/company/editRecruit"); // 수정 페이지 JSP 이름
+
+        return mv;
+    }
+    
+    @RequestMapping(value = "/DeleteRecruit", method = RequestMethod.POST)
+    public String deleteRecruit(@RequestParam("company_recruit_idx") int company_recruit_idx) {
+        companyRecruitMapper.deleteRecruit(company_recruit_idx); // 삭제 로직
+        return "redirect:/RecruitList"; // 삭제 후 이동할 페이지
+    }
+    
+   
 	
 }
