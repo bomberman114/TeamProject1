@@ -79,6 +79,8 @@
         <input type="password" name="user_passwd" placeholder="비밀번호" />
         <button class="btn" type=submit id=login >로그인</button>
         <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
+        <button class="btn" type=button onclick="location.href='/Users/UpdateForm'">수정</button>
+        <button class="btn" type=submit onclick="location.href='/Users/delete'">삭제</button>
     </div>
 	</form>
 
