@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.applicaions.vo.ApplicaionVo;
+import com.green.application.mapper.ApplicationsMapper;
+import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.region.vo.RegionVo;
 import com.green.skills.vo.SkillVo;
 import com.green.user.resume.mapper.UserResumeMapper;
@@ -27,6 +30,9 @@ public class UserResumeController {
 	
 	@Autowired
 	private UserResumeMapper userResumeMapper;
+	
+	@Autowired
+	private ApplicationsMapper applicationsMapper;
 	
 	/*이력서 목록*/
 	@RequestMapping("/ResumeList")
@@ -127,5 +133,21 @@ public class UserResumeController {
 		mv.setViewName("redirect:/Users/List");
 		return mv;
 	}	
+	
+	@RequestMapping("/ResumeSubmit")
+	public ModelAndView resumeSubmit(UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(userResumeVo);
+		System.out.println(companyRecruitVo);
+		ApplicaionVo applicationVo = new ApplicaionVo();
+		applicationVo.setApplication_status("서류검토중");
+		applicationVo.setUser_resume_idx(userResumeVo.getUser_resume_idx());
+		applicationVo.setCompany_recruit_idx(companyRecruitVo.getCompany_recruit_idx());
+		
+		
+		
+		return mv;
+		
+	}
 	
 }
