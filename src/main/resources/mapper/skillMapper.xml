@@ -9,6 +9,8 @@
  		FROM
  			SKILLS
  	</select>
+ 	
+ 	
   
   
 </mapper>

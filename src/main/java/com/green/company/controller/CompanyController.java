@@ -39,7 +39,6 @@ import com.green.skills.vo.SkillVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import com.green.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,24 +65,23 @@ public class CompanyController {
 	
 	@Autowired
 	private CommonCompanyRecruitSkillMapper commonCompanyRecruitSkillMapper;
+	
+	@Autowired
+	private CompanyUserMapper companyUserMapper;
 
 
 
 	
 	
-	@RequestMapping("/List")
-	public ModelAndView list () {
-		return mv;
-	}
+	
 	
 	@RequestMapping("/RecruitWriteForm")
 	public ModelAndView recruitWriteForm (CompanyUserVo companyUserVo) {
+		
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		List<SkillVo> skillList   = skillMapper.getSkillList();
-		companyUserVo.setCompany_id("samsung03");
+		companyUserVo.setCompany_id("naver01");
 		companyUserVo 			  = companyMapper.getCompanyUser(companyUserVo);
-		//System.out.println(companyUserVo);
-		//System.out.println(skillList);
 		
 		mv.addObject("companyUserVo", companyUserVo);
 		mv.addObject("skillList",     skillList);
@@ -92,6 +90,7 @@ public class CompanyController {
 		return mv;
 	}
 	
+	// 채용공고 등록
 	@RequestMapping("/RecruitWrite")
 	public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
 		Map<String, String[]> companyRecruitmap = request.getParameterMap();
@@ -124,7 +123,6 @@ public class CompanyController {
 		CompanyUserVo companyUserVo = new CompanyUserVo();
 		companyUserVo.setCompany_id("kaka01");
 		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.selectCompanyRecruitList(companyUserVo);
-		//System.out.println(companyRecruitList);
 		mv.addObject("companyRecruitList", companyRecruitList);
 		mv.setViewName("/company/recruitList");
 		return mv;
