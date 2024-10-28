@@ -44,22 +44,25 @@
  	
  	<select id="selectCompanyRecruitList">
  		SELECT
-		    COMPANY_ID,
-		    COMPANY_PASSWD,
-		    COMPANY_USER_NAME,
-		    COMPANY_PHONE,
-		    COMPANY_NAME,
-		    COMPANY_BCODE,
-		    COMPANY_BOSS_NAME,
-		    COMPANY_EMAIL,
-		    COMPANY_USER_EMAIL,
-		    COMPANY_REGDATE,
-		    COMPANY_ESTABLISH
+			COMPANY_RECRUIT_IDX
+		   ,COMPANY_ID
+		   ,COMPANY_NAME
+		   ,RECRUIT_TITLE
+		   ,COMPANY_JOB
+		   ,GETMAN
+		   ,REGION_IDX
+		   ,COMPANY_ADDRESS
+		   ,COMPANY_INFO
+		   ,APPLICATION_DEADLINE
+		   ,COMPANY_ESTABLISH
+		   ,COMPANY_RECRUIT_REGDATE
+		   ,VIEWS
 		FROM
-		    COMPANY_USERS
+		    COMPANY_RECRUIT
 		WHERE 
 			COMPANY_ID = #{company_id}
  	</select>
+ 	
  	
  	<select id="getCompanyRecruit">
  		SELECT
@@ -87,24 +90,201 @@
 		WHERE
     		CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
  	</select>
+  	
+
+  	<insert id="setCompanyRecruit" > 
+  		INSERT 
+  			INTO 
+  		COMPANY_RECRUIT (
+		      COMPANY_RECRUIT_IDX
+		    , COMPANY_ID
+		    , COMPANY_NAME
+		    , RECRUIT_TITLE
+		    , COMPANY_JOB
+		    , GETMAN
+		    , REGION_IDX
+		    , COMPANY_ADDRESS
+		    , COMPANY_INFO
+		    , APPLICATION_DEADLINE
+		    , COMPANY_ESTABLISH
+		    
+				) VALUES (
+				      COMPANY_RECRUIT_SEQ.NEXTVAL
+				    , #{company_id}
+	</insert>
+
+
+  	<insert id="setCompanyRecruitDate">
+  		INSERT 
+  			INTO 
+  		COMPANY_RECRUIT (
+		    COMPANY_RECRUIT_IDX,
+		    COMPANY_ID,
+		    COMPANY_NAME,
+		    RECRUIT_TITLE,
+		    COMPANY_JOB,
+		    GETMAN,
+		    REGION_IDX,
+		    COMPANY_ADDRESS,
+		    COMPANY_INFO,
+		    APPLICATION_DEADLINE,
+		    COMPANY_ESTABLISH,
+		    COMPANY_RECRUIT_REGDATE,
+    		VIEWS
+				) VALUES (
+				      COMPANY_RECRUIT_SEQ.NEXTVAL,
+				      #{company_id}
+
+				    , #{company_name}
+				    , #{recruit_title}
+				    , #{company_job}
+				    , #{getman}
+				    , #{region_idx}
+				    , #{company_address}
+				    , #{company_info}
+				    , #{application_deadline}
+				    , #{company_establish}
+				    , #{company_recruit_regdate}
+		    		, #{views}
+				)
+  	</insert>
+
+
+
+  	<select id="getCompanyRecruitIdx">
+  		SELECT 
+  			COMPANY_RECRUIT_IDX
+		FROM 
+			COMPANY_RECRUIT
+		WHERE
+		    COMPANY_ID = #{ company_id }
+		ORDER BY 
+			COMPANY_RECRUIT_IDX DESC
+		FETCH FIRST 1 ROW ONLY
+  	</select>
+  	
+
+  <select id="getCompanyRecruitList">
+	SELECT 
+	   *
+	FROM 
+	    COMPANY_RECRUIT CR
+	LEFT JOIN (
+	    SELECT 
+	        COMPANY_RECRUIT_IDX, 
+	        LISTAGG(DISTINCT SKILL_NAME, ', ') WITHIN GROUP (ORDER BY SKILL_NAME) AS SKILL_NAME
+	    FROM 
+	        COMMON_COMPANY_RECRUIT_SKILL
+	        
+	    <if test="skillListCheck != null ">    
+	    WHERE 
+	    	SKILL_NAME IN
+	     <foreach item="skill" index="index" collection="skillListCheck"
+	      open="(" separator="," close=")">
+	        #{ skill.skill_name }
+	  	 </foreach>
+	    </if>
+	    
+	     <if test="skillListCheck == null ">    
+	    
+	    </if>
+	    
+	    GROUP BY COMPANY_RECRUIT_IDX
+	) CCRK ON CCRK.COMPANY_RECRUIT_IDX = CR.COMPANY_RECRUIT_IDX
+	JOIN 
+	    REGION R ON CR.REGION_IDX = R.REGION_IDX
+	<if test="regionListCheck != null">
+	WHERE 
+	    CR.REGION_IDX IN 
+	    <foreach item="region" index="index" collection="regionListCheck"
+	      open="(" separator="," close=")">
+	        #{ region.region_idx }
+  	 	</foreach>
+	</if>
+	<if test="regionListCheck == null">
+	
+	</if>   
+	
+	    AND CR.RECRUIT_TITLE LIKE '%' || #{ recruit_title } || '%'
+	    
+	ORDER BY 
+	    CR.COMPANY_RECRUIT_REGDATE DESC
+	 OFFSET #{ startRow } ROWS FETCH NEXT #{ endRow } ROWS ONLY
+	 
+	  
+	
+  </select>
   
+  <select id="getCompanyRecruitListCount">
+  		SELECT 
+	   COUNT(*)
+	FROM 
+	    COMPANY_RECRUIT CR
+	LEFT JOIN (
+	    SELECT 
+	        COMPANY_RECRUIT_IDX, 
+	        LISTAGG(DISTINCT SKILL_NAME, ', ') WITHIN GROUP (ORDER BY SKILL_NAME) AS SKILL_NAME
+	    FROM 
+	        COMMON_COMPANY_RECRUIT_SKILL
+	        
+	    <if test="skillListCheck != null ">    
+	    WHERE 
+	    	SKILL_NAME IN
+	     <foreach item="skill" index="index" collection="skillListCheck"
+	      open="(" separator="," close=")">
+	        #{ skill.skill_name }
+	  	 </foreach>
+	    </if>
+	    
+	     <if test="skillListCheck == null ">    
+	    
+	    </if>
+	    
+	    GROUP BY COMPANY_RECRUIT_IDX
+	) CCRK ON CCRK.COMPANY_RECRUIT_IDX = CR.COMPANY_RECRUIT_IDX
+	JOIN 
+	    REGION R ON CR.REGION_IDX = R.REGION_IDX
+	<if test="regionListCheck != null">
+	WHERE 
+	    CR.REGION_IDX IN 
+	    <foreach item="region" index="index" collection="regionListCheck"
+	      open="(" separator="," close=")">
+	        #{ region.region_idx }
+  	 	</foreach>
+	</if>
+	<if test="regionListCheck == null">
+	
+	</if>   
+	
+	    AND CR.RECRUIT_TITLE LIKE '%' || #{ recruit_title } || '%'
+	    
+  </select>
   
+
+  	<select id="selectCompanyRecruitListPaging" >
+      SELECT
+         *
+      FROM
+         COMPANY_RECRUIT
+      WHERE 
+         COMPANY_ID = #{ company_id }
+      ORDER  BY  COMPANY_RECRUIT_REGDATE DESC
+      OFFSET #{ startRow } ROWS FETCH NEXT #{ endRow } ROWS ONLY
+    </select>
+
+
+	<select id="getCompanyRecruitCount">
+    	SELECT COUNT( * )
+    	FROM  company_recruit
+   	    WHERE company_id = #{ company_id }
+	</select>
+	
+	<select id="getCompanyOneRecruit">
+		SELECT *
+		FROM company_recruit
+		WHERE company_recruit_idx = #{ company_recruit_idx}
+	</select>
+  	
+
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

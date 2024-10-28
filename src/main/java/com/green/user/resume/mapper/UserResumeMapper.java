@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.green.common.user.resume.skill.vo.CommonUserResumeSkillVo;
 import com.green.region.vo.RegionVo;
 import com.green.skills.vo.SkillVo;
 import com.green.user.resume.vo.UserResumeVo;
+
 
 @Mapper
 public interface UserResumeMapper {
@@ -37,8 +37,6 @@ public interface UserResumeMapper {
 
 
 	List<SkillVo> getSelectedSkills(int user_resume_idx);
-
-
 
 
 

@@ -1,15 +1,15 @@
 package com.green.common.company.recruit.skill.vo;
 
-public class ComminCompanyRecruitSkillVo {
+public class CommonCompanyRecruitSkillVo {
 
 	private int common_company_idx;
 	private String skill_name;        // 스킬명
 	private int company_recruit_idx;  // 회사채용공고 번호
 	
-	public ComminCompanyRecruitSkillVo() {
+	public CommonCompanyRecruitSkillVo() {
 	}
 	
-	public ComminCompanyRecruitSkillVo(int common_company_idx, String skill_name, int company_recruit_idx) {
+	public CommonCompanyRecruitSkillVo(int common_company_idx, String skill_name, int company_recruit_idx) {
 		super();
 		this.common_company_idx = common_company_idx;
 		this.skill_name = skill_name;

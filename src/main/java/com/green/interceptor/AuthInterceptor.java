@@ -4,12 +4,13 @@ package com.green.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+
 import com.green.users.vo.UserVo;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 
 
 @Component
@@ -42,6 +43,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         return true; // 로그인 되어 있으면 요청 허용
     }
+
 }
 
 

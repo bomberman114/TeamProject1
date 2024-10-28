@@ -1,7 +1,11 @@
 package com.green.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.beans.factory.annotation.Autowired;	
+
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -24,6 +28,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		       .excludePathPatterns("/css/**", "/img/**", "/js/**", "/User/SearchAddress/**", "/User/Address/**");
 		
 		WebMvcConfigurer.super.addInterceptors(registry);
+
+
 
 	}
 	
