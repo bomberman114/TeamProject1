@@ -18,7 +18,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Autowired	
 	private  AuthInterceptor  authInterceptor;
 	
-	
+	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		/* 로그인 기능 일시 정지 */
 		/*

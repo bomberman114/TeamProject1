@@ -363,15 +363,11 @@ public class CompanyController {
     @RequestMapping("/OneRecruit")
     public ModelAndView onerecruit(HttpSession session,
     		                       @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
-        String company_id = (String) session.getAttribute("company_id");
+    	
 
-        System.out.println(company_recruit_idx);
         CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
         companyRecruitVo.setCompany_recruit_idx(company_recruit_idx);
-        //CompanyRecruitVo companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(company_recruit_idx); 
-        //List<HashMap<String, String>> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
         HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
-        //System.out.println(companyOneRecruit.get("SKILL_NAME"));
         
         mv.addObject("companyOneRecruit",companyOneRecruit);
         mv.setViewName("/company/oneRecruit");
@@ -383,12 +379,11 @@ public class CompanyController {
     @RequestMapping("/RecruitUpdateForm")
     public ModelAndView recruitUpdateForm (CompanyRecruitVo companyRecruitVo) {
     	ModelAndView mv = new ModelAndView();
-    	//CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
-    	//companyRecruitVo.setCompany_recruit_idx(Integer.parseInt(company_recruit_idx));
+    	
     	HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
         List<SkillVo> skillList = skillMapper.getSkillList();
         List<RegionVo> regionList = regionMapper.getRegionList();
-    	System.out.println(companyOneRecruit);
+        
         mv.addObject("skillList",skillList);
         mv.addObject("regionList",regionList);
         mv.addObject("companyOneRecruit",companyOneRecruit);
@@ -401,9 +396,6 @@ public class CompanyController {
    	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
    		Map<String, String[]> companyRecruitmap = request.getParameterMap();
    		String [] skills = companyRecruitmap.get("skill_name");
-   		System.out.println("companyRecruitVo:"+companyRecruitVo);
-   		System.out.println("skills:"+Arrays.toString(skills));
-   		System.out.println("region:"+regionVO);
    		
    		companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
    		
@@ -428,17 +420,6 @@ public class CompanyController {
    
 
 
-    @RequestMapping("/EditRecruit")
-    public ModelAndView editRecruit(@RequestParam("company_recruit_idx") int company_recruit_idx) {
-        ModelAndView mv = new ModelAndView();
-
-        CompanyRecruitVo companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(company_recruit_idx);
-        mv.addObject("companyRecruitVo", companyRecruitVo);
-        mv.setViewName("/company/editRecruit"); // 수정 페이지 JSP 이름
-
-        return mv;
-    }
-    
     
     
     
@@ -449,6 +430,7 @@ public class CompanyController {
         companyRecruitMapper.deleteRecruit(company_recruit_idx); // 삭제 로직
         return "redirect:/RecruitList"; // 삭제 후 이동할 페이지
     }
+    
     
     @RequestMapping("/InfoEdit")
     public ModelAndView InfoEdit(HttpSession session) {
@@ -469,30 +451,6 @@ public class CompanyController {
         companyMapper.updateInfoUser(companyUserVo);
         return "redirect:/Company/Info";
     }
-    
-    
-   
-	
-    
-    /*
-		@RequestMapping("/RecruitUpdateForm")
-		public ModelAndView recruitUpdateForm (CompanyUserVo companyUserVo) {
-		List<RegionVo> regionList = regionMapper.getRegionList();
-		List<SkillVo> skillList   = skillMapper.getSkillList();
-		
-		
-		companyUserVo.setCompany_id("kaka01");
-		companyUserVo 			  = companyMapper.getCompanyUser(companyUserVo);
-		//System.out.println(companyUserVo);
-		//System.out.println(skillList);
-		
-		mv.addObject("companyUserVo", companyUserVo);
-		mv.addObject("skillList",     skillList);
-		mv.addObject("regionList",    regionList);
-		mv.setViewName("/company/recruitUpdateForm");
-		return mv;
-	}
-    */
    
 	
 }
