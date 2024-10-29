@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/Users")
 public class UserController {
+
 	
 	@Autowired
 	private  UserMapper  userMapper;
@@ -143,9 +144,11 @@ public class UserController {
 		HttpSession  session = request.getSession();
 		session.setAttribute( "userLogin", userVo );
 
+		session.setMaxInactiveInterval(60*60);
 		return  "redirect:/";
 		
 	}
+
 
     // /Users/Logout
     @RequestMapping(value="/Logout", method = RequestMethod.GET)
@@ -153,9 +156,10 @@ public class UserController {
         session.invalidate(); // 세션 무효화
         return "redirect:/";
     }
-	
-	
+   
+   
 }
+
 
 
 

@@ -75,14 +75,16 @@
 
         </div>
         <div class="title">ALGO JJOB</div>
+        <div class="title">기업회원 로그인</div>
         <input type="text" name="company_id" placeholder="아이디" />
         <input type="password" name="company_passwd" placeholder="비밀번호" />
         <input type=submit value="로그인" />
         <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
-	</form>
+   </form>
 </body>
 </html>
+
 
 
 

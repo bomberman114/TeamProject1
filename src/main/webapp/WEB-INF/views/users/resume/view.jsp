@@ -194,6 +194,7 @@
        			<a href="/Resume/DeleteResume?user_id=${userLogin.user_id}&user_resume_idx=${userResume.user_resume_idx}">이력서 삭제하기</a>
        			<a href="/Resume/UpdateResumeForm?user_id=${userLogin.user_id}&user_resume_idx=${userResume.user_resume_idx}">이력서 수정하기</a>
        			<a href="/Resume/ResumeList?user_id=${userLogin.user_id}">이력서 목록</a>
+
             </div>
     </main>
 

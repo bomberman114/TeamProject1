@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.green.region.vo.RegionVo;
 import com.green.skills.vo.SkillVo;
 import com.green.user.resume.vo.UserResumeVo;
+import com.green.users.vo.UserVo;
 
 
 @Mapper
@@ -37,6 +38,8 @@ public interface UserResumeMapper {
 	List<SkillVo> getSelectedSkills( @Param("user_resume_idx") int user_resume_idx);
 
 	void updateUserResume(UserResumeVo userResumeVo);
+
+	List<UserResumeVo> getUserResumeListData(UserVo userVo);
 
 
 
