@@ -35,8 +35,8 @@ public class HomeController {
 
 	       // 세션에서 로그인된 사용자 정보 가져오기
 	       HttpSession session = request.getSession();
-	       UserVo logInUser = (UserVo) session.getAttribute("userlogin");
-	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companylogin");
+	       UserVo logInUser = (UserVo) session.getAttribute("userLogin");
+	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companyUserLogin");
 
 	       // 개인 로그인 여부 확인
 	       if (logInUser != null) {
@@ -59,14 +59,6 @@ public class HomeController {
 	          mv.addObject("logOutCompanyUser", false);
 	       }
 	       
-	       
-	       // 관리자 여부 확인
-	       if (logInUser != null && "admin".equals(logInUser.getUser_id())) {
-	           mv.addObject("admin", true);
-	       } else {
-	           mv.addObject("admin", false);
-	       }
-
 	       mv.setViewName("home");
 	       return mv;
 	   }

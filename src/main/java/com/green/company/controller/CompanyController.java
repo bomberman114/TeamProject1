@@ -358,7 +358,7 @@ public class CompanyController {
 		System.out.println(companyUserVo);
 			
 		HttpSession  session = request.getSession();
-		session.setAttribute( "login", companyUserVo );
+		session.setAttribute( "companyUserLogin", companyUserVo );
 		
 		return  "redirect:/";
 		

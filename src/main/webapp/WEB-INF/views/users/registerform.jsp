@@ -90,7 +90,7 @@
       	<td><span class="red">*</span>아이디</td>
       	<td>
       		<input type="text"    name="user_id" />
-      		<input type="button"  id="checkDuplication"  value="중복확인" />
+      		<input type="button"  id="checkDuplication" value="중복확인" />
       		<span id="dupResult"></span>
       	</td>
      </tr>
@@ -110,19 +110,20 @@
 	 	<td><span class="red">*</span>연락처</td>
 		<td><input type="text" name="user_phone" placeholder="-없이 입력해주세요">
 	 </tr>
-	<tr>
+     <tr>
 	    <td>이메일</td>
 	    <td>
-	        <input type="email" id="user_email" name="user_email" placeholder="이메일 입력" required />
+	        <input type="email" id="user_email" name="user_email" value="${user.user_email}" placeholder="이메일 입력" />
 	    </td>
 	    <td>
-	        <select id="email_domain">
+	        <select id="email_domain" onchange="updateEmail()" >
 	            <option value="" selected>직접입력</option> <!-- 기본 선택값으로 설정 -->
 	            <option value="gmail.com">gmail.com</option>
 	            <option value="naver.com">naver.com</option>
 	            <option value="kakao.com">kakao.com</option>
 	            <option value="yahoo.com">yahoo.com</option>
 	            <option value="outlook.com">outlook.com</option>
+	            <option value="green.com">green.com</option>
 	        </select>
 	    </td>
 	</tr>
@@ -146,18 +147,21 @@
 	    const checkDuplicationEl = document.querySelector('#checkDuplication');
 	    let   dupCheckClicked 	 = false;
 	    
-	    const emailInput = document.getElementById('user_email');
-	    const emailDomain = document.getElementById('email_domain');
+       function updateEmail() {
+           var emailInput = document.getElementById('user_email');
+           var domainSelect = document.getElementById('email_domain');
 
-	    // 도메인 선택 시 입력값 업데이트
-	    emailDomain.addEventListener('change', function() {
-	        const selectedDomain = this.value;
-	        if (selectedDomain) {
-	            emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
-	        } else {
-	            emailInput.value = emailInput.value.split('@')[0]; // 직접 입력
-	        }
-	    });
+           // 선택된 도메인을 가져옴
+           var selectedDomain = domainSelect.value;
+
+           // 선택된 도메인이 비어있지 않은 경우
+           if (selectedDomain) {
+               emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
+           } else {
+               emailInput.value = emailInput.value.split('@')[0]; // 도메인 제거
+           }
+       }
+       
 	    
 	    checkDuplicationEl.onclick = function() {
 	        const useridInput = useridEl.value.trim();
