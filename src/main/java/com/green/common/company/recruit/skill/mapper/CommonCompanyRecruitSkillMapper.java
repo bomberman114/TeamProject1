@@ -17,6 +17,7 @@ public interface CommonCompanyRecruitSkillMapper {
 
 	void setCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx, @Param("skillList") List<SkillVo> skillList);
 
+	void deletCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx);
 
 
 

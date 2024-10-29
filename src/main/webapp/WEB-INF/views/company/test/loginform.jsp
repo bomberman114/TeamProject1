@@ -67,27 +67,22 @@
 </head>
 
 <body>
-    <form action="/Users/Login"  method="POST">
+    <form action="/Company/Login"  method="POST">
     <div class="container">
         <div class="toggle">
             <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
             <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
-        <!-- 페이지를 따로 빼야함 -->
+
         </div>
         <div class="title">ALGO JJOB</div>
-		<a href=""
-        <div class="title">개인회원 로그인</div>
-        <input type="text" name="user_id" placeholder="아이디" />
-        <input type="password" name="user_passwd" placeholder="비밀번호" />
-        <button class="btn" type=submit id=login >로그인</button>
-
-        <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
+        <input type="text" name="company_id" placeholder="아이디" />
+        <input type="password" name="company_passwd" placeholder="비밀번호" />
+        <button class="btn" type=submit id=login>로그인</button>
+        <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
-   </form>
-
+	</form>
 </body>
 </html>
-
 
 
 

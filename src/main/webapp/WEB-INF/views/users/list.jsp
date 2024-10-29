@@ -11,13 +11,21 @@
     <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
     <script>
         function confirmDeletion(user_id) {
+<<<<<<< HEAD
             return confirm("개인회원 " + user_id + "을(를) 정말 삭제하시겠습니까?");
+=======
+            return confirm( "개인회원 " + user_id + "을(를) 정말 삭제하시겠습니까?" );
+>>>>>>> 4870fd1775c408b8bc67500d9f513c6e2c4ec1dc
         }
     </script>
 </head>
 <body>
     <main>  
+<<<<<<< HEAD
         <h2>개인회원 목록 (관리자:${login.user_id})</h2>
+=======
+        <h2>개인회원 목록 (관리자:${ userLogin.user_id })</h2>
+>>>>>>> 4870fd1775c408b8bc67500d9f513c6e2c4ec1dc
         <table>
             <tr>
                 <td>아이디</td>

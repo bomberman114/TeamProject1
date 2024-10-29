@@ -71,6 +71,8 @@ public interface CompanyRecruitMapper {
 	void deleteRecruit(int company_recruit_idx);
 
 
+	HashMap<String, String> getCompanyOneRecruitData(CompanyRecruitVo companyRecruitVo);
 
+	void setCompanyRecruitUpdate(CompanyRecruitVo companyRecruitVo);
 
 }

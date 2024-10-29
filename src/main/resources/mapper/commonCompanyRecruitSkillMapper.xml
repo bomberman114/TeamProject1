@@ -20,7 +20,16 @@
 
  	</insert>
   	
-  
+
+  	
+  	<delete id="deletCommonCompanyRecruitSkill">
+  		DELETE 
+  		FROM 
+  			common_company_recruit_skill
+		WHERE
+        	common_company_idx = #{company_recruit_idx}
+  	</delete>
+
 
 </mapper>
 

@@ -8,10 +8,10 @@
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
- 	    html, body {
-	    height: 100%; /* 전체 높이를 100%로 설정 */
-	    margin: 0; /* 기본 마진 제거 */
-		}
+        html, body {
+       height: 100%; /* 전체 높이를 100%로 설정 */
+       margin: 0; /* 기본 마진 제거 */
+      }
 
         body {
             font-family: 'Arial', sans-serif;
@@ -25,8 +25,8 @@
         }
 
         main {
-		    max-height: 90vh; /* 최대 높이를 90vh로 설정 */
-		    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+          max-height: 90vh; /* 최대 높이를 90vh로 설정 */
+          overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
             background-color: #ffffff;
             padding: 40px;
             border-radius: 15px;
@@ -129,7 +129,7 @@
          <input type="hidden" name="user_id" value="${user_id}">
          <input type="hidden" name="user_resume_idx" value="${userResume.user_resume_idx}">
             <div class="form-group">
-            	<label>이력서 제목</label>
+               <label>이력서 제목</label>
                 <input type="text" name="user_title" value="${userResume.user_title}"readonly />
             </div>
             <div class="form-group">
@@ -149,27 +149,27 @@
                 <input type="text" name="user_phone" placeholder="-없이 입력해주세요" value="${userResume.user_phone}" readonly/>
             </div>
 
-			<!-- 스킬 섹션 -->
-			<div class="input-container"><span class="red">*</span>사용 스킬
-			
-				<c:set var="previousSkillStack" value="" />
-				<c:forEach var="skill" items="${selectedSkills}">
-				    <c:if test="${skill.skill_stack != previousSkillStack}">
-				        <div class="skill-category">${skill.skill_stack}</div>
-				        <c:set var="previousSkillStack" value="${skill.skill_stack}" />
-				    </c:if>
-				    <div>
-				        <label for="skill_name_${skill.skill_name}">${skill.skill_name}</label>
-				    </div>
-				
-				    <c:if test="${(skill != selectedSkills[selectedSkills.size() - 1]) && (selectedSkills[selectedSkills.indexOf(skill) + 1].skill_stack != skill.skill_stack)}">
-				        <div style="margin-top: 20px;"></div> <!-- 두 줄 띄우기 -->
-				        <div style="margin-top: 20px;"></div>
-				    </c:if>
-				</c:forEach>
-			</div>
-			
-				
+         <!-- 스킬 섹션 -->
+         <div class="input-container"><span class="red">*</span>사용 스킬
+         
+            <c:set var="previousSkillStack" value="" />
+            <c:forEach var="skill" items="${selectedSkills}">
+                <c:if test="${skill.skill_stack != previousSkillStack}">
+                    <div class="skill-category">${skill.skill_stack}</div>
+                    <c:set var="previousSkillStack" value="${skill.skill_stack}" />
+                </c:if>
+                <div>
+                    <label for="skill_name_${skill.skill_name}">${skill.skill_name}</label>
+                </div>
+            
+                <c:if test="${(skill != selectedSkills[selectedSkills.size() - 1]) && (selectedSkills[selectedSkills.indexOf(skill) + 1].skill_stack != skill.skill_stack)}">
+                    <div style="margin-top: 20px;"></div> <!-- 두 줄 띄우기 -->
+                    <div style="margin-top: 20px;"></div>
+                </c:if>
+            </c:forEach>
+         </div>
+         
+            
             <!-- 지역 및 주소 -->
             <div class="input-container">
                 <div class="address-container">
@@ -181,7 +181,7 @@
                     </select>
                     <label>거주지 상세 주소</label>
                     <div class="form-group">
-                	<input type="text" name="region_address" id="roadFullAddr"  value="${userResume.region_address}" readonly/>
+                   <input type="text" name="region_address" id="roadFullAddr"  value="${userResume.region_address}" readonly/>
                     </div>
                 </div>
             </div>
@@ -192,8 +192,8 @@
             </div>
 
             <div>
-       			<a href="/User/UpdateResume?user_id=${login.user_id}&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
-       			<a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a>
+                <a href="/User/UpdateResume?user_id=${ userLogin.user_id }&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
+                <a href="/User/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a>
             </div>
     </main>
 

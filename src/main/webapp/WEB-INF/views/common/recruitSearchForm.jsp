@@ -172,6 +172,10 @@
     font-weight: bold; /* 글자 두껍게 */
     border: 1px solid #2E7D32; /* 경계 색상과 일치 */
 }
+   .job-card > a:hover {
+      background-color: gray;
+   }
+
     </style>
 </head>
 <body>
@@ -183,13 +187,13 @@
         <form action="/Common/RecruitSearch" method="get">
             <div class="search-bar">
                 <input type="text" id="searchKeyword" name="recruit_title" placeholder="채용공고검색" value="${ recruit_title eq null || recruit_title eq ''  ? '' : recruit_title }">
-            	<input type="submit" class="search-button" value="Search">
+               <input type="submit" class="search-button" value="Search">
             </div>
-	
+   
             <!-- 기술 선택 섹션 -->
             <div class="filter-section">
                 <h3>Select Skills</h3>
-	
+   
                 <div class="category-bar" onclick="toggleSection('backendSkills', this)">
                     <span>백엔드</span>
                     <span class="toggle-icon">▼</span>
@@ -201,13 +205,13 @@
                                 <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }"
                                      <c:forEach var="skillListCheck" items="${ skillListCheck }">
                                     <c:if test="${ skillListCheck.skill_name eq skillList.skill_name }">checked</c:if>
-                                	</c:forEach> />
+                                   </c:forEach> />
                                 <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
                             </div>
                         </c:if>
                     </c:forEach>
                 </div>
-	
+   
                 <div class="category-bar" onclick="toggleSection('frontendSkills', this)">
                     <span>프론트엔드</span>
                     <span class="toggle-icon">▼</span>
@@ -219,13 +223,13 @@
                                 <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }"
                                      <c:forEach var="skillListCheck" items="${ skillListCheck }">
                                     <c:if test="${ skillListCheck.skill_name eq skillList.skill_name }">checked</c:if>
-                                	</c:forEach> />
+                                   </c:forEach> />
                                 <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
                             </div>
                         </c:if>
                     </c:forEach>
                 </div>
-	
+   
                 <div class="category-bar" onclick="toggleSection('dbSkills', this)">
                     <span>데이터베이스</span>
                     <span class="toggle-icon">▼</span>
@@ -237,13 +241,13 @@
                                 <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }"
                                      <c:forEach var="skillListCheck" items="${ skillListCheck }">
                                     <c:if test="${ skillListCheck.skill_name eq skillList.skill_name }">checked</c:if>
-                                	</c:forEach> />
-                                	<label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                                   </c:forEach> />
+                                   <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
                             </div>
                         </c:if>
                     </c:forEach>
                 </div>
-	
+   
                 <div class="category-bar" onclick="toggleSection('mobileSkills', this)">
                     <span>모바일</span>
                     <span class="toggle-icon">▼</span>
@@ -255,7 +259,7 @@
                                 <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }"
                                     <c:forEach var="skillListCheck" items="${ skillListCheck }">
                                     <c:if test="${ skillListCheck.skill_name eq skillList.skill_name }">checked</c:if>
-                                	</c:forEach> />
+                                   </c:forEach> />
                                 <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
                             </div>
                         </c:if>
@@ -263,23 +267,23 @@
                 </div>
             </div>
                <!-- 지역 선택 섹션 -->
-	        <div class="filter-section">
-	            <h3>Select Regions</h3>
-	            <div class="category-bar" onclick="toggleSection('regions', this)">
-	                <span>지역 선택</span>
-	                <span class="toggle-icon">▼</span>
-	            </div>
-	            <div id="regions" class="checkbox-group">
-	              <c:forEach var="region" items="${regionList}">
-				    <input type="checkbox" id="region_${region.region_idx}" name="region_idx" value="${region.region_idx}"
-				        <c:forEach var="regionListCheck" items="${regionListCheck}">
-				            <c:if test="${regionListCheck.region_idx == region.region_idx}">checked</c:if>
-				        </c:forEach> />
-				    <label for="region_${region.region_idx}">${region.region_name}</label>
-				</c:forEach>
-	            </div>
-	        </div>
-	
+           <div class="filter-section">
+               <h3>Select Regions</h3>
+               <div class="category-bar" onclick="toggleSection('regions', this)">
+                   <span>지역 선택</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="regions" class="checkbox-group">
+                 <c:forEach var="region" items="${regionList}">
+                <input type="checkbox" id="region_${region.region_idx}" name="region_idx" value="${region.region_idx}"
+                    <c:forEach var="regionListCheck" items="${regionListCheck}">
+                        <c:if test="${regionListCheck.region_idx == region.region_idx}">checked</c:if>
+                    </c:forEach> />
+                <label for="region_${region.region_idx}">${region.region_name}</label>
+            </c:forEach>
+               </div>
+           </div>
+   
         </form>
         
            <!-- 검색 결과 리스트 섹션 -->
@@ -288,6 +292,7 @@
             <h3>Search Results</h3>
             <c:forEach var="companyRecruit" items="${companyRecruitList}">
                 <div class="job-card">
+                <a style="text-decoration:none" href="/Common/RecruitInfo?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
                     <div class="job-title">제목 : ${ companyRecruit.RECRUIT_TITLE }</div>
                     <div class="job-title">회사이름 : ${ companyRecruit.COMPANY_NAME }</div>
                     <div class="job-location">지역: ${ companyRecruit.REGION_NAME }</div>
@@ -296,57 +301,58 @@
                             <span class="job-skill">${skill_name}</span>
                         </c:forEach>
                     </div>
+                 </a>
                 </div>
             </c:forEach>
         </div>
         <!-- 페이징 영역 -->
-			<div class="pagination">
-        	<c:if test="${ nowpage > 1 }">
-        		<c:set var="url" value="?nowpage=${nowpage - 1}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
-        		  <!-- skill_name 쿼리 파라미터 추가 -->
-			    <c:forEach var="skill" items="${skillListCheck}">
-			        <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
-			    </c:forEach>
-			
-			    <!-- region_idx 쿼리 파라미터 추가 -->
-			    <c:forEach var="region" items="${regionListCheck}">
-			        <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
-			    </c:forEach>
-			    
-        		<a href="${ url }">이전</a>
-        	</c:if>
-        	
-        	<c:forEach var="i" begin="1" end="${pagination.totalPageCount}">
-			    <c:set var="url" value="?nowpage=${i}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
-			
-			    <!-- skill_name 쿼리 파라미터 추가 -->
-			    <c:forEach var="skill" items="${skillListCheck}">
-			        <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
-			    </c:forEach>
-			
-			    <!-- region_idx 쿼리 파라미터 추가 -->
-			    <c:forEach var="region" items="${regionListCheck}">
-			        <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
-			    </c:forEach>
-			
-			    <!-- 링크에 완성된 URL 적용 -->
-			    <a class="${i == nowpage ? 'current-page' : ''}" href="${url}">${i}</a>
-			</c:forEach>
+         <div class="pagination">
+           <c:if test="${ nowpage > 1 }">
+              <c:set var="url" value="?nowpage=${nowpage - 1}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
+                <!-- skill_name 쿼리 파라미터 추가 -->
+             <c:forEach var="skill" items="${skillListCheck}">
+                 <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
+             </c:forEach>
+         
+             <!-- region_idx 쿼리 파라미터 추가 -->
+             <c:forEach var="region" items="${regionListCheck}">
+                 <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
+             </c:forEach>
+             
+              <a href="${ url }">이전</a>
+           </c:if>
+           
+           <c:forEach var="i" begin="1" end="${pagination.totalPageCount}">
+             <c:set var="url" value="?nowpage=${i}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
+         
+             <!-- skill_name 쿼리 파라미터 추가 -->
+             <c:forEach var="skill" items="${skillListCheck}">
+                 <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
+             </c:forEach>
+         
+             <!-- region_idx 쿼리 파라미터 추가 -->
+             <c:forEach var="region" items="${regionListCheck}">
+                 <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
+             </c:forEach>
+         
+             <!-- 링크에 완성된 URL 적용 -->
+             <a class="${i == nowpage ? 'current-page' : ''}" href="${url}">${i}</a>
+         </c:forEach>
             
-        	<c:if test="${ nowpage < pagination.endPage }">
-        		<c:set var="url" value="?nowpage=${nowpage + 1}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
-        		  <!-- skill_name 쿼리 파라미터 추가 -->
-			    <c:forEach var="skill" items="${skillListCheck}">
-			        <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
-			    </c:forEach>
-			
-			    <!-- region_idx 쿼리 파라미터 추가 -->
-			    <c:forEach var="region" items="${regionListCheck}">
-			        <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
-			    </c:forEach>
-			    
-        		<a href="${ url }">다음</a>
-        	</c:if>
+           <c:if test="${ nowpage < pagination.endPage }">
+              <c:set var="url" value="?nowpage=${nowpage + 1}&pageSize=${pageSize}&recruit_title=${recruit_title}" />
+                <!-- skill_name 쿼리 파라미터 추가 -->
+             <c:forEach var="skill" items="${skillListCheck}">
+                 <c:set var="url" value="${url}&skill_name=${skill.skill_name}" />
+             </c:forEach>
+         
+             <!-- region_idx 쿼리 파라미터 추가 -->
+             <c:forEach var="region" items="${regionListCheck}">
+                 <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
+             </c:forEach>
+             
+              <a href="${ url }">다음</a>
+           </c:if>
         </div>
         
         </c:if>
@@ -355,7 +361,8 @@
     </div>
 
     <script type="text/javascript">
-	   
+    
+   
     function toggleSection(sectionId, element, forceOpen = false) {
         var section = document.getElementById(sectionId);
         var icon = element.querySelector(".toggle-icon");
@@ -382,16 +389,9 @@
 
         skillSections.forEach(function(sectionId) {
             var checkboxes = document.querySelectorAll(`#${sectionId} input[type="checkbox"]`);
-            var sectionVisible = false;
-			alert( checkboxes.value );
-            for (var checkbox of checkboxes) {
-                if (checkbox.checked) {
-                    sectionVisible = true;
-                    break;
-                }
-            }
+            var sectionVisible = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줌
+            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줍니다.
             if (sectionVisible) {
                 var categoryBar = document.querySelector(`.category-bar[onclick*="${sectionId}"]`);
                 if (categoryBar) {
@@ -400,15 +400,9 @@
             }
         });
 
+        // 지역 체크박스도 동일하게 처리
         var regionCheckboxes = document.querySelectorAll("#regions input[type='checkbox']");
-        var regionVisible = false;
-
-        for (var checkbox of regionCheckboxes) {
-            if (checkbox.checked) {
-                regionVisible = true;
-                break;
-            }
-        }
+        var regionVisible = Array.from(regionCheckboxes).some(checkbox => checkbox.checked);
 
         if (regionVisible) {
             var regionCategoryBar = document.querySelector(`.category-bar[onclick*="regions"]`);
@@ -417,6 +411,8 @@
             }
         }
     });
+
+
     </script>
 
 </body>

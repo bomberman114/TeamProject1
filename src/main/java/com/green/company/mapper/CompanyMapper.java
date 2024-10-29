@@ -19,6 +19,9 @@ public interface CompanyMapper {
 	void updateInfoUser(CompanyUserVo companyUserVo);
 
 
+	CompanyUserVo getCompanyUser(String company_id);
+
+
 
 
 }
