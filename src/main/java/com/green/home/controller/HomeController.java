@@ -19,19 +19,22 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-	
-	@Autowired
-	private CompanyRecruitMapper companyRecruitMapper;
-	
+
+   @Autowired
+   private CompanyRecruitMapper companyRecruitMapper;
+   
+
 
 
 	   @GetMapping("/")
 	   public ModelAndView home(HttpServletRequest request) {
 	       ModelAndView mv = new ModelAndView();
 
-	       // 회사 채용 리스트 가져오기
-	       List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.companyRecruitList();
-	       mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
+
+          // 회사 채용 리스트 가져오기
+          List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.companyRecruitList();
+          mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
+
 
 	       // 세션에서 로그인된 사용자 정보 가져오기
 	       HttpSession session = request.getSession();
@@ -60,12 +63,13 @@ public class HomeController {
 	          mv.addObject("logOutCompanyUser", false);
 	       }
 	       
-	       
 	    
+        
+          
+          mv.setViewName("home");
+          return mv;
+      }
 
-	       mv.setViewName("home");
-	       return mv;
-	   }
 
 }
 

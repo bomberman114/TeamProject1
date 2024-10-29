@@ -18,21 +18,37 @@
             padding: 0;
         }
 
-        header {
-            background-color: #ffffff;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 10; /* 헤더가 항상 위에 오도록 설정 */
-        }
-		header img {
-		    height: 60px; /* 로고 높이 조정 */
-		    margin-right: 20px; /* 네비게이션 링크와의 간격 */
-		    align-items: center;
-		}
+header {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* 헤더가 항상 위에 오도록 설정 */
+}
+.logo-container {
+    margin-bottom: 20px; /* 로고와 네비게이션 간의 간격 조정 */
+    text-align: center; /* 로고 중앙 정렬 */
+    width: 100%; /* 전체 너비 사용 */
+    height: 15em; /* 로고 높이 설정 */
+    overflow: hidden; /* 잘라내기 */
+}
 
+.logo-container img {
+    object-fit; /* 비율 유지하며 잘라내기 */
+}
+
+header img {
+    height: 15em; /* 로고 높이 조정 */
+}
+.nav-container {
+    display: flex; /* 수평 정렬을 위한 flexbox 사용 */
+    flex-direction: unset;
+    justify-content: space-between; /* 공간을 균등하게 배분 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 전체 너비 사용 */
+}
         nav ul {
             list-style: none;
             display: flex;
@@ -162,59 +178,62 @@
 </head>
 <body>
     <header>
-        <nav>
-        <a href="#">
-            <img src="https://www.notion.so/11b0c1a80a6080daa13afd53c5ac04ad?pvs=4#1210c1a80a608019a7f6e55480a1895a" alt="사이트 로고" style="height: 60px;"> <!-- 이미지 URL -->
+    <div class="logo-container">
+        <a href="/">
+            <img src="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/NEXT.png?raw=true" alt="사이트 로고" style="height: 15em;"> <!-- 로고 크기 조정 -->
         </a>
+    </div>
+<p></p>
+        <nav>
             <ul>
                 <li><a href="#">커뮤니티</a></li>
                 <li><a href="#">고객센터</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
+
                 <% if ((Boolean) request.getAttribute("logInUser")) {%>
   
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
 
 
-                <!-- 회사측 로그인후 보이게 나중에 처리 -->
-                <li><a href="/Company/Info">내 정보</a>
-
-
-                <% } %>
-                <% if ((Boolean) request.getAttribute("logOutUser")) {%>
+            <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
                 <li><a href="/Users/Logout">로그아웃</a></li>
+
                 <% } %>
                 
 
                 <li><a href="/User/RegisterResumeForm?user_id=${user.user_id}">이력서 작성</a></li>
                 <li><a href="/User/ResumeList?user_id=${user.user_id}">이력서 목록</a></li>
 
-                
-                <% if ((Boolean) request.getAttribute("logInCompanyUser")) {%>
-                <!-- 
-                <li><a href="/Common/LoginForm">로그인</a></li>
-                <li><a href="/Users/LoginForm">로그인</a></li>
-                <li><a href="/Company/LoginForm">로그인</a></li>
-                <li><a href="/Users/RegisterForm">회원가입</a></li>
-                 -->
-                <% } %>
-                <% if ((Boolean) request.getAttribute("logOutCompanyUser")) {%>
+
+            <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
                 <li><a href="/Company/Logout">로그아웃</a></li>
-                <% } %>
+            <% } %>
+
+                
+                
+                <% if ((Boolean) request.getAttribute("logInUser") && (Boolean) request.getAttribute("logInCompanyUser")){%>
+                <li><a href="/Users/LoginForm">로그인</a></li>
+                <li><a href="/Users/RegisterForm">회원가입</a></li>
+            <% } %>
+
+                <li><a href="/User/RegisterResumeForm?user_id=${ userLogin.user_id }">이력서 작성</a></li>
+                <li><a href="/User/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a></li>
+                
 
             </ul>
         </nav>
-        <button type="button" onclick="location.href='/Users/LoginForm' ">로그인</button>
-        <button type="button" onclick="location.href='/Users/RegisterForm' ">회원가입</button>
         <button class="menu-toggle" id="menu-toggle">☰</button>
     </header>
     
     <div class="container">
         <div class="sidebar" id="sidebar">
             <button id="close-menu">닫기</button>
-            <p><a href="#">메뉴 항목 1</a></p>
-            <p><a href="#">메뉴 항목 2</a></p>
+                <p><a href="/Company/Info?company_id="${companyUserLogin.company_id}>회사 정보</a></p>
+                <p><a href="/Users/View?user_id=${userLogin.user_id}">개인 정보</a></p>
+   
             <p><a href="#">메뉴 항목 3</a></p>
+             <p><a href="/Company/CompanyDelete?company_id=${ companyUserLogin.company_id }">탈태</a></p>
         </div>
 
         
@@ -228,10 +247,10 @@
             </div>
 
             <div class="grid-container">
-            	<c:forEach var="companyRecruitList" items="${ companyRecruitList }">     
-                	<a href="" class="card">${ companyRecruitList.company_name }<br>${ companyRecruitList.recruit_title }</a>
-                	<!--  회사이름, 공고이름 -->
-            	</c:forEach>		
+               <c:forEach var="companyRecruitList" items="${ companyRecruitList }">     
+                   <a href="" class="card">${ companyRecruitList.company_name }<br>${ companyRecruitList.recruit_title }</a>
+                   <!--  회사이름, 공고이름 -->
+               </c:forEach>      
             </div>
         </main>
     </div>
@@ -252,4 +271,5 @@
 
 </body>
 </html>
+
 

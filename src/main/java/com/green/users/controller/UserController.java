@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/Users")
 public class UserController {
+
 	
 	@Autowired
 	private  UserMapper  userMapper;
@@ -160,15 +161,17 @@ public class UserController {
 		
 	}
 
+
     // /Users/Logout
     @RequestMapping(value="/Logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout( HttpSession session ) {
         session.invalidate(); // 세션 무효화
-        return "redirect:/"; // 홈으로 리다이렉트
+        return "redirect:/";
     }
-	
-	
+   
+   
 }
+
 
 
 
