@@ -20,7 +20,7 @@
 <%--         <%@include file="/WEB-INF/include/pagingmenus.jsp" %>
  --%>    
         <h2>내 이력서 목록</h2>
-         <input type="hidden" name="user_id" value="${ userLogin.user_id }">
+         <input type="hidden" name="user_id" value="${userLogin.user_id}">
         <table>
             <tr>
                 <td>번호</td>
@@ -31,19 +31,19 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <a href="/User/RegisterResumeForm?user_id=${ userLogin.user_id }">새 이력서 작성하기</a>
+                    <a href="/Resume/RegisterResumeForm?user_id=${userLogin.user_id}">새 이력서 작성하기</a>
                 </td>
             </tr>
             <c:forEach var="resume" items="${userResumeList}">
                 <tr>
                     <td>${resume.user_resume_idx}</td>
-                    <td><a href="/User/ViewResume?user_id=${ userLogin.user_id }&user_resume_idx=${resume.user_resume_idx}">${resume.user_title}</a></td>
+                    <td><a href="/Resume/ViewResume?user_id=${userLogin.user_id}&user_resume_idx=${resume.user_resume_idx}">${resume.user_title}</a></td>
                     <td>${resume.user_resume_regdate}</td>
                     <td>
-                        <a href="/User/DeleteResume?user_id=${ userLogin.user_id }&user_resume_idx=${resume.user_resume_idx}" 
+                        <a href="/Resume/DeleteResume?user_id=${userLogin.user_id}&user_resume_idx=${resume.user_resume_idx}" 
                            onclick="return confirmDeletion('${resume.user_resume_idx}');">삭제</a>
                     </td>
-                    <td><a href="/Users/UpdateResume?user_resume_idx=${resume.user_resume_idx}">수정</a></td>
+                    <td><a href="/Resume/UpdateResumeForm?user_id=${userLogin.user_id}&user_resume_idx=${resume.user_resume_idx}">수정</a></td>
                 </tr> 
             </c:forEach>	    
         </table>
