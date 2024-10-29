@@ -75,51 +75,13 @@
         <!-- 페이지를 따로 빼야함 -->
         </div>
         <div class="title">ALGO JJOB</div>
-        <input type="text" name="user_id" placeholder="아이디" />
-        <input type="password" name="user_passwd" placeholder="비밀번호" />
-        <button class="btn" type=submit id=login >로그인</button>
+        <input type="text" name="user_id" placeholder="아이디" value="admin"/>
+        <input type="password" name="user_passwd" placeholder="비밀번호" value="1234"/>
+        <input type=submit value="로그인"/>
         <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
-        <button class="btn" type=button onclick="location.href='/Users/UpdateForm'">수정</button>
-        <button class="btn" type=submit onclick="location.href='/Users/delete'">삭제</button>
     </div>
-	</form>
+   </form>
 
-<!-- 	
-</head>
-<body>
-  <main>  
-    <h2>로그인</h2>
-    <form action="/Users/Login"  method="POST">
-    <table>
-     <tr>
-      <td>아이디</td>
-      <td>
-      <input type="text"  name="user_id" value="admin" required/>     
-      </td>
-     </tr>
-     <tr>
-      <td>암호</td>
-      <td><input type="password" name="user_passwd" value="1234" required/></td>
-     </tr>
-     <tr>
-      <td colspan="2">
-       <input type="submit" value="로그인" />
-       <input type="button" onclick="location.href='/Users/RegisterFrom'" value="회원가입" />
-      </td>
-     </tr>
-    
-    </table>    
-    </form>
-  
-    <script>
-       const  goList = document.getElementById('goList')
-       goList.onclick = function() {
-          location.href = '/Users/RegisterForm'
-       }    
-       
-    </script> 
-  </main>
-  -->
 </body>
 </html>
 

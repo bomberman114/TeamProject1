@@ -44,7 +44,7 @@
         <table class="table table-bordered">
             <tr>
                 <td>아이디</td>
-                <td><input type="text" name="user_id" value="${user.user_id}" readonly/></td>
+                <td><input type="text" name="company_id" value="${companyUser.company_id}" readonly/></td>
             </tr>
             <tr>
                 <td>비밀번호</td>
@@ -57,6 +57,10 @@
             <tr>
                 <td>연락처</td>
                 <td><input type="text" name="user_phone" value="${user.user_phone}" readonly /></td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="email" name="user_email" value="${user.user_email}" readonly /></td>
             </tr>
             <tr>
                 <td>이메일</td>
@@ -88,7 +92,7 @@
         
 
         <script>
-            const user_id = document.querySelector('[name=user_id]').value;
+            const company_id = document.querySelector('[name=company_id]').value;
             const goUpdate = document.getElementById('goUpdate');
 
             goUpdate.onclick = function() {
@@ -100,10 +104,10 @@
             
             const deleteBtn = document.getElementById('delete');
             deleteBtn.onclick = function() {
-                document.getElementById('deleteMessage').innerText = user_id + " 계정을 정말 삭제하시겠습니까?";
+                document.getElementById('deleteMessage').innerText = company_id + " 계정을 정말 삭제하시겠습니까?";
                 $('#deleteModal').modal('show');
                 document.getElementById('confirmDelete').onclick = function() {
-                    location.href = '/Users/Delete?user_id=' + user_id;
+                    location.href = '/CompanyUsers/Delete?company_id=' + company_id;
                 };
             };
         </script> 

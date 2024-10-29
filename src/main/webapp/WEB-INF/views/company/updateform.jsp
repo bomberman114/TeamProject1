@@ -56,20 +56,15 @@
       <td><input type="date" name="company_establish" value="${company.company_establish}" /></td>
      </tr>
      <tr> 
-      <td colspan="3">
-       <input type="submit" value="수정" />
-       <input type="button" value="목록" id="goList" />
-      </td>
+     <tr>
+        <td colspan="2">
+        <td><a href="/CompanyUsers/View?company_id=${CompanyUser.company_id}">완료</a></td>
+     </tr>
      </tr>
     
     </table>    
     </form>
-  
-    <script>
-       const  goList = document.getElementById('goList')
-       goList.onclick = function() {
-          location.href = '/Company/List'
-       } 
+     
        // 서버에서 전달된 error 메시지가 있을 경우 alert로 출력
        <% if (request.getAttribute("error") != null) { %>
          alert("request.getAttribute("error")");

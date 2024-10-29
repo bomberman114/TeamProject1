@@ -280,11 +280,11 @@ public class CompanyController {
 
 	
 	// 회원 삭제
-	@RequestMapping("/Delete")
+	@RequestMapping("/CompanyDelete")
 	public  ModelAndView delete(CompanyUserVo companyUserVo) {
 		companyUserMapper.deleteCompanyUser( companyUserVo );
 		ModelAndView  mv  =  new ModelAndView();
-		mv.setViewName("redirect:/company/List");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
@@ -334,43 +334,43 @@ public class CompanyController {
 		return        mv;
 	}
 	//-------------------------------------------------------------------
-	// Login
-	// /Users/LoginForm
-	@GetMapping("/LoginForm")
-	public  String  loginForm(
-			@RequestParam(value = "uri", required = false) String uri, Model model) {
-		model.addAttribute("uri",     uri);
-		//model.addAttribute("nowpage", nowpage);
-		return "company/loginform";
-	}
-	
-	
-	// /Users/Login
-	@PostMapping("/Login")
-	public  String   login(
-		HttpServletRequest   request,
-		HttpServletResponse  response
-		) {
-		String company_id  = request.getParameter("company_id");
-		String company_passwd  = request.getParameter("company_passwd");
-		
-		// db 조회
-		CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
-		System.out.println(companyUserVo);
-			
-		HttpSession  session = request.getSession();
-		session.setAttribute( "login", companyUserVo );
-		
-		return  "redirect:/";
-		
-	}
+	   // Login
+	   // /Users/LoginForm
+	   @GetMapping("/LoginForm")
+	   public  String  loginForm(
+	         @RequestParam(value = "uri", required = false) String uri, Model model) {
+	      model.addAttribute("uri",     uri);
+	      //model.addAttribute("nowpage", nowpage);
+	      return "company/loginform";
+	   }
+	   
+	   
+	   // /Users/Login
+	   @PostMapping("/Login")
+	   public  String   login(
+	      HttpServletRequest   request,
+	      HttpServletResponse  response
+	      ) {
+	      String company_id  = request.getParameter("company_id");
+	      String company_passwd  = request.getParameter("company_passwd");
+	      
+	      // db 조회
+	      CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
+	      System.out.println(companyUserVo);
+	         
+	      HttpSession  session = request.getSession();
+	      session.setAttribute( "companyUserLogin", companyUserVo );
+	      
+	      return  "redirect:/";
+	      
+	   }
 
-    // /Users/Logout
-    @RequestMapping(value="/Logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        session.invalidate(); // 세션 무효화
-        return "redirect:/"; // 홈으로 리다이렉트
-    }
+	    // /Users/Logout
+	    @RequestMapping(value="/Logout", method = RequestMethod.GET)
+	    public String logout(HttpSession session) {
+	        session.invalidate(); // 세션 무효화
+	        return "redirect:/"; // 홈으로 리다이렉트
+	    }
     
     
     @RequestMapping("/OneRecruit")

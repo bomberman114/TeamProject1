@@ -70,19 +70,20 @@
     <form action="/Company/Login"  method="POST">
     <div class="container">
         <div class="toggle">
-            <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
+            <input type="button" onclick="location.href='/Users/LoginForm'" value="개인회원"/>
             <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
 
         </div>
         <div class="title">ALGO JJOB</div>
         <input type="text" name="company_id" placeholder="아이디" />
         <input type="password" name="company_passwd" placeholder="비밀번호" />
-        <button class="btn" type=submit id=login>로그인</button>
+        <input type=submit value="로그인" />
         <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
-	</form>
+   </form>
 </body>
 </html>
+
 
 
 
