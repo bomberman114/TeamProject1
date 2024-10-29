@@ -4,12 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-<<<<<<< HEAD
-=======
 import org.apache.ibatis.annotations.Param;
 
->>>>>>> dbf14569eb9a2f98c99c70a7e3422b4b323ab773
-import org.apache.ibatis.annotations.Param;
 
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
@@ -74,6 +70,10 @@ public interface CompanyRecruitMapper {
 	CompanyRecruitVo getCompanyOneRecruit(int company_recruit_idx);
 
 	void deleteRecruit(int company_recruit_idx);
+
+	HashMap<String, String> getCompanyOneRecruitData(CompanyRecruitVo companyRecruitVo);
+
+	void setCompanyRecruitUpdate(CompanyRecruitVo companyRecruitVo);
 
 
 

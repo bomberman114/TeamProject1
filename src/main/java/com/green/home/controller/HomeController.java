@@ -26,7 +26,7 @@ public class HomeController {
 
 
 	   @GetMapping("/")
-	   public ModelAndView home(HttpServletRequest request) {
+	   public ModelAndView home(HttpServletRequest request, HttpSession session) {
 	       ModelAndView mv = new ModelAndView();
 
 	       // 회사 채용 리스트 가져오기
@@ -34,10 +34,11 @@ public class HomeController {
 	       mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
 
 	       // 세션에서 로그인된 사용자 정보 가져오기
-	       HttpSession session = request.getSession();
-	       UserVo logInUser = (UserVo) session.getAttribute("userlogin");
-	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companylogin");
-
+	       //HttpSession session = request.getSession();
+	       UserVo logInUser 			  = (UserVo) session.getAttribute("userLogin");
+	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companyUserLogin");
+	       System.out.println(logInUser);
+	       System.out.println(logInCompanyUser);
 	       // 개인 로그인 여부 확인
 	       if (logInUser != null) {
 	          mv.addObject("logInUser", false);
@@ -60,12 +61,7 @@ public class HomeController {
 	       }
 	       
 	       
-	       // 관리자 여부 확인
-	       if (logInUser != null && "admin".equals(logInUser.getUser_id())) {
-	           mv.addObject("admin", true);
-	       } else {
-	           mv.addObject("admin", false);
-	       }
+	    
 
 	       mv.setViewName("home");
 	       return mv;

@@ -284,6 +284,42 @@
 		FROM company_recruit
 		WHERE company_recruit_idx = #{ company_recruit_idx}
 	</select>
+	
+	<select id="getCompanyOneRecruitData">
+	SELECT 
+	   *
+	FROM 
+	    COMPANY_RECRUIT CR
+	LEFT JOIN (
+	    SELECT 
+	        COMPANY_RECRUIT_IDX, 
+	        LISTAGG(DISTINCT skill_name, ', ') WITHIN GROUP (ORDER BY skill_name) AS skill_name
+	    FROM 
+	        COMMON_COMPANY_RECRUIT_SKILL
+	    GROUP BY COMPANY_RECRUIT_IDX
+	) CCRK ON CCRK.COMPANY_RECRUIT_IDX = CR.COMPANY_RECRUIT_IDX
+	JOIN 
+	    REGION R ON CR.REGION_IDX = R.REGION_IDX
+    WHERE CR. COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+		    
+	</select>
+	
+	<update id="setCompanyRecruitUpdate">
+		    UPDATE COMPANY_RECRUIT
+				SET
+					  RECRUIT_TITLE = #{recruit_title}
+					, COMPANY_NAME = #{company_name}  
+				    , COMPANY_JOB = #{company_job}
+				    , GETMAN = #{getman}
+				    , REGION_IDX = #{region_idx}
+				    , COMPANY_ADDRESS = #{company_address}
+				    , COMPANY_INFO = #{company_info}
+				    , APPLICATION_DEADLINE = #{application_deadline}
+				    , COMPANY_ESTABLISH = TO_TIMESTAMP(#{company_establish}, 'YYYY-MM-DD HH24:MI:SS.FF')
+				WHERE
+				     COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+				     
+	</update>
   	
 
 

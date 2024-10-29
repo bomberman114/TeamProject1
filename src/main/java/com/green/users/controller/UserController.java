@@ -151,9 +151,10 @@ public class UserController {
 		String passwd  = request.getParameter("user_passwd");
 		
 		UserVo userVo = userMapper.login(userid, passwd);
-			
+		System.out.println("로그인"+userVo);
 		HttpSession  session = request.getSession();
-		session.setAttribute("login", userVo );
+		session.setAttribute("userLogin", userVo );
+		session.setMaxInactiveInterval(30*60);
 		
 		return  "redirect:/";
 		
