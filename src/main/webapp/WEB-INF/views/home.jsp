@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles.css">
     <title>사이트</title>
     <style>
         body {
@@ -180,46 +179,31 @@ header img {
     <header>
     <div class="logo-container">
         <a href="/">
-            <img src="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/NEXT.png?raw=true" alt="사이트 로고" style="height: 15em;"> <!-- 로고 크기 조정 -->
+            <img src="\css\NEXT.png" alt="사이트 로고" style="height: 15em;"> <!-- 로고 크기 조정 -->
         </a>
     </div>
 <p></p>
         <nav>
             <ul>
-                <li><a href="#">커뮤니티</a></li>
-                <li><a href="#">고객센터</a></li>
+                <li><a href="/Board?user_id=${userLogin.user_id}">커뮤니티</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
 
-                <% if ((Boolean) request.getAttribute("logInUser")) {%>
-  
-                <li><a href="/Users/RegisterForm">회원가입</a></li>
-
-
-            <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
-                <li><a href="/Users/Logout">로그아웃</a></li>
-
-                <% } %>
-                
-
-                <li><a href="/User/RegisterResumeForm?user_id=${user.user_id}">이력서 작성</a></li>
-                <li><a href="/User/ResumeList?user_id=${user.user_id}">이력서 목록</a></li>
-
-
-            <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
-                <li><a href="/Company/Logout">로그아웃</a></li>
-            <% } %>
-
+				<% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
+				    <li><a href="/Users/Logout">로그아웃</a></li>
+				<% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
+				    <li><a href="/Company/Logout">로그아웃</a></li>
+				<% } %>
                 
                 
                 <% if ((Boolean) request.getAttribute("logInUser") && (Boolean) request.getAttribute("logInCompanyUser")){%>
                 <li><a href="/Users/LoginForm">로그인</a></li>
                 <li><a href="/Users/RegisterForm">회원가입</a></li>
-            <% } %>
+				<% } %>
 
-                <li><a href="/User/RegisterResumeForm?user_id=${ userLogin.user_id }">이력서 작성</a></li>
-                <li><a href="/User/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a></li>
-                
+                <li><a href="/Resume/RegisterResumeForm?user_id=${ userLogin.user_id }">이력서 작성</a></li>
+                <li><a href="/Resume/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a></li>
+                <li><a href="/Service/Center">고객센터</a></li>
 
             </ul>
         </nav>
@@ -231,9 +215,7 @@ header img {
             <button id="close-menu">닫기</button>
                 <p><a href="/Company/Info?company_id="${companyUserLogin.company_id}>회사 정보</a></p>
                 <p><a href="/Users/View?user_id=${userLogin.user_id}">개인 정보</a></p>
-   
             <p><a href="#">메뉴 항목 3</a></p>
-             <p><a href="/Company/CompanyDelete?company_id=${ companyUserLogin.company_id }">탈태</a></p>
         </div>
 
         
@@ -247,10 +229,10 @@ header img {
             </div>
 
             <div class="grid-container">
-               <c:forEach var="companyRecruitList" items="${ companyRecruitList }">     
-                   <a href="" class="card">${ companyRecruitList.company_name }<br>${ companyRecruitList.recruit_title }</a>
-                   <!--  회사이름, 공고이름 -->
-               </c:forEach>      
+            	<c:forEach var="companyRecruitList" items="${ companyRecruitList }">     
+                	<a href="" class="card">${ companyRecruitList.company_name }<br>${ companyRecruitList.recruit_title }</a>
+                	<!--  회사이름, 공고이름 -->
+            	</c:forEach>		
             </div>
         </main>
     </div>
@@ -271,5 +253,4 @@ header img {
 
 </body>
 </html>
-
 
