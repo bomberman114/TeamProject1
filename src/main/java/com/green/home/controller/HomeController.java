@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-   
+
    @Autowired
    private CompanyRecruitMapper companyRecruitMapper;
    
@@ -62,6 +62,7 @@ public class HomeController {
           mv.setViewName("home");
           return mv;
       }
+
 
 }
 

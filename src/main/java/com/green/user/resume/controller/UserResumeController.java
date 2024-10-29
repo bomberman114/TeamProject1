@@ -21,6 +21,7 @@ import com.green.users.mapper.UserMapper;
 import com.green.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping( "/User" )
@@ -35,6 +36,17 @@ public class UserResumeController {
 	
 	@Autowired
 	private ApplicationsMapper applicationsMapper;
+	
+	@RequestMapping("/ResumeListSubmit")
+	public ModelAndView ResumeListSubmit (HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		UserVo userVo = (UserVo)session.getAttribute("userLogin");
+		
+		
+		return mv;
+		
+	} 
+	
 	
 	/*이력서 목록*/
 	@RequestMapping( "/ResumeList" )
@@ -169,9 +181,10 @@ public class UserResumeController {
 		applicationVo.setApplication_status("서류검토중");
 		applicationVo.setUser_resume_idx(userResumeVo.getUser_resume_idx());
 		applicationVo.setCompany_recruit_idx(companyRecruitVo.getCompany_recruit_idx());
+		applicationsMapper.setApplicationData(applicationVo);
 		
-		
-		
+		mv.addObject("message", "지원성공");
+		mv.setViewName(null);
 		return mv;
 		
 	}

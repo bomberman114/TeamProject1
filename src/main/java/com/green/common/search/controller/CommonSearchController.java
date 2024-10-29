@@ -46,7 +46,8 @@ public class CommonSearchController {
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		String recruit_title = null;
 		
-		
+		//System.out.println(skillList);
+		//System.out.println(regionList);
 		mv.addObject("recruit_title", recruit_title);
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
@@ -140,6 +141,21 @@ public class CommonSearchController {
 		mv.setViewName("/common/recruitSearchForm");
 		return mv;
 	}
+	
+	@RequestMapping("/RecruitInfo")
+	public ModelAndView recruitInfro (CompanyRecruitVo companyRecruitVo) {
+		ModelAndView mv = new ModelAndView();
+		
+		System.out.println("getCompany_recruit_idx:"+companyRecruitVo.getCompany_recruit_idx());
+		HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+		System.out.println("companyOneRecruit:"+companyOneRecruit);
+		
+		mv.addObject("companyOneRecruit" , companyOneRecruit);
+		mv.setViewName("/common/recruitInfo");
+		return mv;
+		
+	}
+	
 	
 	
 	

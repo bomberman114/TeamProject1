@@ -75,9 +75,12 @@
         <!-- 페이지를 따로 빼야함 -->
         </div>
         <div class="title">ALGO JJOB</div>
-        <input type="text" name="user_id" placeholder="아이디" value="admin"/>
-        <input type="password" name="user_passwd" placeholder="비밀번호" value="1234"/>
-        <input type=submit value="로그인"/>
+
+        <div class="title">개인회원 로그인</div>
+        <input type="text" name="user_id" placeholder="아이디" />
+        <input type="password" name="user_passwd" placeholder="비밀번호" />
+        <button class="btn" type=submit id=login >로그인</button>
+
         <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
     </div>
    </form>

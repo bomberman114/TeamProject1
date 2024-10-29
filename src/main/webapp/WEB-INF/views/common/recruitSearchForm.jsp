@@ -172,6 +172,10 @@
     font-weight: bold; /* 글자 두껍게 */
     border: 1px solid #2E7D32; /* 경계 색상과 일치 */
 }
+	.job-card > a:hover {
+		background-color: gray;
+	}
+
     </style>
 </head>
 <body>
@@ -288,6 +292,7 @@
             <h3>Search Results</h3>
             <c:forEach var="companyRecruit" items="${companyRecruitList}">
                 <div class="job-card">
+                <a style="text-decoration:none" href="/Common/RecruitInfo?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
                     <div class="job-title">제목 : ${ companyRecruit.RECRUIT_TITLE }</div>
                     <div class="job-title">회사이름 : ${ companyRecruit.COMPANY_NAME }</div>
                     <div class="job-location">지역: ${ companyRecruit.REGION_NAME }</div>
@@ -296,6 +301,7 @@
                             <span class="job-skill">${skill_name}</span>
                         </c:forEach>
                     </div>
+                 </a>
                 </div>
             </c:forEach>
         </div>
@@ -356,34 +362,7 @@
 
     <script type="text/javascript">
     
-    // 모든 클릭 이벤트를 처리하는 함수
-    function handleEvent(event) {
-        // 기본 동작 방지
-        event.preventDefault();
-        
-        const titleEl = document.getElementById('searchKeyword');
-        var title = titleEl.value;
-        alert(title)
-        if(title == '' || ){
-        	alert('채용공고검색란이 비었습니다');
-        	return false;
-        };
-    };
-
-    document.addEventListener("DOMContentLoaded", function() {
-        // 모든 <a> 태그에 클릭 이벤트 리스너 추가
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', handleEvent);
-        });
-
-        // 모든 <form>에 제출 이벤트 리스너 추가
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', handleEvent);
-        });
-    });
-	   
+   
     function toggleSection(sectionId, element, forceOpen = false) {
         var section = document.getElementById(sectionId);
         var icon = element.querySelector(".toggle-icon");
@@ -410,16 +389,9 @@
 
         skillSections.forEach(function(sectionId) {
             var checkboxes = document.querySelectorAll(`#${sectionId} input[type="checkbox"]`);
-            var sectionVisible = false;
-			alert( checkboxes.value );
-            for (var checkbox of checkboxes) {
-                if (checkbox.checked) {
-                    sectionVisible = true;
-                    break;
-                }
-            }
+            var sectionVisible = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줌
+            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줍니다.
             if (sectionVisible) {
                 var categoryBar = document.querySelector(`.category-bar[onclick*="${sectionId}"]`);
                 if (categoryBar) {
@@ -428,15 +400,9 @@
             }
         });
 
+        // 지역 체크박스도 동일하게 처리
         var regionCheckboxes = document.querySelectorAll("#regions input[type='checkbox']");
-        var regionVisible = false;
-
-        for (var checkbox of regionCheckboxes) {
-            if (checkbox.checked) {
-                regionVisible = true;
-                break;
-            }
-        }
+        var regionVisible = Array.from(regionCheckboxes).some(checkbox => checkbox.checked);
 
         if (regionVisible) {
             var regionCategoryBar = document.querySelector(`.category-bar[onclick*="regions"]`);
@@ -445,6 +411,8 @@
             }
         }
     });
+
+
     </script>
 
 </body>
