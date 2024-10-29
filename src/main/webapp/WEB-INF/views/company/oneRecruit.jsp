@@ -26,7 +26,7 @@
 </head>
 <body>
 	<div class="container">
-        <h1>채용 공고</h1>
+        <h1>채용 공구</h1>
         <div class="info-box">
 
             <div class="info-item">공고제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
