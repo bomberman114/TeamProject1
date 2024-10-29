@@ -97,6 +97,10 @@ h1 {
     text-align: center;
     margin-top: 20px;
 }
+
+  .resume-item {
+            margin: 10px 0;
+            }
 </style>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
@@ -113,14 +117,23 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log(data); // 서버에서 받은 데이터 처리
 
-                // 데이터가 있는 경우와 없는 경우에 따른 alert 메시지
+                // 링크 컨테이너 초기화
+                linkContainer.innerHTML = '';
+
+                // 데이터가 있는 경우
                 if (data && data.length > 0) {
-                   
-                	
-                	
-                	
+                    data.forEach((resume, index) => {
+                        // 이력서 제목과 체크박스를 포함하는 HTML 생성
+                        const resumeItem = document.createElement('div');
+                        resumeItem.className = 'resume-item';
+                        resumeItem.innerHTML = `
+                            <input type="radio" name="selectedResume" id="resume${index}" value="${resume.title}">
+                            <label for="resume${index}">${resume.title}</label>
+                        `;
+                        linkContainer.appendChild(resumeItem);
+                    });
                 } else {
-                    alert("이력서 없습니다.");
+                    alert("이력서가 없습니다.");
                 }
             })
             .catch(error => {
@@ -156,7 +169,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	            <div class="info-item">기업설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
         </div>
         
-        <a href="#"  id="resumeList" >지원하기</a>
+        <div class="link-container">
+            <!-- 이력서 제목과 체크박스가 여기에 동적으로 추가됩니다. -->
+        </div>
+        <a href="#"  id="resumeList" >이력서 들고오기</a>
         
         
     </div>

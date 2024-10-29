@@ -32,6 +32,7 @@ public class UserResumeController {
 	
 	@Autowired
 	private UserResumeMapper userResumeMapper;
+	
 	@Autowired
 	private UserMapper userMapper;
 	

@@ -34,14 +34,5 @@ public class SkillVo {
 		return "SkillVo [skill_stack=" + skill_stack + ", skill_name=" + skill_name + "]";
 	}
 
-	public void getSkill_name(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
-	
 	
 }
