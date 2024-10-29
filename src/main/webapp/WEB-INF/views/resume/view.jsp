@@ -192,8 +192,8 @@
             </div>
 
             <div>
-       			<a href="/User/UpdateResume?user_id=${login.user_id}&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
-       			<a href="/User/ResumeList?user_id=${login.user_id}">이력서 목록</a>
+       			<a href="/User/UpdateResume?user_id=${ userLogin.user_id }&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
+       			<a href="/User/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a>
             </div>
     </main>
 
