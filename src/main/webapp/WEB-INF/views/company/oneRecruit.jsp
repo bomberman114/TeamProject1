@@ -13,6 +13,7 @@
     <title>채용공고 상세화면</title>
     <style>
     </style>
+
     <script type="text/javascript">
     const company_recruit_deletEl =document.getElementById("company_recruit_delet");
 
@@ -21,11 +22,13 @@
         alert('삭제');
     });
     </script>
+
 </head>
 <body>
 	<div class="container">
         <h1>채용 공고</h1>
         <div class="info-box">
+
             <div class="info-item">공고제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
             <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
             <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
@@ -52,6 +55,7 @@
             <form action="/DeleteRecruit" method="post" style="display:inline;">
                 <input type="hidden" name="company_recruit_idx" value="${companyOneRecruit.COMPANY_RECRUIT_IDX}" />
                 <input type="submit" id="company_recruit_delet"  class="button" value="삭제">
+
             </form>
     	</div>
 	</div>

@@ -4,7 +4,7 @@ package com.green.config;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import org.springframework.beans.factory.annotation.Autowired;	
+import org.springframework.beans.factory.annotation.Autowired;   
 
 
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,7 @@ import com.green.interceptor.AuthInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
 
 	@Autowired	
 	private  AuthInterceptor  authInterceptor;
@@ -36,4 +37,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	}
 	
+
 }

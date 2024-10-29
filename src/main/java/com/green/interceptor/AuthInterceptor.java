@@ -16,24 +16,18 @@ import jakarta.servlet.http.HttpSession;
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
-
-    private static final String USER_LOGIN_URI = "/Users/Login";
-    private static final String USER_FORM_URI = "/Users/LoginForm";
-    private static final String COMPANY_LOGIN_URI = "/Company/LoginForm";
-    private static final String COMPANY_LOGIN_FORM_URI = "/Company/Login";
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
-        
+        // 로그인 페이지 제외 설정
+        if (requestURI.equals("/Users/Login") || requestURI.equals("/Users/LoginForm") ||
+            requestURI.equals("/Company/Login") || requestURI.equals("/Company/LoginForm")) {
 
-        // 로그인 페이지를 제외
-        if (requestURI.equals(USER_LOGIN_URI)   || requestURI.equals(USER_FORM_URI) || 
-        	requestURI.equals(COMPANY_LOGIN_URI)|| requestURI.equals(COMPANY_LOGIN_FORM_URI)) {
             return true;
         }
         
         HttpSession session = request.getSession();
+
         UserVo user 			= (UserVo) session.getAttribute("user");
         CompanyUserVo companyUser = (CompanyUserVo) session.getAttribute("companyUser");
         System.out.println("인터셉터:"+user);
@@ -56,7 +50,18 @@ public class AuthInterceptor implements HandlerInterceptor {
         
        
 
-        return true; // 로그인 되어 있으면 요청 허용
+        UserVo userLogin = (UserVo) session.getAttribute("userLogin");
+        CompanyUserVo companyUserLogin = (CompanyUserVo) session.getAttribute("companyUserLogin");
+
+        // 로그인 세션이 없을 때 로그인 페이지로 리다이렉트
+        if (userLogin == null && companyUserLogin == null) {
+            String loc = String.format("/Users/LoginForm?uri=%s", requestURI);
+            response.sendRedirect(loc);
+            return false;
+        }
+        return true;
+
+
     }
 
 }

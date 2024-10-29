@@ -11,13 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
     <script>
         function confirmDeletion(user_id) {
-            return confirm("개인회원 " + user_id + "을(를) 정말 삭제하시겠습니까?");
+            return confirm( "개인회원 " + user_id + "을(를) 정말 삭제하시겠습니까?" );
         }
     </script>
 </head>
 <body>
     <main>  
-        <h2>개인회원 목록 (관리자:${login.user_id})</h2>
+        <h2>개인회원 목록 (관리자:${ userLogin.user_id })</h2>
         <table>
             <tr>
                 <td>아이디</td>

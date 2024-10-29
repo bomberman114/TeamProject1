@@ -264,11 +264,11 @@ public class CompanyController {
 
 	
 	// 회원 삭제
-	@RequestMapping("/Delete")
+	@RequestMapping("/CompanyDelete")
 	public  ModelAndView delete(CompanyUserVo companyUserVo) {
 		companyUserMapper.deleteCompanyUser( companyUserVo );
 		ModelAndView  mv  =  new ModelAndView();
-		mv.setViewName("redirect:/company/List");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
@@ -318,6 +318,7 @@ public class CompanyController {
 		return        mv;
 	}
 	//-------------------------------------------------------------------
+
 	// Login
 	// /Users/LoginForm
 	@GetMapping("/LoginForm")
@@ -356,6 +357,7 @@ public class CompanyController {
         session.invalidate(); // 세션 무효화
         return "redirect:/"; // 홈으로 리다이렉트
     }
+
     
     
     @RequestMapping("/OneRecruit")
