@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.green.applicaions.vo.ApplicaionVo;
@@ -38,12 +39,14 @@ public class UserResumeController {
 	private ApplicationsMapper applicationsMapper;
 	
 	@RequestMapping("/ResumeListSubmit")
-	public ModelAndView ResumeListSubmit (HttpSession session) {
-		ModelAndView mv = new ModelAndView();
+	@ResponseBody
+	public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
+		
 		UserVo userVo = (UserVo)session.getAttribute("userLogin");
-		
-		
-		return mv;
+		System.out.println("userVo:"+userVo);
+		List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeListData( userVo );
+		System.err.println("userResumeList:"+userResumeList);
+		return userResumeList;
 		
 	} 
 	

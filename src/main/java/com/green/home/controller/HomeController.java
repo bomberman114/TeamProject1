@@ -26,7 +26,7 @@ public class HomeController {
 
 
 	   @GetMapping("/")
-	   public ModelAndView home(HttpServletRequest request, HttpSession session) {
+	   public ModelAndView home(HttpServletRequest request) {
 	       ModelAndView mv = new ModelAndView();
 
 	       // 회사 채용 리스트 가져오기
@@ -34,7 +34,7 @@ public class HomeController {
 	       mv.addObject("companyRecruitList", companyRecruitList); // 리스트 추가
 
 	       // 세션에서 로그인된 사용자 정보 가져오기
-	       //HttpSession session = request.getSession();
+	       HttpSession session = request.getSession();
 	       UserVo logInUser 			  = (UserVo) session.getAttribute("userLogin");
 	       CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companyUserLogin");
 	       System.out.println(logInUser);

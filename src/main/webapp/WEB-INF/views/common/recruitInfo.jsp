@@ -99,37 +99,38 @@ h1 {
 }
 </style>
 <script type="text/javascript">
-function applyForJob() {
-    // AJAX 요청을 보낼 URL과 데이터 설정
-    var url = '/apply';  // 서버의 URL로 수정
-    var data = {
-        // 필요한 데이터 추가
-        jobId: '123', // 예시로 jobId를 추가, 실제 값으로 변경
-    };
+document.addEventListener('DOMContentLoaded', function() {
+    const resumeListEl = document.getElementById('resumeList');
 
-    // AJAX 요청
-    fetch(url, {
-        method: 'POST', // 또는 'GET'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('네트워크 응답이 좋지 않습니다.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('성공:', data);
-        alert('지원이 완료되었습니다!');
-    })
-    .catch((error) => {
-        console.error('오류 발생:', error);
-        alert('지원 중 오류가 발생했습니다.');
-    });
-}
+    resumeListEl.onclick = function(event) {
+        event.preventDefault(); // 기본 링크 클릭 동작 방지
+        //alert('ajax');
+
+        // AJAX 요청을 보낼 부분
+        // AJAX 요청
+        fetch('/User/ResumeListSubmit')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // 서버에서 받은 데이터 처리
+
+                // 데이터가 있는 경우와 없는 경우에 따른 alert 메시지
+                if (data && data.length > 0) {
+                   
+                	
+                	
+                	
+                } else {
+                    alert("이력서 없습니다.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("데이터 요청 중 오류가 발생했습니다.");
+            });
+    };
+});
+
+ 
 </script>
 </head>
 <body>
@@ -155,7 +156,7 @@ function applyForJob() {
 	            <div class="info-item">기업설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
         </div>
         
-        <a href="#" onclick="applyForJob(); return false;">지원하기</a>
+        <a href="#"  id="resumeList" >지원하기</a>
         
         
     </div>

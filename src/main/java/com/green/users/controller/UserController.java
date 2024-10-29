@@ -154,8 +154,8 @@ public class UserController {
 		System.out.println("로그인"+userVo);
 		HttpSession  session = request.getSession();
 		session.setAttribute("userLogin", userVo );
-		session.setMaxInactiveInterval(30*60);
-		
+		session.setMaxInactiveInterval(60*60);
+		System.out.println("usersession:"+session.getAttribute("userLogin"));
 		return  "redirect:/";
 		
 	}

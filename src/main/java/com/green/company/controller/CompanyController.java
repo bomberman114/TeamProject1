@@ -344,7 +344,7 @@ public class CompanyController {
 			
 		HttpSession  session = request.getSession();
 		session.setAttribute( "companyUserLogin", companyUserVo );
-		session.setMaxInactiveInterval(30*60);
+		session.setMaxInactiveInterval(60*60);
 		
 		return  "redirect:/";
 		
