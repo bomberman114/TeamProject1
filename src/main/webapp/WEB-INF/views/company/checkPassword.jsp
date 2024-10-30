@@ -11,20 +11,20 @@
 <body>
    <main>
     <h2>비밀번호 확인</h2>
-<form action="/Company/CheckPassword" method="POST">
+	<form action="/Company/CheckPassword" method="POST">
     <input type="hidden" name="company_id" value="${param.company_id}" />
-    <table>
-        <tr>
-            <td>비밀번호</td>
-            <td><input type="password" name="inputPassword" required /></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="확인" id="check"/>
-            </td>
-        </tr>
-    </table>
-</form>
+	    <table>
+	        <tr>
+	            <td>비밀번호</td>
+	            <td><input type="password" name="inputPassword" required /></td>
+	        </tr>
+	        <tr>
+	            <td colspan="2">
+	                <input type="submit" value="확인" id="check"/>
+	            </td>
+	        </tr>
+	    </table>
+	</form>
    <script>
       // 서버에서 전달된 error 메시지가 있을 경우 alert로 출력
       <% if (request.getAttribute("error") != null) { %>

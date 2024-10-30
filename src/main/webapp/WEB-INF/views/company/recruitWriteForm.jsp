@@ -130,7 +130,75 @@ select:focus {
             section.style.display = "none";  // 섹션을 숨깁니다.
             icon.textContent = "▼";  // 닫힌 상태로 아이콘 변경.
         }
-    }
+    };
+    
+    window.onload = function(){
+    	
+    	const formEl = document.querySelector('#form');
+    			formEl.onsubmit = function(){
+    		
+    	        const regionSelect           = document.getElementById('regionSelect');
+    	        const recruit_titleEl        = document.querySelector('[name=recruit_title]');
+    	        const company_nameEl         = document.querySelector('[name=company_name]');
+    	        const company_jobEl          = document.querySelector('[name=company_job]');
+    	        const getmanEl               = document.querySelector('[name=getman]');
+    	        const company_addressEl      = document.querySelector('[name=company_address]');
+    	        const application_deadlineEl = document.querySelector('[name=application_deadline]');
+    	        const company_establishEl    = document.querySelector('[name=company_establish]');
+    	        const company_infoEl         = document.querySelector('[name=company_info]');
+    	        
+    	        if (regionSelect.value == "") {
+    	            alert("지역을 선택하세요.");
+    	            regionSelect.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (recruit_titleEl.value == "") {
+    	            alert("공고제목을 입력하세요.");
+    	            recruit_titleEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	       
+    	        if (company_jobEl.value == "") {
+    	            alert("모집부분을 입력하세요.");
+    	            company_jobEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (getmanEl.value == "") {
+    	            alert("모집인원을 입력하세요.");
+    	            getmanEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (company_addressEl.value == "") {
+    	            alert("상세주소를 입력하세요.");
+    	            company_addressEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (application_deadlineEl.value == "") {
+    	            alert("채용공고기간 입력하세요.");
+    	            application_deadlineEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (company_establishEl.value == "") {
+    	            alert(" 회사설립일을 립력하세요.");
+    	            company_establishEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        if (company_infoEl.value == "") {
+    	            alert("회사설명을 입력하세요.");
+    	            company_infoEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
+    	        return true;  // 선택된 경우 form 제출
+    		
+    	};
+    	
+    };
+    	
+    
+    	
+    
+   
+    
 </script>
 
 </head>
@@ -138,7 +206,7 @@ select:focus {
   <div class="container">
         <h1>채용공고</h1>
         
-        <form action="/Company/RecruitWrite" id="form">
+        <form action="/Company/RecruitWrite" id="form" >
         	<div class="input-container">
 	            <input type="hidden" name="company_id" value="${ companyUserVo.company_id }">
 	            공고제목<input type="text" placeholder="제목" name="recruit_title">
@@ -226,8 +294,8 @@ select:focus {
 
 	            모집부문<input type="text" placeholder="모집부문" name="company_job">
 	            모집인원<input type="text" placeholder="모집인원" name="getman">
-		        근무지역<select name="region_idx">
-		            <option>---지역선택----</option>
+		        근무지역<select name="region_idx" id="regionSelect">
+		            <option value="">---지역선택----</option>
 	            	<c:forEach var="regionList" items="${ regionList }">
 		            	<option value="${ regionList.region_idx }">${ regionList.region_name }</option>
 	            	</c:forEach>
@@ -237,7 +305,7 @@ select:focus {
 	            회사설립일      <input type="text" placeholder="회사설립일" name="company_establish">
 	            회사설명        <textarea placeholder="회사설명" name="company_info"></textarea>
         	</div>
-        	<input class="save-button" type="submit" value="공고저장">
+        	<input class="save-button" type="submit" id="recruitSave" value="공고저장">
         </form>
     </div>
 </body>

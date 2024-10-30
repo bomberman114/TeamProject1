@@ -20,12 +20,9 @@ import com.green.paging.vo.PagingResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springframework.web.servlet.ModelAndView;
 
 import com.green.applicaions.vo.ApplicaionVo;
 import com.green.application.mapper.ApplicationsMapper;
@@ -36,9 +33,7 @@ import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
 import com.green.paging.vo.SearchVo;
 import com.green.company.users.mapper.CompanyUserMapper;
-import com.green.company.users.vo.CompanyUserVo;
 
-import com.green.paging.vo.Pagination;
 import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
 import com.green.skill.mapper.SkillMapper;
@@ -81,21 +76,27 @@ public class CompanyController {
    
    @Autowired
    private CommonCompanyRecruitSkillMapper commonCompanyRecruitSkillMapper;
-   
 
    @Autowired
    private CompanyUserMapper companyUserMapper;
    
+   @Autowired
+   private ApplicationsMapper applicationsMapper;
+   
+   @Autowired
+   private UserResumeMapper userResumeMapper;
+   
    
    //채용 공고 등록 폼
    @RequestMapping("/RecruitWriteForm")
-   public ModelAndView recruitWriteForm (CompanyUserVo companyUserVo) {
+   public ModelAndView recruitWriteForm (HttpSession session ,CompanyUserVo companyUserVo) {
       
+	   
       List<RegionVo> regionList = regionMapper.getRegionList();
       List<SkillVo> skillList   = skillMapper.getSkillList();
 
-      companyUserVo.setCompany_id("naver01");
-
+      companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin");
+      
       companyUserVo            = companyMapper.getCompanyUser(companyUserVo);
       
       mv.addObject("companyUserVo", companyUserVo);
@@ -108,33 +109,30 @@ public class CompanyController {
    // 채용공고 등록
    @RequestMapping("/RecruitWrite")
    public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
-      Map<String, String[]> companyRecruitmap = request.getParameterMap();
+     
+	   Map<String, String[]> companyRecruitmap = request.getParameterMap();
       String [] skills = companyRecruitmap.get("skill_name");
-
-      System.out.println( Arrays.toString(skills));
-      System.out.println( companyRecruitVo );
       
-      companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
-      
-      
-   
       
       List<SkillVo> skillList = new ArrayList<>();
       
-      for(int i =0; i< skills.length; i++ ) {
-         SkillVo skillVo = new SkillVo();
-         skillVo.setSkill_name(skills[i]);
-         skillList.add(skillVo);
+      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+     
+      if( skills != null) {
+    	  for(int i =0; i< skills.length; i++ ) {
+    		  SkillVo skillVo = new SkillVo();
+    		  skillVo.setSkill_name(skills[i]);
+    		  skillList.add(skillVo);
+    	  };
+    	  commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
       };
-      
       companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
         
       companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
-      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
-      commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+    
 
       
-      mv.setViewName("/company/recruitWriteForm");
+      mv.setViewName("redirect:/Company/RecruitInfo");
       return mv;
    }
 
@@ -306,8 +304,9 @@ public class CompanyController {
    // /Users/LoginForm
    @GetMapping("/LoginForm")
    public  String  loginForm(
-         @RequestParam(value = "uri", required = false) String uri, Model model) {
+         @RequestParam(value = "uri", required = false) String uri, Model model, @RequestParam( value = "loginFalseMessage", required = false ) String loginFalseMessage) {
       model.addAttribute("uri",     uri);
+      model.addAttribute("loginFalseMessage",     loginFalseMessage);
       //model.addAttribute("nowpage", nowpage);
       return "company/loginform";
    }
@@ -315,7 +314,7 @@ public class CompanyController {
    
    // /Users/Login
    @PostMapping("/Login")
-   public  String   login(
+   public  String   login( Model model,
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
@@ -324,12 +323,17 @@ public class CompanyController {
       
       // db 조회
       CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
-      System.out.println(companyUserVo);
-         
-      HttpSession  session = request.getSession();
-      session.setAttribute( "companyUserLogin", companyUserVo );
-
-      session.setMaxInactiveInterval(60*60);
+      String loginFalseMessage = "";
+      if( companyUserVo != null ) {
+    	  HttpSession  session = request.getSession();
+    	  session.setAttribute( "companyUserLogin", companyUserVo );
+    	  session.setMaxInactiveInterval(60*60);
+      };         
+      if( companyUserVo == null ) {
+    	  loginFalseMessage = "다시 로그인 시도해주세요";
+    	  model.addAttribute("loginFalseMessage",     loginFalseMessage);
+    	  return "redirect:/Company/LoginForm";
+      };
       
       return  "redirect:/";
       
@@ -346,8 +350,8 @@ public class CompanyController {
     // 채용공고 상세보기
     @RequestMapping("/OneRecruit")
     public ModelAndView onerecruit(HttpSession session,
-
                                  @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
+    	
         String company_id = (String) session.getAttribute("company_id");
 
 
@@ -393,18 +397,20 @@ public class CompanyController {
    		
    		int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
    		
-   		for(int i =0; i< skills.length; i++ ) {
-   			SkillVo skillVo = new SkillVo();
-   			skillVo.setSkill_name(skills[i]);
-   			skillList.add(skillVo);
+   		if( skills != null) {
+   			for(int i =0; i< skills.length; i++ ) {
+   				SkillVo skillVo = new SkillVo();
+   				skillVo.setSkill_name(skills[i]);
+   				skillList.add(skillVo);
+   			};
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
    		};
-   		
+   		if( skills == null) {
+   			skillList = null;
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkillNotSkill(company_recruit_idx);
+   		};
    		commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
-   		commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
-   		
-   		  
 
-   		
    		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
    		return mv;
    	}
@@ -461,6 +467,8 @@ public class CompanyController {
         //채용공고 상세보기에서 삭제
         @RequestMapping( "/DeleteRecruit" )
         public  ModelAndView deleteRecruit( CompanyRecruitVo companyRecruitVo ) {
+        	
+           applicationsMapper.deletApplicstionData(companyRecruitVo.getCompany_recruit_idx());
            commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(companyRecruitVo.getCompany_recruit_idx());
            companyRecruitMapper.deleteCompanyRecruit( companyRecruitVo.getCompany_recruit_idx() );
            ModelAndView  mv  =  new ModelAndView();
@@ -469,7 +477,7 @@ public class CompanyController {
            return mv;
         }
    
-}
+
 
       
    // 채용공고에서 이력서온거 리스트보기 
@@ -532,6 +540,7 @@ public class CompanyController {
         
         return mv;      
         }
+    
     // 채용공고에서 이력서상세보기
     @RequestMapping("/OneResumeView")
     public ModelAndView resumeApplication (UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
@@ -557,4 +566,3 @@ public class CompanyController {
     
 	
 }
-

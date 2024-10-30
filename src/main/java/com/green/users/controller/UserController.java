@@ -40,7 +40,8 @@ public class UserController {
    @RequestMapping( "/CheckDuplication" )
    @ResponseBody
    public String checkDuplication( @RequestParam( "user_id" ) String user_id ) {
-       UserVo user = userMapper.getUserById(user_id);
+      System.out.println("checkId"+user_id);
+	   UserVo user = userMapper.getUserById(user_id);
        if (user == null) {
            return "가능";  // 아이디가 존재하지 않으면 가능
        }
@@ -123,28 +124,37 @@ public class UserController {
    // Login
    @GetMapping( "/LoginForm" )
    public  String  loginForm(
-         @RequestParam( value = "uri", required = false ) String uri, Model model ) {
+         @RequestParam( value = "uri", required = false ) String uri, Model model,@RequestParam( value = "loginFalseMessage", required = false ) String loginFalseMessage ) {
       model.addAttribute("uri", uri);
+      model.addAttribute("loginFalseMessage", loginFalseMessage);
       //model.addAttribute("nowpage", nowpage);
       return "users/loginform";
    }
    
    // /Users/Login
    @PostMapping( "/Login" )
-   public String login(
+   public ModelAndView login( 
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
+	   ModelAndView mv = new ModelAndView();
       String userid  = request.getParameter( "user_id" );
       String passwd  = request.getParameter( "user_passwd" );
       
       UserVo userVo = userMapper.login( userid, passwd );
-         
-      HttpSession  session = request.getSession();
-      session.setAttribute( "userLogin", userVo );
-
-      session.setMaxInactiveInterval(60*60);
-      return  "redirect:/";
+      String loginFalseMessage = "";
+        if( userVo != null ) {
+        	
+        	HttpSession  session = request.getSession();
+        	session.setAttribute( "userLogin", userVo );
+        	session.setMaxInactiveInterval(60*60);
+        };
+        if( userVo == null ) {
+        	loginFalseMessage = "다시 로그인 시도해주세요";
+        	mv.addObject("loginFalseMessage",loginFalseMessage);
+        	mv.setViewName("redirect:/Users/LoginForm");
+        };
+      return  mv;
       
    }
 
@@ -158,11 +168,3 @@ public class UserController {
    
    
 }
-
-
-
-
-
-
-
-

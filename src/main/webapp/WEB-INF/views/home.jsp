@@ -321,8 +321,9 @@ nav ul {
     <main>
 
         <div class="search-container">
-            <input type="text" placeholder="찾고 싶은 채용공고를 검색하세요">
-            <button class="search-button">⌕</button>
+        	<form action="/Common/RecruitSearch" method="get">
+            <input type="text" name="recruit_title" placeholder="⌕ 	찾고 싶은 채용공고를 검색하세요">
+            </form>
         </div>
 
 
@@ -330,7 +331,7 @@ nav ul {
       <div class="grid-container">
          <c:forEach var="companyRecruit" items="${companyRecruitList}">
             <a
-               href="/Common/IncrementView?company_recruit_idx=${companyRecruit.company_recruit_idx}"
+               href="/Common/RecruitInfo?company_recruit_idx=${companyRecruit.company_recruit_idx}"
                class="card">
                <h3 class="company-name">${companyRecruit.company_name}</h3>
                <p class="recruit-title">${companyRecruit.recruit_title}</p>

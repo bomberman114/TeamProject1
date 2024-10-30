@@ -158,8 +158,8 @@
     </header>
     <div class="link-container">
    		<a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
-    	<a href="/Company/Info" class="link-box">내 정보
-    </a>
+    	<a href="/Company/Info" class="link-box">내 정보</a>
+    	<a href="/Company/RecruitWriteForm" class="link-box">채용공고 등록</a>
 </div>
     <div class="container">
         <h1>내 회사 정보</h1>

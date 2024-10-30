@@ -39,6 +39,7 @@
         	company_recruit_idx = #{company_recruit_idx}
   	</delete>
 
+	
 
 </mapper>
 

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Job Filter</title>
+<title>채용공고 검색</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <style>
         body {
@@ -181,7 +181,7 @@
 <body>
 
     <div class="container">
-        <h2>Job Filter</h2>
+        <h2>채용공고 검색</h2>
 
         <!-- 검색란 섹션 -->
         <form action="/Common/RecruitSearch" method="get">
@@ -192,8 +192,8 @@
    
             <!-- 기술 선택 섹션 -->
             <div class="filter-section">
-                <h3>Select Skills</h3>
-   
+                <h3>스킬 선택</h3>
+	
                 <div class="category-bar" onclick="toggleSection('backendSkills', this)">
                     <span>백엔드</span>
                     <span class="toggle-icon">▼</span>
@@ -267,29 +267,29 @@
                 </div>
             </div>
                <!-- 지역 선택 섹션 -->
-           <div class="filter-section">
-               <h3>Select Regions</h3>
-               <div class="category-bar" onclick="toggleSection('regions', this)">
-                   <span>지역 선택</span>
-                   <span class="toggle-icon">▼</span>
-               </div>
-               <div id="regions" class="checkbox-group">
-                 <c:forEach var="region" items="${regionList}">
-                <input type="checkbox" id="region_${region.region_idx}" name="region_idx" value="${region.region_idx}"
-                    <c:forEach var="regionListCheck" items="${regionListCheck}">
-                        <c:if test="${regionListCheck.region_idx == region.region_idx}">checked</c:if>
-                    </c:forEach> />
-                <label for="region_${region.region_idx}">${region.region_name}</label>
-            </c:forEach>
-               </div>
-           </div>
-   
+	        <div class="filter-section">
+	            <h3>지역 선택</h3>
+	            <div class="category-bar" onclick="toggleSection('regions', this)">
+	                <span>지역</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="regions" class="checkbox-group">
+	              <c:forEach var="region" items="${regionList}">
+				    <input type="checkbox" id="region_${region.region_idx}" name="region_idx" value="${region.region_idx}"
+				        <c:forEach var="regionListCheck" items="${regionListCheck}">
+				            <c:if test="${regionListCheck.region_idx == region.region_idx}">checked</c:if>
+				        </c:forEach> />
+				    <label for="region_${region.region_idx}">${region.region_name}</label>
+				</c:forEach>
+	            </div>
+	        </div>
+	
         </form>
         
            <!-- 검색 결과 리스트 섹션 -->
         <c:if test="${ companyRecruitList ne null  }">
         <div id="job-results">
-            <h3>Search Results</h3>
+            <h3>검색결과</h3>
             <c:forEach var="companyRecruit" items="${companyRecruitList}">
                 <div class="job-card">
                 <a style="text-decoration:none" href="/Common/RecruitInfo?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">

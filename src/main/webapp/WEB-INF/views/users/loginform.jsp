@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +78,7 @@
         </div>
         <div class="title">ALGO JJOB</div>
         <div class="title">개인회원 로그인</div>
+        <div style="color: red">${ loginFalseMessage }</div>
         <input type="text" name="user_id" placeholder="아이디" />
         <input type="password" name="user_passwd" placeholder="비밀번호" />
         <input type=submit class="btn" value="로그인"/>
