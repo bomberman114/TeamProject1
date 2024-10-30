@@ -38,6 +38,7 @@ public class HomeController {
           UserVo logInUser = (UserVo) session.getAttribute("userLogin");
           CompanyUserVo logInCompanyUser =  (CompanyUserVo) session.getAttribute("companyUserLogin");
 
+
           // 개인 로그인 여부 확인
           if (logInUser != null) {
              mv.addObject("logInUser", false);

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,17 +94,20 @@
 	            <img src="https://raw.githubusercontent.com/bomberman114/TeamProject1/develop/src/main/resources/static/img/NEXT.png" alt="사이트 로고">
 	        </a>
         </div>
+
 	    <div class="container">
 	        <div class="toggle">
 	            <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
 	            <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
 	        </div>
 	        <div class="title">개인회원 로그인</div>
+          <div style="color: red">${ loginFalseMessage }</div>
 	        <input type="text" name="user_id" placeholder="아이디" />
 	        <input type="password" name="user_passwd" placeholder="비밀번호" />
 	        <input class="btn" type="submit" value="로그인"/>
 	        <button class="btn" type=button onclick="location.href='/Users/RegisterForm'">회원가입</button>
 	    </div>
+
    </form>
 
     <%

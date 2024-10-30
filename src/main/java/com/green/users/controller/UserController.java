@@ -23,31 +23,31 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/Users")
 public class UserController {
 
-	
-	@Autowired
-	private  UserMapper  userMapper;
-	
-	// 개인회원 추가
-	// /Users/RegisterForm
-	@RequestMapping( "/RegisterForm" )
-	public ModelAndView registerForm() {	
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName( "users/registerform" );
-		return  mv;
-	}
-	
-	// 아이디 중복 체크
-	@RequestMapping(value = "/CheckDuplication", method = RequestMethod.GET)
-	@ResponseBody                              
-	public String checkDuplication(@RequestParam("user_id") String user_id) {
-	    System.out.println("중복 확인 요청된 아이디: " + user_id); 
-	    UserVo userVo = userMapper.getUserById(user_id);
 
-	    if (userVo == null) {
-	        return "가능"; // 아이디가 없으면 "가능" 반환
-	    }
-	    return "불가능";  // 아이디가 있으면 "불가능" 반환
-	}
+   
+   @Autowired
+   private  UserMapper  userMapper;
+   
+   // 개인회원 추가
+   // /Users/RegisterForm
+   @RequestMapping( "/RegisterForm" )
+   public ModelAndView registerForm() {   
+      ModelAndView mv = new ModelAndView();
+      mv.setViewName( "users/registerform" );
+      return  mv;
+   }
+   
+   // 아이디 중복 체크
+   @RequestMapping( "/CheckDuplication" )
+   @ResponseBody
+   public String checkDuplication( @RequestParam( "user_id" ) String user_id ) {
+     
+	   UserVo user = userMapper.getUserById(user_id);
+       if (user == null) {
+           return "가능";  // 아이디가 존재하지 않으면 가능
+       }
+       return "불가능";  // 아이디가 존재하면 불가능
+   }
 
 
    @RequestMapping("/Register")
@@ -112,47 +112,53 @@ public class UserController {
       return        mv;
    }
 
-	// 개인정보 보기
-	@RequestMapping( "/View" )
-	public ModelAndView view( UserVo userVo ) {
-		UserVo user = userMapper.getUser( userVo );
-		ModelAndView  mv  =  new ModelAndView();
-		mv.addObject( "user", user );
-		mv.setViewName( "users/view" );
-		return mv;
-	}
-	
-	//-------------------------------------------------------------------
-	// Login
-	@GetMapping( "/LoginForm" )
-	public  String  loginForm(
-			@RequestParam( value = "uri", required = false ) String uri, Model model ) {
-		model.addAttribute("uri", uri);
-		//model.addAttribute("nowpage", nowpage);
-		return "users/loginform";
-	}
-	
-	// /Users/Login
-	@PostMapping( "/Login" )
-	public String login(
-		HttpServletRequest   request,
-		HttpServletResponse  response,
-		Model model
-		) {
-		String userid  = request.getParameter( "user_id" );
-		String passwd  = request.getParameter( "user_passwd" );
-		
-		UserVo userVo = userMapper.login( userid, passwd );
-	    if (userVo == null) { // db에 없는 계정으로 로그인 시
-	        model.addAttribute("loginError", "아이디 또는 비밀번호를 확인해주세요.");
-	        return "users/loginform"; // 로그인 폼 페이지로 이동
-	    }
-		
-		HttpSession  session = request.getSession();
-		session.setAttribute( "userLogin", userVo );
 
-      session.setMaxInactiveInterval(60*60);
-      return  "redirect:/";
+   // 개인정보 보기
+   @RequestMapping( "/View" )
+   public ModelAndView view( UserVo userVo ) {
+      UserVo user = userMapper.getUser( userVo );
+      ModelAndView  mv  =  new ModelAndView();
+      mv.addObject( "user", user );
+      mv.setViewName( "users/view" );
+      return mv;
+   }
+   
+   //-------------------------------------------------------------------
+   // Login
+   @GetMapping( "/LoginForm" )
+   public  String  loginForm(
+         @RequestParam( value = "uri", required = false ) String uri, Model model,@RequestParam( value = "loginFalseMessage", required = false ) String loginFalseMessage ) {
+      model.addAttribute("uri", uri);
+      model.addAttribute("loginFalseMessage", loginFalseMessage);
+      //model.addAttribute("nowpage", nowpage);
+      return "users/loginform";
+   }
+   
+   // /Users/Login
+   @PostMapping( "/Login" )
+   public ModelAndView login( 
+      HttpServletRequest   request,
+      HttpServletResponse  response
+      ) {
+	   ModelAndView mv = new ModelAndView();
+      String userid  = request.getParameter( "user_id" );
+      String passwd  = request.getParameter( "user_passwd" );
+      
+      UserVo userVo = userMapper.login( userid, passwd );
+      String loginFalseMessage = "";
+        if( userVo != null ) {
+        	
+        	HttpSession  session = request.getSession();
+        	session.setAttribute( "userLogin", userVo );
+        	session.setMaxInactiveInterval(60*60);
+        };
+        if( userVo == null ) {
+        	loginFalseMessage = "다시 로그인 시도해주세요";
+        	mv.addObject("loginFalseMessage",loginFalseMessage);
+        	mv.setViewName("redirect:/Users/LoginForm");
+        };
+      return  mv;
+
       
    }
 
@@ -166,11 +172,3 @@ public class UserController {
    
    
 }
-
-
-
-
-
-
-
-

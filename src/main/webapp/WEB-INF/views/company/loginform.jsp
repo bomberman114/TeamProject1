@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -101,16 +105,16 @@
             <input class="btn" type="submit" value="로그인" />
             <button class="btn" type="button" onclick="location.href='/Company/RegisterForm'">회원가입</button>
         </div>
-    </form>
-    <%
-        String loginError = (String) request.getAttribute("loginError");
-        if (loginError != null) {
-    %>
-        <script>
-            alert("<%= loginError %>"); // 알림창 표시
-        </script>
-    <%
-        }
-    %>
+
+        <div class="title">ALGO JJOB</div>
+        <div class="title">기업회원 로그인</div>
+        <div style="color: red">${ loginFalseMessage }</div>
+        <input type="text" name="company_id" placeholder="아이디" />
+        <input type="password" name="company_passwd" placeholder="비밀번호" />
+        <input type=submit value="로그인" />
+        <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
+    </div>
+   </form>
+
 </body>
 </html>

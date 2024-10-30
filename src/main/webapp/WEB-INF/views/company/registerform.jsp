@@ -260,6 +260,10 @@
 				company_establishEl.focus();
 				return false;
 			}
+			if(dupCheckClicked == false ){
+				alert('중복아이디입니다.');
+				return false;
+			};
 			
 			
 			return true;
