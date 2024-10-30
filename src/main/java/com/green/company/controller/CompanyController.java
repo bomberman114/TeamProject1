@@ -337,21 +337,18 @@ public class CompanyController {
     // 채용공고 상세보기
     @RequestMapping("/OneRecruit")
     public ModelAndView onerecruit(HttpSession session,
-                                 @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
+                                  @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
         String company_id = (String) session.getAttribute("company_id");
 
         System.out.println(company_recruit_idx);
         CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
         companyRecruitVo.setCompany_recruit_idx(company_recruit_idx);
-        //CompanyRecruitVo companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(company_recruit_idx); 
-        //List<HashMap<String, String>> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+
         HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
-        //System.out.println(companyOneRecruit.get("SKILL_NAME"));
         
         mv.addObject("companyOneRecruit",companyOneRecruit);
         mv.setViewName("/company/oneRecruit");
         
-
         return mv;
     }  
     
@@ -359,12 +356,10 @@ public class CompanyController {
     @RequestMapping("/RecruitUpdateForm")
     public ModelAndView recruitUpdateForm (CompanyRecruitVo companyRecruitVo) {
        ModelAndView mv = new ModelAndView();
-       //CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
-       //companyRecruitVo.setCompany_recruit_idx(Integer.parseInt(company_recruit_idx));
        HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
         List<SkillVo> skillList = skillMapper.getSkillList();
         List<RegionVo> regionList = regionMapper.getRegionList();
-       System.out.println(companyOneRecruit);
+        
         mv.addObject("skillList",skillList);
         mv.addObject("regionList",regionList);
         mv.addObject("companyOneRecruit",companyOneRecruit);
@@ -377,9 +372,6 @@ public class CompanyController {
       public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
          Map<String, String[]> companyRecruitmap = request.getParameterMap();
          String [] skills = companyRecruitmap.get("skill_name");
-         System.out.println("companyRecruitVo:"+companyRecruitVo);
-         System.out.println("skills:"+Arrays.toString(skills));
-         System.out.println("region:"+regionVO);
          
          companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
          
@@ -399,10 +391,6 @@ public class CompanyController {
          if(skills == null) {
         	 commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkillNotSkill(company_recruit_idx);
          };
-        
-         
-           
-
          
          mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
          return mv;
@@ -422,19 +410,6 @@ public class CompanyController {
     }
     
     
-    @RequestMapping("/InfoEdit")
-    public ModelAndView InfoEdit(HttpSession session) {
-        String company_id = (String) session.getAttribute("company_id");
-        //company_id = "kaka01";
-
-        CompanyUserVo companyUserVo = companyMapper.getInfoUser(company_id);
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("companyUserVo", companyUserVo);
-        mv.setViewName("/company/infoEdit");
-        
-        return mv;
-    	}
 
     
     	//회사정보 수정 폼
