@@ -224,8 +224,10 @@ header img {
             <h2>Subtitle</h2>
 
             <div class="search-container">
-                <input type="text" placeholder="찾고 싶은 채용공고를 검색하세요">
-                <button class="search-button">⌕</button>
+            	<form action="/Common/RecruitSearch" method="get">
+	                <input type="text" name="recruit_title" placeholder="찾고 싶은 채용공고를 검색하세요">
+	                <input type="submit" class="search-button" value="검색">
+            	</form>   
             </div>
 
             <div class="grid-container">

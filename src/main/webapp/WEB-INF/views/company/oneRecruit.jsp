@@ -15,12 +15,15 @@
     </style>
 
     <script type="text/javascript">
+    window.onload = function(){
+    	
     const company_recruit_deletEl =document.getElementById("company_recruit_delet");
 
     company_recruit_deletEl.addEventListener('click', function(event) {
         event.preventDefault(); // 기본 폼 제출 방지
         alert('삭제');
-    });
+    	});
+    };
     </script>
 
 </head>

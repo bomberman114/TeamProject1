@@ -180,5 +180,76 @@
         WHERE 
         	USER_ID = #{ user_id }
     </select>
+    
+    <select id="getResumeIdx">
+    	SELECT
+    		USER_RESUME_IDX
+    	FROM
+    		USER_RESUME
+    	WHERE 
+        	USER_ID = #{ user_id }
+    </select>
+    
+    <select id="getRecruitResumeListCount">
+      SELECT
+    	COUNT(*)
+    FROM
+        COMPANY_RECRUIT CR
+    JOIN 
+        APPLICATIONS A
+    ON
+        CR.COMPANY_RECRUIT_IDX = A.COMPANY_RECRUIT_IDX
+    JOIN
+        USER_RESUME UR
+    ON
+        A.USER_RESUME_IDX = UR.USER_RESUME_IDX
+    WHERE
+        CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+    </select>
+    
+    <select id="getRecruitResumeList">
+     SELECT
+    	*
+    FROM
+        COMPANY_RECRUIT CR
+    JOIN 
+        APPLICATIONS A
+    ON
+        CR.COMPANY_RECRUIT_IDX = A.COMPANY_RECRUIT_IDX
+    JOIN
+        USER_RESUME UR
+    ON
+        A.USER_RESUME_IDX = UR.USER_RESUME_IDX
+    WHERE
+        CR.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+      ORDER  BY  CR.COMPANY_RECRUIT_REGDATE ASC
+      OFFSET #{ startRow } ROWS FETCH NEXT #{ endRow } ROWS ONLY   
+        
+    </select>
+    
+    <select id="getUserResumeMap">
+     SELECT 
+	   *
+	 FROM 
+	        REGION RE
+	    JOIN
+		    USER_RESUME UR
+	    ON
+	        RE.REGION_IDX = UR.REGION_IDX
+		LEFT JOIN (
+		    SELECT 
+		        USER_RESUME_IDX, 
+		        LISTAGG(DISTINCT SKILL_NAME, ', ') WITHIN GROUP (ORDER BY SKILL_NAME) AS SKILL_NAME
+		    FROM 
+		        COMMON_USER_RESUME_SKILL
+		    GROUP BY USER_RESUME_IDX
+		) CURK ON CURK.USER_RESUME_IDX = UR.USER_RESUME_IDX
+		JOIN 
+		    APPLICATIONS R ON CURK.USER_RESUME_IDX = R.USER_RESUME_IDX
+	    WHERE      UR.USER_RESUME_IDX = #{user_resume_idx}
+	    AND
+	        R.COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+    
+    </select>
 
 </mapper>
