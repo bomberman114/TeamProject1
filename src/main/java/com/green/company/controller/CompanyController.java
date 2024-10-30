@@ -89,13 +89,15 @@ public class CompanyController {
    
    //채용 공고 등록 폼
    @RequestMapping("/RecruitWriteForm")
-   public ModelAndView recruitWriteForm (CompanyUserVo companyUserVo) {
+   public ModelAndView recruitWriteForm (HttpSession session ,CompanyUserVo companyUserVo) {
+
       
+	   
       List<RegionVo> regionList = regionMapper.getRegionList();
       List<SkillVo> skillList   = skillMapper.getSkillList();
 
-      companyUserVo.setCompany_id("naver01");
-
+      companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin");
+      
       companyUserVo            = companyMapper.getCompanyUser(companyUserVo);
       
       mv.addObject("companyUserVo", companyUserVo);
@@ -108,33 +110,34 @@ public class CompanyController {
    // 채용공고 등록
    @RequestMapping("/RecruitWrite")
    public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
-      Map<String, String[]> companyRecruitmap = request.getParameterMap();
-      String [] skills = companyRecruitmap.get("skill_name");
+     
 
-      System.out.println( Arrays.toString(skills));
-      System.out.println( companyRecruitVo );
+      Map<String, String[]> companyRecruitmap = request.getParameterMap();
+
+      String [] skills = companyRecruitmap.get("skill_name");
       
-      companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
-      
-      
-   
       
       List<SkillVo> skillList = new ArrayList<>();
       
-      for(int i =0; i< skills.length; i++ ) {
-         SkillVo skillVo = new SkillVo();
-         skillVo.setSkill_name(skills[i]);
-         skillList.add(skillVo);
+      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+     
+      if( skills != null) {
+
+         for(int i =0; i< skills.length; i++ ) {
+            SkillVo skillVo = new SkillVo();
+            skillVo.setSkill_name(skills[i]);
+            skillList.add(skillVo);
+         };
+         commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+
       };
-      
       companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
         
       companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
-      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
-      commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+    
 
       
-      mv.setViewName("/company/recruitWriteForm");
+      mv.setViewName("redirect:/Company/RecruitInfo");
       return mv;
    }
 
@@ -302,12 +305,14 @@ public class CompanyController {
    }
    //-------------------------------------------------------------------
 
+
    // Login
    // /Users/LoginForm
    @GetMapping("/LoginForm")
    public  String  loginForm(
-         @RequestParam(value = "uri", required = false) String uri, Model model) {
+         @RequestParam(value = "uri", required = false) String uri, Model model, @RequestParam( value = "loginFalseMessage", required = false ) String loginFalseMessage) {
       model.addAttribute("uri",     uri);
+      model.addAttribute("loginFalseMessage",     loginFalseMessage);
       //model.addAttribute("nowpage", nowpage);
       return "company/loginform";
    }
@@ -315,7 +320,7 @@ public class CompanyController {
    
    // /Users/Login
    @PostMapping("/Login")
-   public  String   login(
+   public  String   login( Model model,
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
@@ -324,30 +329,30 @@ public class CompanyController {
       
       // db 조회
       CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
-      System.out.println(companyUserVo);
-         
-      HttpSession  session = request.getSession();
-      session.setAttribute( "companyUserLogin", companyUserVo );
-
-      session.setMaxInactiveInterval(60*60);
+      String loginFalseMessage = "";
+      if( companyUserVo != null ) {
+    	  HttpSession  session = request.getSession();
+    	  session.setAttribute( "companyUserLogin", companyUserVo );
+    	  session.setMaxInactiveInterval(60*60);
+      };         
+      if( companyUserVo == null ) {
+    	  loginFalseMessage = "다시 로그인 시도해주세요";
+    	  model.addAttribute("loginFalseMessage",     loginFalseMessage);
+    	  return "redirect:/Company/LoginForm";
+      };
       
       return  "redirect:/";
       
+
    }
 
-    // 유저 로그아웃
-    @RequestMapping(value="/Logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        session.invalidate(); // 세션 무효화
-        return "redirect:/"; // 홈으로 리다이렉트
-    }
 
     
     // 채용공고 상세보기
     @RequestMapping("/OneRecruit")
     public ModelAndView onerecruit(HttpSession session,
                                  @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
-       
+
         CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
         companyRecruitVo.setCompany_recruit_idx(company_recruit_idx);
         HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
@@ -380,31 +385,37 @@ public class CompanyController {
     }
     @RequestMapping("/RecruitUpdate")
 
-      public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
-         Map<String, String[]> companyRecruitmap = request.getParameterMap();
-         String [] skills = companyRecruitmap.get("skill_name");
-         
-         companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
-         
-         List<SkillVo> skillList = new ArrayList<>();
-         
-         int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
-         
-         for(int i =0; i< skills.length; i++ ) {
-            SkillVo skillVo = new SkillVo();
-            skillVo.setSkill_name(skills[i]);
-            skillList.add(skillVo);
-         };
-         
-         commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
-         commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
-         
-           
 
-         
-         mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
-         return mv;
-      }
+
+   	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
+   		Map<String, String[]> companyRecruitmap = request.getParameterMap();
+   		String [] skills = companyRecruitmap.get("skill_name");
+   		
+   		companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
+   		
+   		List<SkillVo> skillList = new ArrayList<>();
+   		
+   		int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+   		
+   		if( skills != null) {
+   			for(int i =0; i< skills.length; i++ ) {
+   				SkillVo skillVo = new SkillVo();
+   				skillVo.setSkill_name(skills[i]);
+   				skillList.add(skillVo);
+   			};
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+   		};
+   		if( skills == null) {
+   			skillList = null;
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkillNotSkill(company_recruit_idx);
+   		};
+   		commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
+
+   		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+   		return mv;
+   	}
+
+
 
    
 
@@ -458,6 +469,8 @@ public class CompanyController {
         //채용공고 상세보기에서 삭제
         @RequestMapping( "/DeleteRecruit" )
         public  ModelAndView deleteRecruit( CompanyRecruitVo companyRecruitVo ) {
+
+           applicationsMapper.deletApplicstionData(companyRecruitVo.getCompany_recruit_idx());
            commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(companyRecruitVo.getCompany_recruit_idx());
            companyRecruitMapper.deleteCompanyRecruit( companyRecruitVo.getCompany_recruit_idx() );
            ModelAndView  mv  =  new ModelAndView();

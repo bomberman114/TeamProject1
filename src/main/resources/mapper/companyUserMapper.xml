@@ -46,8 +46,10 @@
 	   , COMPANY_EMAIL
 	   , COMPANY_REGDATE
 	   , COMPANY_ESTABLISH
-	FROM COMPANY_USERS
-	ORDER BY COMPANY_ID ASC    
+	FROM 
+		COMPANY_USERS
+	ORDER BY 
+		COMPANY_ID ASC    
 	</select>
 
 	<select id="getCompanyUser">
@@ -62,8 +64,10 @@
 	   , COMPANY_EMAIL
 	   , COMPANY_REGDATE
 	   , COMPANY_ESTABLISH
-	FROM COMPANY_USERS
-	WHERE COMPANY_ID = #{ company_id }
+	FROM 
+		COMPANY_USERS
+	WHERE 
+		COMPANY_ID = #{ company_id }
 	</select>
 	
 	<select id="getCompanyUserById">
@@ -78,8 +82,10 @@
 	   , COMPANY_EMAIL
 	   , COMPANY_REGDATE
 	   , COMPANY_ESTABLISH
-	FROM COMPANY_USERS
-	WHERE COMPANY_ID = #{ company_id }
+	FROM 
+		COMPANY_USERS
+	WHERE 
+		COMPANY_ID = #{ company_id }
 	</select>
 	
 	<update id="updateCompanyUser">
@@ -92,13 +98,17 @@
 			   , COMPANY_BOSS_NAME = #{ company_boss_name }
 			   , COMPANY_EMAIL = #{ company_email }
 			   , COMPANY_ESTABLISH = #{ company_establish }
-		WHERE COMPANY_ID = #{ company_id }
+		WHERE 
+			COMPANY_ID = #{ company_id }
 	</update>
 
 	<!-- deleteUserList -->
 	<delete id="deleteCompanyUser">
-		DELETE FROM COMPANY_USERS 
-		WHERE COMPANY_ID = #{ company_id }
+		DELETE 
+		FROM 
+			COMPANY_USERS 
+		WHERE 
+			COMPANY_ID = #{ company_id }
 	</delete>
 
    <!-- login user_id : arg0,  param1,  user_passwd : arg1,  param2-->

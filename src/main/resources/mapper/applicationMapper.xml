@@ -51,8 +51,6 @@
 			WHERE    
 			       USER_RESUME_IDX = #{ user_resume_idx }
 			   AND COMPANY_RECRUIT_IDX = #{ company_recruit_iDX }
-			   
-	
 	</update>
 	
 	<update id="setApplicationStatusData">
@@ -62,6 +60,15 @@
 			WHERE    
 			     APPLICATIONS_IDX = #{ applications_idx }
 	</update>
-
+	
+	<delete id="deletApplicstionData">
+	
+	DELETE 
+	FROM 
+		APPLICATIONS
+	WHERE
+    	COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+			
+	</delete>
 
 </mapper>

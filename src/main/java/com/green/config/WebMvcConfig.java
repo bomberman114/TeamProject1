@@ -2,11 +2,6 @@ package com.green.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import org.springframework.beans.factory.annotation.Autowired;   
-
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,6 +10,7 @@ import com.green.interceptor.AuthInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
 
    @Autowired   
    private  AuthInterceptor  authInterceptor;
@@ -25,9 +21,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
       
       registry.addInterceptor( authInterceptor )
              .addPathPatterns( "/**" )
-             .excludePathPatterns( "/css/**", "/img/**", "/js/**", "/", "/Resume/SearchAddress/**" );
+             .excludePathPatterns( "/css/**", "/img/**", "/js/**", "/", "/Resume/SearchAddress/**","/Users/RegisterForm/**" , "/Company/OneRecruit/**", "/Common/**"
+            		 
+            		 );
       
       WebMvcConfigurer.super.addInterceptors(registry);
+
 
    }
    

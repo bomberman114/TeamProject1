@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../../header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,129 +10,132 @@
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-	    html, body {
-	    height: 100%; /* 전체 높이를 100%로 설정 */
-	    margin: 0; /* 기본 마진 제거 */
+		html, body {
+		    height: 100%; /* 전체 높이를 100%로 설정 */
+		    margin: 0; /* 기본 마진 제거 */
 		}
-
-        body {
-            font-family: 'Arial', sans-serif;
-            font-size: medium;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        main {
+		
+		body {
+		    font-family: 'Arial', sans-serif;
+		    background-color: #EBFFEE; /* 배경색 */
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    height: 100vh; /* 전체 높이 설정 */
+		}
+		
+		main {
 		    max-height: 90vh; /* 최대 높이를 90vh로 설정 */
 		    overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 900px;
-        }
-
-        h2 {
-            font-size: 30px;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"], input[type="password"], input[type="email"], textarea, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus, select:focus {
-            border-color: #6A5ACD;
-            box-shadow: 0 0 8px rgba(106, 90, 205, 0.5);
-        }
-		
-		.action-container {
-	        display: flex; /* Flexbox를 사용하여 수평 정렬 */
-	        align-items: center; /* 수직 중앙 정렬 */
-	        gap: 10px; /* 요소 간의 간격 */
-    	}
-
-        textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-		a{
-			text-align: center;
+		    background-color: #ffffff; /* 흰색 배경 */
+		    padding: 40px;
+		    border-radius: 15px;
+		    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+		    width: 100%;
+		    max-width: 900px;
 		}
-        button, input[type="submit"], a {
-            background-color: #6A5ACD;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            width: 100%;
-            text-decoration: none;
-        }
-
-        button:hover, input[type="submit"], a:hover {
-            background-color: #5A4FCF;
-            text-decoration: none;
-        }
-
-        .input-container, .checkbox-group, .form-group {
-            margin-bottom: 20px;
-        }
-
-        .skill-category {
-            font-weight: bold;
-            color: #6A5ACD;
-            margin-bottom: 10px;
-        }
-
-        .checkbox-group {
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .address-container input {
-            margin-top: 10px;
-        }
-
-        #dupResult {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .green {
-            color: green;
-        }
-
-        .red {
-            color: red;
-        }
+		
+		h2 {
+		    font-size: 30px;
+		    text-align: center;
+		    margin-bottom: 30px;
+		    color: #470065; /* 제목 색상 */
+		}
+		
+		label {
+		    font-weight: bold;
+		    margin-bottom: 5px;
+		    color: #333; /* 검은색 텍스트 */
+		}
+		
+		input[type="text"], input[type="password"], input[type="email"], textarea, select {
+		    width: 100%;
+		    padding: 12px;
+		    border: 1px solid #ccc; /* 연한 회색 테두리 */
+		    border-radius: 8px;
+		    transition: border-color 0.3s, box-shadow 0.3s;
+		}
+		
+		input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus, select:focus {
+		    border-color: #470065; /* 포커스 시 테두리 색상 */
+		    box-shadow: 0 0 8px rgba(71, 0, 101, 0.5);
+		}
+		
+		textarea {
+		    height: 150px;
+		    resize: vertical;
+		}
+		
+		button, input[type="submit"], a {
+		    background-color: #470065; /* 버튼 색상 */
+		    color: white; /* 흰색 텍스트 */
+		    border: none;
+		    padding: 14px;
+		    border-radius: 8px;
+		    cursor: pointer;
+		    font-size: 16px;
+		    transition: background-color 0.3s;
+		    width: 100%;
+		    text-decoration: none; /* 링크 기본 스타일 */
+		}
+		
+		button:hover, input[type="submit"]:hover, a:hover {
+		    background-color: #5A4FCF; /* 호버 시 색상 */
+		}
+		
+		.input-container, .checkbox-group, .form-group {
+		    margin-bottom: 20px;
+		}
+		
+		.skill-category {
+		    border-top: 2px solid #470065; /* 위쪽에 선 추가 */
+		    font-weight: bold;
+		    color: #470065;
+		    padding-top: 10px; /* 선과 텍스트 사이의 여백 */
+		    margin-top: 20px; /* 카테고리와 위쪽 요소 간 여백 */
+		}
+		
+		.skill-item {
+		    font-weight: lighter;
+		    font-size: 12px;
+		    color: #333; /* 검은색 텍스트 */
+		}
+		
+		.skill-item:last-child {
+		    margin-bottom: 10px;
+		    padding-bottom: 10px;
+		}
+		
+		.address-container input {
+		    margin-top: 10px;
+		}
+		
+		/* 링크 스타일 */
+		a {
+		    color: #470065; /* 링크 색상 */
+		    text-decoration: none; /* 밑줄 제거 */
+		    font-weight: bold; /* 링크 텍스트 굵게 */
+		    display: block; /* 블록 요소로 변경하여 여백 추가 */
+		    margin: 10px 0; /* 여백 추가 */
+		}
+		
+		a:hover {
+		    color: #333; /* 호버 시 색상 변경 */
+		}
+		
+		/* 결과 메시지 스타일 */
+		#dupResult {
+		    margin-top: 10px;
+		    font-weight: bold;
+		}
+		
+		.green {
+		    color: green; /* 성공 메시지 색상 */
+		}
+		
+		.red {
+		    color: red; /* 오류 메시지 색상 */
+		}
 
     </style>
 </head>
@@ -155,7 +160,7 @@
             <div class="form-group">
 	           	<label><span class="red">*</span>이메일</label>
 			        <input type="email" id="user_email" name="user_email" value="${user_email}" placeholder="이메일 입력" required/>
-			        <select id="email_domain" onchange="updateEmail()" required>
+			        <select id="email_domain" onchange="updateEmail()">
 			            <option value="" selected>직접입력</option> <!-- 기본 선택값으로 설정 -->
 			            <option value="gmail.com">gmail.com</option>
 			            <option value="naver.com">naver.com</option>
@@ -167,7 +172,7 @@
             </div>
             
             <div class="form-group">
-                <label><span class="red">*</span> 연락처</label>
+                <label><span class="red">*</span>연락처</label>
                 <input type="text" name="user_phone" value="${user_phone}" readonly />
             </div>
         
@@ -258,7 +263,7 @@
 
             <div class="action-container">
                 <input type="submit" value="이력서 등록"  onclick="return validateCheckbox()" />
-                <a href="/Resume/ResumeList?user_id=${user_id}" >이력서 목록</a>
+            	<a href="/Resume/ResumeList?user_id=${userLogin.user_id}">이력서 목록</a>
             </div>
         </form>
     </main>

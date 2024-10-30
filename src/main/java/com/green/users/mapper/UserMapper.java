@@ -19,7 +19,6 @@ public interface UserMapper {
 
 	void updateUser(UserVo userVo);
 
-
 	UserVo getUserById(String user_id);
 
 	UserVo login(String userid, String passwd);

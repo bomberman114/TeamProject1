@@ -23,6 +23,8 @@ public interface CommonCompanyRecruitSkillMapper {
 
 	void setCommonCompanyRecruitSkillNotSkill(int company_recruit_idx);
 
+	void setCommonCompanyRecruitSkillData(@Param("company_recruit_idx") int company_recruit_idx);
+
 
 
 

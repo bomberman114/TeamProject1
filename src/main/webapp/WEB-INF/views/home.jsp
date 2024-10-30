@@ -9,24 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>알아보JOB</title>
     <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png?raw=true" />
+
 	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Nanum+Brush+Script&family=Poor+Story&display=swap" rel="stylesheet">
 	 
 <style>
       	body {
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
             color: #333;
             margin: 0;
             padding: 0;
         }
+
      	   
     	header {
+
             background-color: #ffffff;
             padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;      
             border-bottom: 2px solid #EBFFEE;
+
     	}
       
      	.logo-container {
@@ -34,10 +39,12 @@
 	        text-align: center;
     	}
 
+
         .logo-container img {
             height: 180px;
         }
         
+
 		.nav-menu {
 		    width: 100%;
 		    padding: 0;
@@ -58,6 +65,7 @@
 		    align-items: center; /* 수직 정렬 */
 		}
 
+
        nav a {
     text-decoration: none;
     color: #470065;
@@ -72,9 +80,11 @@
 
 
        nav a:hover {
+
 		    color: #333;
 		    background-color: #f0f0f0; /* 호버 시 배경색 추가 */
 		}
+
         .container {
             display: flex;
             flex: 1;
@@ -105,6 +115,7 @@
             transition: left 0.3s ease; /* 애니메이션 효과 */
             z-index: 1000; /* 다른 요소 위에 표시 */
         }
+
       
          .sidebar.active {
             left: 0; /* 사이드바 표시 */
@@ -126,6 +137,7 @@
 		    max-width: 250px; /* 최대 너비 설정 (사이드바 너비와 동일) */
 		}
       
+
         .sidebar button:hover {
             background-color: #333; /* 호버 시 색상 변경 */
             color: white; /* 호버 시 텍스트 색상 변경 */
@@ -279,6 +291,7 @@
       }
       
       h2{
+
 	      font-family: "Nanum Brush Script", cursive;;
 	      color:black;
 	      font-size:40px;
@@ -289,6 +302,7 @@
 		    font-weight: bold; /* 굵게 설정 */
 		    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 */
 		}
+
       
       footer {
       text-align: center;
@@ -350,12 +364,15 @@
    <% } %>   
 
     <main>
+
 		<h2>
 		    구인구직, <span class="highlight">알아보JOB</span>에서 한 번에!
 		</h2>
+
         <div class="search-container">
-            <input type="text" placeholder="찾고 싶은 채용공고를 검색하세요">
-            <button class="search-button">⌕</button>
+        	<form action="/Common/RecruitSearch" method="get">
+            <input type="text" name="recruit_title" placeholder="⌕ 	찾고 싶은 채용공고를 검색하세요">
+            </form>
         </div>
 
 
@@ -363,7 +380,7 @@
       <div class="grid-container">
          <c:forEach var="companyRecruit" items="${companyRecruitList}">
             <a
-               href="/Common/IncrementView?company_recruit_idx=${companyRecruit.company_recruit_idx}"
+               href="/Common/RecruitInfo?company_recruit_idx=${companyRecruit.company_recruit_idx}"
                class="card">
                <h3 class="company-name">${companyRecruit.company_name}</h3>
                <p class="recruit-title">${companyRecruit.recruit_title}</p>
@@ -392,10 +409,10 @@
     <footer>
     <br/><span>이메일 : help@arabojob.co.kr, Fax : 02-0000-0000(대표)</span><br/>
     <span>(주)아라보잡, 그린구 그린로 00길 00, 0층, 대표 : 조현길</span><br/>
-	<span>사업자등록 : 000-00-00000, 직업정보제공사업 : 그린 그린 제 0000-0호</span><br/>
-	<span>Copyright (c) (주)아라보잡. All rights reserved.</span>
-	<p></p>
-	</footer>
+   <span>사업자등록 : 000-00-00000, 직업정보제공사업 : 그린 그린 제 0000-0호</span><br/>
+   <span>Copyright (c) (주)아라보잡. All rights reserved.</span>
+   <p></p>
+   </footer>
     
 
 </body>

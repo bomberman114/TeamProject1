@@ -151,10 +151,12 @@
         </a>
     </header>
     <div class="link-container">
+
         <a href="/Company/Info" class="link-box">내 정보</a>
    		<a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
     	<a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
     </a>
+
 </div>
     <div class="container">
         <h1>내 회사 정보</h1>

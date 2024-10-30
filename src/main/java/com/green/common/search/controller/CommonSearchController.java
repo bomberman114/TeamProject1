@@ -50,37 +50,33 @@ public class CommonSearchController {
 	@Autowired
 	private ApplicationsMapper applicationsMapper; 
 	
-	
+	// 검색화면으로 이동
 	@RequestMapping("/RecruitSearchForm")
 	public ModelAndView recruitSearchForm () {
 		List<SkillVo> skillList   = skillMapper.getSkillList();
 		List<RegionVo> regionList = regionMapper.getRegionList();
-		String recruit_title = null;
-		
+		String recruit_title      = null;
 
-		mv.addObject("skillList", skillList);
-
-		//System.out.println(skillList);
-		//System.out.println(regionList);
 		mv.addObject("recruit_title", recruit_title);
-
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
 		mv.setViewName("/common/recruitSearchForm");
 		return mv;
 	}
 	
+	// 검색기능
 	@RequestMapping("/RecruitSearch")
-	public ModelAndView recruitSearch (HttpServletRequest request, 
+
+	public ModelAndView recruitSearch (HttpServletRequest request,
 										@RequestParam(name = "recruit_title",required =false) String recruit_title,
 										@RequestParam(value="nowpage"    ,required =false) Integer nowpage ,
 		    		                    @RequestParam(value = "pageSize" ,required =false) Integer pageSize
 			) {
+		
 		if( nowpage == null && pageSize == null ) {
 			nowpage = 1;
 			pageSize = 10;
 		};
-		
 		
 		Map<String, String[]> map = request.getParameterMap();
 		String [] skills = map.get("skill_name");
@@ -110,7 +106,6 @@ public class CommonSearchController {
 			regionListCheck = null;
 			
 		};
-		
 		
 		int count = companyRecruitMapper.getCompanyRecruitListCount(recruit_title, skillListCheck, regionListCheck);
 		
@@ -142,12 +137,6 @@ public class CommonSearchController {
 		List<SkillVo> skillList = skillMapper.getSkillList(); 
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		
-
-		System.out.println(companyRecruitList);
-		System.out.println(searchVo);
-		System.out.println(pagination);
-
-		
 		mv.addObject("nowpage" , nowpage);
 		mv.addObject("pageSize" , pageSize);
 		mv.addObject("pagination", pagination);
@@ -160,31 +149,54 @@ public class CommonSearchController {
 		mv.setViewName("/common/recruitSearchForm");
 		return mv;
 	}
-
+	
+	// 검색후 채용공고상세 보기
 	@RequestMapping("/RecruitInfo")
 	public ModelAndView recruitInfro (HttpSession session ,CompanyRecruitVo companyRecruitVo,@RequestParam(value="message",required =false) String message) {
+		
 		ModelAndView mv = new ModelAndView();
+		
 		UserVo userVo = (UserVo) session.getAttribute("userLogin");
+		
 		List<UserResumeVo> userResumeIdxList = userResumeMapper.getResumeIdx(userVo);
 		companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(companyRecruitVo.getCompany_recruit_idx());
+		
 		int views = companyRecruitVo.getViews(); 
+		
 		companyRecruitVo.setViews(views++);
 		HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+		
 		int applicationsCount = applicationsMapper.getApplicationsCount(companyRecruitVo.getCompany_recruit_idx(), userResumeIdxList);
-		if(applicationsCount == 0) {
+		
+		if( applicationsCount == 0 ) {
 			message = "지원가능";
 		};
-		if(applicationsCount != 0){
-			message = "지원불가능";
+		if( applicationsCount != 0 ){
+			message = "이미 지원한 공고입니다.";
 		};
 		
 		mv.addObject("message" , message);
 		mv.addObject("companyOneRecruit" , companyOneRecruit);
 		mv.setViewName("/common/recruitInfo");
+		
 		return mv;
 		
 	}
 	
-
+	@RequestMapping("/IncrementView")
+	public ModelAndView incrementView( CompanyRecruitVo companyRecruitVo ) {
+	    ModelAndView mv = new ModelAndView();
+	    // 조회수 증가
+	    int views = companyRecruitVo.getViews();
+	    companyRecruitVo.setViews(views + 1); // views++는 이전 값을 사용하므로 +1로 수정
+	    companyRecruitMapper.updateRecruitView( companyRecruitVo ); // 조회수 업데이트 메서드 호출
+	    
+	    // 조회수 높은 순으로 채용 공고 리스트 가져오기
+	    List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.getRecruitListByViews( companyRecruitVo );
+	    mv.addObject("companyRecruitList", companyRecruitList);
+		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+	    return mv;
+	}
+	
 	
 }

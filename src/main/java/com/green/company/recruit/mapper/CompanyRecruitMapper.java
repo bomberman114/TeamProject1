@@ -75,6 +75,12 @@ public interface CompanyRecruitMapper {
 
 	void setCompanyRecruitUpdate(CompanyRecruitVo companyRecruitVo);
 
+	void updateRecruitView(CompanyRecruitVo companyRecruitVo);
+
+	List<CompanyRecruitVo> getRecruitListByViews(CompanyRecruitVo companyRecruitVo);
+
+	Integer getCompanyRecruitId(CompanyRecruitVo companyRecruitVo);
+
 	void deleteCompanyRecruit(int company_recruit_idx);
 
 }
