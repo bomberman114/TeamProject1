@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.applicaions.vo.ApplicaionVo;
+import com.green.application.mapper.ApplicationsMapper;
 import com.green.common.company.recruit.skill.mapper.CommonCompanyRecruitSkillMapper;
 import com.green.company.mapper.CompanyMapper;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
@@ -41,6 +43,8 @@ import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
 import com.green.skill.mapper.SkillMapper;
 import com.green.skills.vo.SkillVo;
+import com.green.user.resume.mapper.UserResumeMapper;
+import com.green.user.resume.vo.UserResumeVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -76,6 +80,12 @@ public class CompanyController {
 
 	@Autowired
 	private CompanyUserMapper companyUserMapper;
+	
+	@Autowired
+	private ApplicationsMapper applicationsMapper; 
+	
+	@Autowired
+	private UserResumeMapper userResumeMapper;
 	
 	
 	
@@ -409,6 +419,7 @@ public class CompanyController {
    			skillVo.setSkill_name(skills[i]);
    			skillList.add(skillVo);
    		};
+   		
    		commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
    		commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
    		
@@ -433,19 +444,7 @@ public class CompanyController {
     }
     
     
-    @RequestMapping("/InfoEdit")
-    public ModelAndView InfoEdit(HttpSession session) {
-        String company_id = (String) session.getAttribute("company_id");
-        //company_id = "kaka01";
-
-        CompanyUserVo companyUserVo = companyMapper.getInfoUser(company_id);
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("companyUserVo", companyUserVo);
-        mv.setViewName("/company/infoEdit");
-        
-        return mv;
-    }
+   
 
     @RequestMapping(value = "/InfoUpdate", method = RequestMethod.POST)
     public String InfoUpdate(CompanyUserVo companyUserVo) {
@@ -453,5 +452,88 @@ public class CompanyController {
         return "redirect:/Company/Info";
     }
    
+   // 채용공고에서 이력서온거 리스트보기 
+    @RequestMapping("/ResumeViewList")
+    public ModelAndView resumeViewList (@RequestParam(value="nowpage", required =false)  Integer nowpage ,
+						            @RequestParam(value = "pageSize", required = false) Integer pageSize , 
+						            CompanyRecruitVo companyRecruitVo, HttpSession session ) {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	System.out.println(companyRecruitVo);
+		if( nowpage== null ) {
+			nowpage=1;
+			pageSize=5;
+		};
+
+		
+		CompanyUserVo companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin"); 
+		
+		
+		int count = userResumeMapper.getRecruitResumeListCount(companyRecruitVo);
+		
+		
+		PagingResponse<CompanyRecruitVo> response = null;
+	    if( count < 1 ) {   // 현재 Menu_id 조회한 자료가 없다면
+	    	response = new PagingResponse<>(
+	    		Collections.emptyList(), null);
+	    	// Collections.emptyList() : 자료는 없는 빈 리스트를 채운다
+	    }
+		
+	    
+		SearchVo  searchVo = new SearchVo();
+		searchVo.setPage(nowpage);   // 현재 페이지 정보
+		searchVo.setRecordSize(5);   // 페이지당 10개
+		searchVo.setPageSize(10);    // paging.jsp 에 출력할 페이지번호수  
+		
+		
+		
+		Pagination  pagination = new Pagination(count, searchVo);
+		searchVo.setPagination(pagination);
+	
+
+        
+        int      startRow      =  searchVo.getOffset();
+	    int      endRow        =  searchVo.getRecordSize();
+	    
+        
+	    List<HashMap<String, String>> recruitResumeList = userResumeMapper.getRecruitResumeList(companyRecruitVo.getCompany_recruit_idx(), startRow, endRow);
+        
+        int totalPages = (int) Math.ceil((double) count / pageSize);
+        
+
+        mv.addObject( "companyUserVo", companyUserVo );
+        mv.addObject( "recruitResumeList", recruitResumeList );
+        mv.addObject( "currentPage", nowpage );
+        mv.addObject( "pageSize", pageSize );
+        mv.addObject( "response" , response );
+        mv.addObject("recruitCount", count);
+        mv.addObject("totalPages", totalPages);
+        mv.setViewName( "/company/resumeViewList" );
+        
+        return mv;      
+        }
+    // 채용공고에서 이력서상세보기
+    @RequestMapping("/OneResumeView")
+    public ModelAndView resumeApplication (UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
+    	ModelAndView mv = new ModelAndView();
+    	HashMap<String, String> resumeResponMap = userResumeMapper.getUserResumeMap(userResumeVo.getUser_resume_idx(), companyRecruitVo.getCompany_recruit_idx());
+    	//System.out.println(resumeResponMap);
+    	mv.addObject("resumeResponMap",resumeResponMap);
+    	mv.setViewName("/company/oneResumeView");
+    	return mv;
+    	
+    }
+    // 이력서 상태바꾸기
+    @RequestMapping("/ChangeApplicationStatus")
+    public ModelAndView changeApplicationStatus (ApplicaionVo applicationVo) {
+    	ModelAndView mv = new ModelAndView();
+    	applicationsMapper.setApplicationStatusData(applicationVo);
+    	mv.setViewName("redirect:/Company/OneResumeView?user_resume_idx="+applicationVo.getUser_resume_idx()+
+    			"&company_recruit_idx="+applicationVo.getCompany_recruit_idx());
+    	return mv;
+    	
+    }
+    
+    
 	
 }
