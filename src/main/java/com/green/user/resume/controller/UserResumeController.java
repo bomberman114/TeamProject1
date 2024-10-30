@@ -39,6 +39,7 @@ public class UserResumeController {
 	@Autowired
 	private ApplicationsMapper applicationsMapper;
 	
+	// 채용공고에서 자신의 이력서 ajax로 가져오기
 	@RequestMapping("/ResumeListSubmit")
 	@ResponseBody
 	public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
@@ -93,9 +94,7 @@ public class UserResumeController {
 	public ModelAndView resumeregister( HttpServletRequest request, UserResumeVo userResumeVo ) {
 		
 		Map<String, String[]> userResumemap = request.getParameterMap();
-		System.out.println( "User Resume Map: " + userResumemap ); //org.apache.catalina.util.ParameterMap@5cc553a2
 		String [] skills = userResumemap.get("skill_name");
-		System.out.println( "skills: " + Arrays.toString( skills ) );
 		
 		String user_id = userResumeVo.getUser_id();
 		
@@ -107,13 +106,11 @@ public class UserResumeController {
 			skillList.add( skillVo );
 		};
 		
-		System.out.println( "skills: " + Arrays.toString( skills ) );
 		userResumeMapper.insertUserResume( userResumeVo );
 		
 		userResumeVo.setUser_resume_idx( userResumeMapper.getUserResumeIdx( user_id ) );
 		
 		int user_resume_idx = userResumeVo.getUser_resume_idx();
-		System.out.println( "이력서 " + user_resume_idx );
 		
 		userResumeMapper.insertUserSkill( user_resume_idx, skillList );
 
@@ -202,13 +199,16 @@ public class UserResumeController {
 		return mv;
 	}
 	
+	// 이력서 지원하는 기능
 	@RequestMapping("/ResumeSubmit")
-	public ModelAndView resumeSubmit(UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
+	public ModelAndView resumeSubmit( UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo ) {
 		ModelAndView mv = new ModelAndView();
+		
 		ApplicaionVo applicationVo = new ApplicaionVo();
 		applicationVo.setApplication_status("서류검토중");
-		applicationVo.setUser_resume_idx(userResumeVo.getUser_resume_idx());
-		applicationVo.setCompany_recruit_idx(companyRecruitVo.getCompany_recruit_idx());
+		applicationVo.setUser_resume_idx( userResumeVo.getUser_resume_idx() );
+		applicationVo.setCompany_recruit_idx( companyRecruitVo.getCompany_recruit_idx() );
+		
 		int count = applicationsMapper.countApplication(applicationVo);
 		String message = "";
 		if(count != 0) {
@@ -218,6 +218,7 @@ public class UserResumeController {
 					applicationsMapper.setApplicationData(applicationVo);
 			message = "지원성공";
 		};
+		
 		mv.addObject("message", message);
 		mv.setViewName("redirect:/Common/RecruitInfo?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
 		return mv;

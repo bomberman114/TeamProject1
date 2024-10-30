@@ -20,12 +20,9 @@ import com.green.paging.vo.PagingResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.springframework.web.servlet.ModelAndView;
 
 import com.green.applicaions.vo.ApplicaionVo;
 import com.green.application.mapper.ApplicationsMapper;
@@ -36,9 +33,7 @@ import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
 import com.green.paging.vo.SearchVo;
 import com.green.company.users.mapper.CompanyUserMapper;
-import com.green.company.users.vo.CompanyUserVo;
 
-import com.green.paging.vo.Pagination;
 import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
 import com.green.skill.mapper.SkillMapper;
@@ -51,9 +46,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -88,14 +81,15 @@ public class CompanyController {
 	private UserResumeMapper userResumeMapper;
 	
 	
-	
+	// 채용공고 등록화면
 	@RequestMapping("/RecruitWriteForm")
-	public ModelAndView recruitWriteForm (CompanyUserVo companyUserVo) {
+	public ModelAndView recruitWriteForm (HttpSession session, CompanyUserVo companyUserVo) {
+		
+		companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin");
 		
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		List<SkillVo> skillList   = skillMapper.getSkillList();
 
-		companyUserVo.setCompany_id("naver01");
 
 		companyUserVo 			  = companyMapper.getCompanyUser(companyUserVo);
 		
@@ -109,16 +103,11 @@ public class CompanyController {
 	// 채용공고 등록
 	@RequestMapping("/RecruitWrite")
 	public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
+		
 		Map<String, String[]> companyRecruitmap = request.getParameterMap();
 		String [] skills = companyRecruitmap.get("skill_name");
-
-		System.out.println( Arrays.toString(skills));
-		System.out.println( companyRecruitVo );
 		
 		companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
-		
-		
-	
 		
 		List<SkillVo> skillList = new ArrayList<>();
 		
@@ -131,28 +120,14 @@ public class CompanyController {
 		companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
 		  
 		companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
+		
 		int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+		
 		commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
-
 		
 		mv.setViewName("/company/recruitWriteForm");
 		return mv;
 	}
-
-	
-	@RequestMapping("/RecruitList")
-	public ModelAndView recruitList () {
-		CompanyUserVo companyUserVo = new CompanyUserVo();
-		companyUserVo.setCompany_id("kaka01");
-		List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.selectCompanyRecruitList(companyUserVo);
-		mv.addObject("companyRecruitList", companyRecruitList);
-		mv.setViewName("/company/recruitList");
-		return mv;
-	}
-	
-	
-	
-	
 
 	
 	@RequestMapping("/RecruitInfo")
@@ -387,6 +362,7 @@ public class CompanyController {
         return mv;
     }  
     
+    // 채용공고 업데이트 화면이동
     @RequestMapping("/RecruitUpdateForm")
     public ModelAndView recruitUpdateForm (CompanyRecruitVo companyRecruitVo) {
     	ModelAndView mv = new ModelAndView();
@@ -403,6 +379,8 @@ public class CompanyController {
     	return mv;
     	
     }
+    
+    // 채용공고 업데이트기능
     @RequestMapping("/RecruitUpdate")
    	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
    		Map<String, String[]> companyRecruitmap = request.getParameterMap();
@@ -423,9 +401,6 @@ public class CompanyController {
    		commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
    		commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
    		
-   		  
-
-   		
    		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
    		return mv;
    	}
@@ -442,9 +417,6 @@ public class CompanyController {
         companyRecruitMapper.deleteRecruit(company_recruit_idx); // 삭제 로직
         return "redirect:/RecruitList"; // 삭제 후 이동할 페이지
     }
-    
-    
-   
 
     @RequestMapping(value = "/InfoUpdate", method = RequestMethod.POST)
     public String InfoUpdate(CompanyUserVo companyUserVo) {
@@ -468,9 +440,7 @@ public class CompanyController {
 		
 		CompanyUserVo companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin"); 
 		
-		
 		int count = userResumeMapper.getRecruitResumeListCount(companyRecruitVo);
-		
 		
 		PagingResponse<CompanyRecruitVo> response = null;
 	    if( count < 1 ) {   // 현재 Menu_id 조회한 자료가 없다면
@@ -479,28 +449,21 @@ public class CompanyController {
 	    	// Collections.emptyList() : 자료는 없는 빈 리스트를 채운다
 	    }
 		
-	    
 		SearchVo  searchVo = new SearchVo();
 		searchVo.setPage(nowpage);   // 현재 페이지 정보
 		searchVo.setRecordSize(5);   // 페이지당 10개
 		searchVo.setPageSize(10);    // paging.jsp 에 출력할 페이지번호수  
-		
-		
-		
+
 		Pagination  pagination = new Pagination(count, searchVo);
 		searchVo.setPagination(pagination);
-	
-
         
         int      startRow      =  searchVo.getOffset();
 	    int      endRow        =  searchVo.getRecordSize();
 	    
-        
 	    List<HashMap<String, String>> recruitResumeList = userResumeMapper.getRecruitResumeList(companyRecruitVo.getCompany_recruit_idx(), startRow, endRow);
         
         int totalPages = (int) Math.ceil((double) count / pageSize);
         
-
         mv.addObject( "companyUserVo", companyUserVo );
         mv.addObject( "recruitResumeList", recruitResumeList );
         mv.addObject( "currentPage", nowpage );
@@ -512,6 +475,7 @@ public class CompanyController {
         
         return mv;      
         }
+    
     // 채용공고에서 이력서상세보기
     @RequestMapping("/OneResumeView")
     public ModelAndView resumeApplication (UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
@@ -523,6 +487,7 @@ public class CompanyController {
     	return mv;
     	
     }
+    
     // 이력서 상태바꾸기
     @RequestMapping("/ChangeApplicationStatus")
     public ModelAndView changeApplicationStatus (ApplicaionVo applicationVo) {
@@ -534,6 +499,4 @@ public class CompanyController {
     	
     }
     
-    
-	
 }

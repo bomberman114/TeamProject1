@@ -50,15 +50,13 @@ public class CommonSearchController {
 	@Autowired
 	private ApplicationsMapper applicationsMapper; 
 	
-	
+	// 검색화면으로 이동
 	@RequestMapping("/RecruitSearchForm")
 	public ModelAndView recruitSearchForm () {
 		List<SkillVo> skillList   = skillMapper.getSkillList();
 		List<RegionVo> regionList = regionMapper.getRegionList();
-		String recruit_title = null;
+		String recruit_title      = null;
 		
-		//System.out.println(skillList);
-		//System.out.println(regionList);
 		mv.addObject("recruit_title", recruit_title);
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
@@ -66,17 +64,18 @@ public class CommonSearchController {
 		return mv;
 	}
 	
+	// 검색기능
 	@RequestMapping("/RecruitSearch")
 	public ModelAndView recruitSearch (HttpServletRequest request, 
 										@RequestParam(name = "recruit_title",required =false) String recruit_title,
 										@RequestParam(value="nowpage"    ,required =false) Integer nowpage ,
 		    		                    @RequestParam(value = "pageSize" ,required =false) Integer pageSize
 			) {
+		
 		if( nowpage == null && pageSize == null ) {
 			nowpage = 1;
 			pageSize = 10;
 		};
-		
 		
 		Map<String, String[]> map = request.getParameterMap();
 		String [] skills = map.get("skill_name");
@@ -106,7 +105,6 @@ public class CommonSearchController {
 			regionListCheck = null;
 			
 		};
-		
 		
 		int count = companyRecruitMapper.getCompanyRecruitListCount(recruit_title, skillListCheck, regionListCheck);
 		
@@ -138,8 +136,6 @@ public class CommonSearchController {
 		List<SkillVo> skillList = skillMapper.getSkillList(); 
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		
-		
-		
 		mv.addObject("nowpage" , nowpage);
 		mv.addObject("pageSize" , pageSize);
 		mv.addObject("pagination", pagination);
@@ -153,20 +149,28 @@ public class CommonSearchController {
 		return mv;
 	}
 	
+	// 검색후 채용공고상세 보기
 	@RequestMapping("/RecruitInfo")
 	public ModelAndView recruitInfro (HttpSession session ,CompanyRecruitVo companyRecruitVo,@RequestParam(value="message",required =false) String message) {
+		
 		ModelAndView mv = new ModelAndView();
+		
 		UserVo userVo = (UserVo) session.getAttribute("userLogin");
+		
 		List<UserResumeVo> userResumeIdxList = userResumeMapper.getResumeIdx(userVo);
 		companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(companyRecruitVo.getCompany_recruit_idx());
+		
 		int views = companyRecruitVo.getViews(); 
+		
 		companyRecruitVo.setViews(views++);
 		HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+		
 		int applicationsCount = applicationsMapper.getApplicationsCount(companyRecruitVo.getCompany_recruit_idx(), userResumeIdxList);
-		if(applicationsCount == 0) {
+		
+		if( applicationsCount == 0 ) {
 			message = "지원가능";
 		};
-		if(applicationsCount != 0){
+		if( applicationsCount != 0 ){
 			message = "지원불가능";
 		};
 		

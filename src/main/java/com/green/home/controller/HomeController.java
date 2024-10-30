@@ -48,7 +48,6 @@ public class HomeController {
 	          mv.addObject("logOutUser", false);
 	       }
 	       
-	       
 	       // 기업 로그인 여부 확인
 	       if (logInCompanyUser != null) {
 	          mv.addObject("logInCompanyUser", false);
