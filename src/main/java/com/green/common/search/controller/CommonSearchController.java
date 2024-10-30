@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.application.mapper.ApplicationsMapper;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.paging.vo.Pagination;
@@ -21,8 +22,12 @@ import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
 import com.green.skill.mapper.SkillMapper;
 import com.green.skills.vo.SkillVo;
+import com.green.user.resume.mapper.UserResumeMapper;
+import com.green.user.resume.vo.UserResumeVo;
+import com.green.users.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/Common")
@@ -39,6 +44,12 @@ public class CommonSearchController {
 	@Autowired
 	private CompanyRecruitMapper companyRecruitMapper; 
 	
+	@Autowired
+	private UserResumeMapper userResumeMapper;
+	
+	@Autowired
+	private ApplicationsMapper applicationsMapper; 
+	
 	
 	@RequestMapping("/RecruitSearchForm")
 	public ModelAndView recruitSearchForm () {
@@ -46,9 +57,13 @@ public class CommonSearchController {
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		String recruit_title = null;
 		
+
+		mv.addObject("skillList", skillList);
+
 		//System.out.println(skillList);
 		//System.out.println(regionList);
 		mv.addObject("recruit_title", recruit_title);
+
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
 		mv.setViewName("/common/recruitSearchForm");
@@ -56,8 +71,9 @@ public class CommonSearchController {
 	}
 	
 	@RequestMapping("/RecruitSearch")
+
 	public ModelAndView recruitSearch (HttpServletRequest request,
-										@RequestParam(name = "recruit_title") String recruit_title,
+										@RequestParam(name = "recruit_title",required =false) String recruit_title,
 										@RequestParam(value="nowpage"    ,required =false) Integer nowpage ,
 		    		                    @RequestParam(value = "pageSize" ,required =false) Integer pageSize
 			) {
@@ -127,7 +143,11 @@ public class CommonSearchController {
 		List<SkillVo> skillList = skillMapper.getSkillList(); 
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		
-		
+
+		System.out.println(companyRecruitList);
+		System.out.println(searchVo);
+		System.out.println(pagination);
+
 		
 		mv.addObject("nowpage" , nowpage);
 		mv.addObject("pageSize" , pageSize);
@@ -141,15 +161,25 @@ public class CommonSearchController {
 		mv.setViewName("/common/recruitSearchForm");
 		return mv;
 	}
-	
+
 	@RequestMapping("/RecruitInfo")
-	public ModelAndView recruitInfro (CompanyRecruitVo companyRecruitVo) {
+	public ModelAndView recruitInfro (HttpSession session ,CompanyRecruitVo companyRecruitVo,@RequestParam(value="message",required =false) String message) {
 		ModelAndView mv = new ModelAndView();
-		
-		System.out.println("getCompany_recruit_idx:"+companyRecruitVo.getCompany_recruit_idx());
+		UserVo userVo = (UserVo) session.getAttribute("userLogin");
+		List<UserResumeVo> userResumeIdxList = userResumeMapper.getResumeIdx(userVo);
+		companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(companyRecruitVo.getCompany_recruit_idx());
+		int views = companyRecruitVo.getViews(); 
+		companyRecruitVo.setViews(views++);
 		HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
-		System.out.println("companyOneRecruit:"+companyOneRecruit);
+		int applicationsCount = applicationsMapper.getApplicationsCount(companyRecruitVo.getCompany_recruit_idx(), userResumeIdxList);
+		if(applicationsCount == 0) {
+			message = "지원가능";
+		};
+		if(applicationsCount != 0){
+			message = "지원불가능";
+		};
 		
+		mv.addObject("message" , message);
 		mv.addObject("companyOneRecruit" , companyOneRecruit);
 		mv.setViewName("/common/recruitInfo");
 		
@@ -171,8 +201,6 @@ public class CommonSearchController {
 		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
 	    return mv;
 	}
-	
-	
 	
 	
 }

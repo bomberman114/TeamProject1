@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
 import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
 import com.green.region.vo.RegionVo;
@@ -71,6 +70,7 @@ public interface CompanyRecruitMapper {
 
 	void deleteRecruit(int company_recruit_idx);
 
+
 	HashMap<String, String> getCompanyOneRecruitData(CompanyRecruitVo companyRecruitVo);
 
 	void setCompanyRecruitUpdate(CompanyRecruitVo companyRecruitVo);
@@ -81,8 +81,6 @@ public interface CompanyRecruitMapper {
 
 	Integer getCompanyRecruitId(CompanyRecruitVo companyRecruitVo);
 
-
-
-
+	void deleteCompanyRecruit(int company_recruit_idx);
 
 }

@@ -24,6 +24,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		
 		WebMvcConfigurer.super.addInterceptors(registry);
 
-	}
-	
+   }
+   
 }

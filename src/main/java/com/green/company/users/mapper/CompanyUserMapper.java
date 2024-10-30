@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.green.company.recruit.vo.CompanyRecruitVo;
 import com.green.company.users.vo.CompanyUserVo;
 
 @Mapper
@@ -12,7 +13,6 @@ public interface CompanyUserMapper {
 
 	List<CompanyUserVo> getCompanyUserList();
 
-	void deleteCompanyUser(CompanyUserVo companyUserVo);
 
 	CompanyUserVo getCompanyUser(CompanyUserVo companyUserVo);
 
@@ -24,5 +24,9 @@ public interface CompanyUserMapper {
 	CompanyUserVo login(String company_id, String company_passwd);
 
 	void insertCompanyUser(CompanyUserVo companyUserVo);
+
+	void deleteCompanyUser(CompanyRecruitVo companyRecruitVo);
+
+	void deleteCompanyUser(CompanyUserVo companyUserVo);
 
 }

@@ -11,7 +11,7 @@
          close      = "SELECT * FROM DUAL"
          separator  = " " >
         INTO  COMMON_COMPANY_RECRUIT_SKILL VALUES (
-            GET_FILENUM()                     
+            GET_FILENUM()    
            , #{ skill.skill_name }
 		   , #{ company_recruit_idx }  
         )
@@ -19,16 +19,26 @@
 		
 
  	</insert>
+ 	
+ 	<insert id="setCommonCompanyRecruitSkillNotSkill">
+ 	   INSERT
+        INTO  COMMON_COMPANY_RECRUIT_SKILL (COMMON_COMPANY_IDX,COMPANY_RECRUIT_IDX) 
+        VALUES (GET_FILENUM()    
+		   	    ,#{ company_recruit_idx }  
+        )
+		
+ 	</insert>
   	
+
   	
   	<delete id="deletCommonCompanyRecruitSkill">
   		DELETE 
   		FROM 
   			common_company_recruit_skill
 		WHERE
-        	common_company_idx = #{company_recruit_idx}
+        	company_recruit_idx = #{company_recruit_idx}
   	</delete>
-  
+
 
 </mapper>
 

@@ -1,6 +1,5 @@
 package com.green.users.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,67 +49,68 @@ public class UserController {
 	    return "불가능";  // 아이디가 있으면 "불가능" 반환
 	}
 
-	@RequestMapping("/Register")
-	public  ModelAndView  register( UserVo userVo) {
-		userMapper.insertUser( userVo );
-		ModelAndView  mv  =  new ModelAndView();
-		mv.setViewName("redirect:/Users/List");
-		return  mv;
-	}
-	
-	// 회원 삭제
-	@RequestMapping( "/Delete" )
-	public  ModelAndView delete( UserVo userVo ) {
-		userMapper.deleteUser( userVo );
-		ModelAndView  mv  =  new ModelAndView();
-		mv.setViewName("redirect:/");
-		return mv;
-	}
-	
-	// 회원정보 수정
-	// 비밀번호 확인 후 수정 페이지로 이동
-  	@RequestMapping( "/CheckPassword" )
-  	public ModelAndView checkPassword(
-  			@RequestParam( "user_id" ) String user_id,
-  			@RequestParam( value = "inputPassword", required = false ) String inputPassword ) {
-	    UserVo user = userMapper.getUserById( user_id );
-	    ModelAndView mv = new ModelAndView();
-	    
-	    
-	    // 입력된 비밀번호가 null이거나 비어있는 경우
-	    if (inputPassword == null || inputPassword.isEmpty()) {
-	        mv.setViewName( "users/checkPassword" );
-	        return mv;
-	    }
-	    // 입력된 비밀번호와 DB의 비밀번호를 비교
-	    if (user.getUser_passwd().equals(inputPassword)) {
-	        // 비밀번호가 일치하면 수정 페이지로 이동
-	        mv.setViewName( "redirect:/Users/UpdateForm?user_id=" + user_id );
-	    } else {
-	        // 비밀번호가 틀리면 오류 메시지와 함께 비밀번호 확인 페이지로 다시 이동
-	        mv.setViewName( "users/checkPassword" );
-	        mv.addObject( "error", "비밀번호가 일치하지 않습니다." );
-	    }
-	    return mv;
-  	}
 
-	@RequestMapping( "/UpdateForm" )
-	public  ModelAndView  updateForm( UserVo userVo ) {
-		UserVo  user =  userMapper.getUser( userVo );
-		ModelAndView  mv  =  new ModelAndView();
-		mv.setViewName( "users/updateform" );
-		mv.addObject( "user", user );
-		return        mv;
-	}
-	
-	// /Users/Update
-	@RequestMapping( "/Update" )
-	public  ModelAndView  update( UserVo userVo, @RequestParam( "user_id" ) String user_id ) {
-		userMapper.updateUser( userVo );
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName( "redirect:/Users/View?user_id=" + user_id );
-		return        mv;
-	}
+   @RequestMapping("/Register")
+   public  ModelAndView  register( UserVo userVo) {
+      userMapper.insertUser( userVo );
+      ModelAndView  mv  =  new ModelAndView();
+      mv.setViewName("redirect:/Users/List");
+      return  mv;
+   }
+   
+   // 회원 삭제
+   @RequestMapping( "/Delete" )
+   public  ModelAndView delete( UserVo userVo ) {
+      userMapper.deleteUser( userVo );
+      ModelAndView  mv  =  new ModelAndView();
+      mv.setViewName("redirect:/");
+      return mv;
+   }
+   
+   // 회원정보 수정
+   // 비밀번호 확인 후 수정 페이지로 이동
+     @RequestMapping( "/CheckPassword" )
+     public ModelAndView checkPassword(
+           @RequestParam( "user_id" ) String user_id,
+           @RequestParam( value = "inputPassword", required = false ) String inputPassword ) {
+       UserVo user = userMapper.getUserById( user_id );
+       ModelAndView mv = new ModelAndView();
+       
+       
+       // 입력된 비밀번호가 null이거나 비어있는 경우
+       if (inputPassword == null || inputPassword.isEmpty()) {
+           mv.setViewName( "users/checkPassword" );
+           return mv;
+       }
+       // 입력된 비밀번호와 DB의 비밀번호를 비교
+       if (user.getUser_passwd().equals(inputPassword)) {
+           // 비밀번호가 일치하면 수정 페이지로 이동
+           mv.setViewName( "redirect:/Users/UpdateForm?user_id=" + user_id );
+       } else {
+           // 비밀번호가 틀리면 오류 메시지와 함께 비밀번호 확인 페이지로 다시 이동
+           mv.setViewName( "users/checkPassword" );
+           mv.addObject( "error", "비밀번호가 일치하지 않습니다." );
+       }
+       return mv;
+     }
+
+   @RequestMapping( "/UpdateForm" )
+   public  ModelAndView  updateForm( UserVo userVo ) {
+      UserVo  user =  userMapper.getUser( userVo );
+      ModelAndView  mv  =  new ModelAndView();
+      mv.setViewName( "users/updateform" );
+      mv.addObject( "user", user );
+      return        mv;
+   }
+   
+   // /Users/Update
+   @RequestMapping( "/Update" )
+   public  ModelAndView  update( UserVo userVo, @RequestParam( "user_id" ) String user_id ) {
+      userMapper.updateUser( userVo );
+      ModelAndView mv = new ModelAndView();
+      mv.setViewName( "redirect:/Users/View?user_id=" + user_id );
+      return        mv;
+   }
 
 	// 개인정보 보기
 	@RequestMapping( "/View" )
@@ -151,10 +151,10 @@ public class UserController {
 		HttpSession  session = request.getSession();
 		session.setAttribute( "userLogin", userVo );
 
-		session.setMaxInactiveInterval(60*60);
-		return  "redirect:/";
-		
-	}
+      session.setMaxInactiveInterval(60*60);
+      return  "redirect:/";
+      
+   }
 
 
     // /Users/Logout
