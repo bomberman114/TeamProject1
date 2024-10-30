@@ -9,18 +9,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.green.paging.vo.Pagination;
-import com.green.paging.vo.PagingResponse;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,28 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import com.green.common.company.recruit.skill.mapper.CommonCompanyRecruitSkillMapper;
 import com.green.company.mapper.CompanyMapper;
 import com.green.company.recruit.mapper.CompanyRecruitMapper;
 import com.green.company.recruit.vo.CompanyRecruitVo;
-import com.green.company.users.vo.CompanyUserVo;
-import com.green.paging.vo.SearchVo;
 import com.green.company.users.mapper.CompanyUserMapper;
 import com.green.company.users.vo.CompanyUserVo;
-
 import com.green.paging.vo.Pagination;
+import com.green.paging.vo.PagingResponse;
+import com.green.paging.vo.SearchVo;
 import com.green.region.mapper.RegeionMapper;
 import com.green.region.vo.RegionVo;
 import com.green.skill.mapper.SkillMapper;
 import com.green.skills.vo.SkillVo;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

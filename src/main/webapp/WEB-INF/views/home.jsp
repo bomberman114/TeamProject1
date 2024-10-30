@@ -186,7 +186,7 @@ header img {
 <p></p>
         <nav>
             <ul>
-                <li><a href="#">커뮤니티</a></li>
+                <li><a href="/Post/PostHome">커뮤니티</a></li>
                 <li><a href="#">고객센터</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Contact</a></li>
