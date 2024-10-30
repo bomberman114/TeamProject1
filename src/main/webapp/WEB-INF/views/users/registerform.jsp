@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,7 @@
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
+
         <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -89,9 +92,9 @@
 	 <tr>
       	<td><span class="red">*</span>아이디</td>
       	<td>
-      		<input type="text"    name="user_id" />
-      		<input type="button"  id="checkDuplication" value="중복확인" />
-      		<span id="dupResult"></span>
+      		<input type="text" name="user_id" placeholder="아이디 입력" />
+			<input type="button" id="checkDuplication" value="중복확인" />
+			<span id="dupResult"></span>
       	</td>
      </tr>
 	 <tr>
@@ -144,57 +147,9 @@
 	    const passwd2El    		 = document.querySelector('#pass_wd2');
 	    const usernameEl   	     = document.querySelector('[name=user_name]');
 	    const phoneEl   	     = document.querySelector('[name=user_phone]');
-	    const checkDuplicationEl = document.querySelector('#checkDuplication');
-	    let   dupCheckClicked 	 = false;
 	    
-       function updateEmail() {
-           var emailInput = document.getElementById('user_email');
-           var domainSelect = document.getElementById('email_domain');
-
-           // 선택된 도메인을 가져옴
-           var selectedDomain = domainSelect.value;
-
-           // 선택된 도메인이 비어있지 않은 경우
-           if (selectedDomain) {
-               emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
-           } else {
-               emailInput.value = emailInput.value.split('@')[0]; // 도메인 제거
-           }
-       }
        
-	    
-	    checkDuplicationEl.onclick = function() {
-	        const useridInput = useridEl.value.trim();
-	        console.log('User ID Input:', useridInput); // Debugging line
-
-	        if (useridInput == '') {
-	            alert("아이디를 입력하세요");
-	            useridEl.focus();
-	            return;
-	        }
-	        
-	        fetch('/Users/CheckDuplication?user_id=' + useridInput)
-	        .then((response) => response.text())
-	        .then((data) => {
-				console.log(useridInput)
-	            if (data.trim() == "가능") {
-	            	let html = useridInput + '은(는) 사용가능한 아이디입니다';
-                    dupCheckClicked = true;
-                    $('#dupResult').html(html).addClass('green')
-	                checkDuplicationEl.setAttribute("data-checked", "true");
-	            } else {
-	            	let html = useridInput + '은(는) 사용할 수 없는 아이디입니다'
-	                dupCheckClicked = false;
-	                $('#dupResult').html(html).addClass('red')
-	                checkDuplicationEl.setAttribute("data-checked", "false");
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error during duplication check:', error);
-	        });
-
-	    }
-	      
+	   
 	      
 	      //공백확인 및 등록
 	   	  formEl.onsubmit=function(){
@@ -238,6 +193,36 @@
 	      goListEl.onclick = function() {
 	         location.href = '/home'
 	      }
+    	</script>
+    	<script>
+    	 $(function() {
+ 	        $('#checkDuplication').on('click', function() {
+ 	            const inputUserid = $('[name=user_id]').val().trim(); // 사용자 입력 아이디 가져오기
+
+ 	            if (inputUserid === '') {
+ 	                alert("아이디를 입력하세요.");
+ 	                return;
+ 	            }
+
+ 	            $.ajax({
+ 	                url: '/Users/CheckDuplication',
+ 	                method: 'GET',
+ 	                data: { user_id: inputUserid }
+ 	            })
+ 	            .done(function(data) {
+ 	                console.log("Duplication Check Response:", data); // 서버 응답 확인
+ 	                if (data.trim() === "가능") {
+ 	                    $('#dupResult').html(inputUserid + '은(는) 사용 가능한 아이디입니다.').removeClass('red').addClass('green');
+ 	                } else {
+ 	                    $('#dupResult').html(inputUserid + '은(는) 사용할 수 없는 아이디입니다.').removeClass('green').addClass('red');
+ 	                }
+ 	            })
+ 	            .fail(function(err) {
+ 	                console.error("Error during duplication check:", err);
+ 	                alert("중복 확인 중 오류가 발생했습니다.");
+ 	            });
+ 	        });
+ 	    });
     	</script>
 	
 	</main>

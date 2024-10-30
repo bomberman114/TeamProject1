@@ -2,6 +2,7 @@ package com.green.user.resume.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,23 +57,21 @@ public class UserResumeController {
 	
 	/*이력서 목록*/
 	@RequestMapping( "/ResumeList" )
-	public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo ) {
+	public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo, CompanyRecruitVo companyRecruitVo  ) {
 		ModelAndView  mv  =  new ModelAndView();
 	    String user_id = userVo.getUser_id();
-	    List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeList( user_id );
-
-
-      mv.addObject( "userResumeList", userResumeList );
-      mv.setViewName( "users/resume/list" );
-      return mv;
-   }
-   
-   /*이력서 등록*/
-   @RequestMapping( "/RegisterResumeForm" )
-   public ModelAndView resumeregisterForm( UserResumeVo userResumeVo, UserVo userVo ) {
-       ModelAndView mv = new ModelAndView();
-       String user_id = userVo.getUser_id();
-       mv.addObject( "user_id", user_id );
+	    List<HashMap<String, String>> userResumeList = userResumeMapper.getUserResumeList( user_id );
+		mv.addObject( "userResumeList", userResumeList );
+		mv.setViewName( "users/resume/list" );
+		return mv;
+	}
+	
+	/*이력서 등록*/
+	@RequestMapping( "/RegisterResumeForm" )
+	public ModelAndView resumeregisterForm( UserResumeVo userResumeVo, UserVo userVo ) {
+	    ModelAndView mv = new ModelAndView();
+	    String user_id = userVo.getUser_id();
+	    mv.addObject( "user_id", user_id );
         mv.addObject( "user_name", userMapper.getUserById( user_id ).getUser_name() );
         mv.addObject( "user_phone", userMapper.getUserById( user_id ).getUser_phone() );
         mv.addObject( "user_email", userMapper.getUserById( user_id ).getUser_email() );
@@ -117,10 +116,11 @@ public class UserResumeController {
 		userResumeMapper.insertUserSkill( user_resume_idx, skillList );
 
 
-      ModelAndView mv = new ModelAndView();
-      mv.setViewName( "redirect:/Resume/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
-      return mv;
-   }
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName( "redirect:/Resume/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
+		return mv;
+	}
+	
    
    /* 이력서 보기 */
    @RequestMapping( "/ViewResume" )
@@ -203,7 +203,11 @@ public class UserResumeController {
 		return mv;
 	}
 	
+
+	/* 이력서 지원 */
+
 	// 이력서 지원하는 기능
+
 	@RequestMapping("/ResumeSubmit")
 	public ModelAndView resumeSubmit( UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo ) {
 		ModelAndView mv = new ModelAndView();

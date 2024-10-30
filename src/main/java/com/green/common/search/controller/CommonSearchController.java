@@ -66,7 +66,8 @@ public class CommonSearchController {
 	
 	// 검색기능
 	@RequestMapping("/RecruitSearch")
-	public ModelAndView recruitSearch (HttpServletRequest request, 
+
+	public ModelAndView recruitSearch (HttpServletRequest request,
 										@RequestParam(name = "recruit_title",required =false) String recruit_title,
 										@RequestParam(value="nowpage"    ,required =false) Integer nowpage ,
 		    		                    @RequestParam(value = "pageSize" ,required =false) Integer pageSize
@@ -177,10 +178,25 @@ public class CommonSearchController {
 		mv.addObject("message" , message);
 		mv.addObject("companyOneRecruit" , companyOneRecruit);
 		mv.setViewName("/common/recruitInfo");
+		
 		return mv;
 		
 	}
 	
-
+	@RequestMapping("/IncrementView")
+	public ModelAndView incrementView( CompanyRecruitVo companyRecruitVo ) {
+	    ModelAndView mv = new ModelAndView();
+	    // 조회수 증가
+	    int views = companyRecruitVo.getViews();
+	    companyRecruitVo.setViews(views + 1); // views++는 이전 값을 사용하므로 +1로 수정
+	    companyRecruitMapper.updateRecruitView( companyRecruitVo ); // 조회수 업데이트 메서드 호출
+	    
+	    // 조회수 높은 순으로 채용 공고 리스트 가져오기
+	    List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.getRecruitListByViews( companyRecruitVo );
+	    mv.addObject("companyRecruitList", companyRecruitList);
+		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+	    return mv;
+	}
+	
 	
 }

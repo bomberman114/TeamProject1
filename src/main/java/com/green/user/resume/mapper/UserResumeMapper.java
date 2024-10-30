@@ -2,7 +2,6 @@ package com.green.user.resume.mapper;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +16,6 @@ import com.green.users.vo.UserVo;
 @Mapper
 public interface UserResumeMapper {
 
-   List<UserResumeVo> getUserResumeList( @Param( "user_id" ) String user_id );
 
    List<SkillVo> getSkill();
 
@@ -35,7 +33,6 @@ public interface UserResumeMapper {
    void deleteUserResumeSkills( UserResumeVo userResumeVo );
 
    int getUserResumeIdx( @Param( "user_id" ) String user_id );
-
 
    List<SkillVo> getSelectedSkills( @Param("user_resume_idx") int user_resume_idx);
 
@@ -56,6 +53,7 @@ public interface UserResumeMapper {
 	HashMap<String, String> getUserResumeMap(@Param("user_resume_idx") int user_resume_idx,@Param("company_recruit_idx") int company_recruit_idx);
 
 
+	List<HashMap<String, String>> getUserResumeList( @Param( "user_id" ) String user_id);
 
 
 

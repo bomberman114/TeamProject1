@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/Users")
 public class UserController {
 
+
    
    @Autowired
    private  UserMapper  userMapper;
@@ -40,13 +41,14 @@ public class UserController {
    @RequestMapping( "/CheckDuplication" )
    @ResponseBody
    public String checkDuplication( @RequestParam( "user_id" ) String user_id ) {
-      System.out.println("checkId"+user_id);
+     
 	   UserVo user = userMapper.getUserById(user_id);
        if (user == null) {
            return "가능";  // 아이디가 존재하지 않으면 가능
        }
        return "불가능";  // 아이디가 존재하면 불가능
    }
+
 
    @RequestMapping("/Register")
    public  ModelAndView  register( UserVo userVo) {
@@ -110,6 +112,7 @@ public class UserController {
       return        mv;
    }
 
+
    // 개인정보 보기
    @RequestMapping( "/View" )
    public ModelAndView view( UserVo userVo ) {
@@ -155,6 +158,7 @@ public class UserController {
         	mv.setViewName("redirect:/Users/LoginForm");
         };
       return  mv;
+
       
    }
 

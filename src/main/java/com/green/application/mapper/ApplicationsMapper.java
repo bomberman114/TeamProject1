@@ -14,14 +14,16 @@ public interface ApplicationsMapper {
 
 	void setApplicationData(ApplicaionVo applicationVo);
 
-	int countApplication(ApplicaionVo applicationVo);
+	   int countApplication(ApplicaionVo applicationVo);
 
-	void updateApplicationData(ApplicaionVo applicationVo);
+	   void updateApplicationData(ApplicaionVo applicationVo);
 
 
-	int getApplicationsCount(@Param("company_recruit_idx") int company_recruit_idx,@Param("userResumeIdxList") List<UserResumeVo> userResumeIdxList);
+	   int getApplicationsCount(@Param("company_recruit_idx") int company_recruit_idx,@Param("userResumeIdxList") List<UserResumeVo> userResumeIdxList);
 
-	void setApplicationStatusData(ApplicaionVo applicationVo);
+	   void setApplicationStatusData(ApplicaionVo applicationVo);
+
+	   void deletApplicstionData(int company_recruit_idx);
 
 	void deletApplicstionData(int company_recruit_idx);
 

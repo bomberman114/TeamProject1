@@ -90,6 +90,7 @@ public class CompanyController {
    //채용 공고 등록 폼
    @RequestMapping("/RecruitWriteForm")
    public ModelAndView recruitWriteForm (HttpSession session ,CompanyUserVo companyUserVo) {
+
       
 	   
       List<RegionVo> regionList = regionMapper.getRegionList();
@@ -110,7 +111,9 @@ public class CompanyController {
    @RequestMapping("/RecruitWrite")
    public ModelAndView recruitWrite (HttpServletRequest request, CompanyRecruitVo companyRecruitVo  ) {
      
-	   Map<String, String[]> companyRecruitmap = request.getParameterMap();
+
+      Map<String, String[]> companyRecruitmap = request.getParameterMap();
+
       String [] skills = companyRecruitmap.get("skill_name");
       
       
@@ -119,12 +122,14 @@ public class CompanyController {
       int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
      
       if( skills != null) {
-    	  for(int i =0; i< skills.length; i++ ) {
-    		  SkillVo skillVo = new SkillVo();
-    		  skillVo.setSkill_name(skills[i]);
-    		  skillList.add(skillVo);
-    	  };
-    	  commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+
+         for(int i =0; i< skills.length; i++ ) {
+            SkillVo skillVo = new SkillVo();
+            skillVo.setSkill_name(skills[i]);
+            skillList.add(skillVo);
+         };
+         commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+
       };
       companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
         
@@ -260,8 +265,8 @@ public class CompanyController {
 
    @RequestMapping("/CheckPassword")
    public ModelAndView checkPassword(@RequestParam("company_id") String company_id, @RequestParam(value = "inputPassword", required = false) String inputPassword) {
-	   CompanyUserVo companyUser = companyUserMapper.getCompanyUserById(company_id);
-	   ModelAndView mv = new ModelAndView();
+      CompanyUserVo companyUser = companyUserMapper.getCompanyUserById(company_id);
+      ModelAndView mv = new ModelAndView();
     
     
     // 입력된 비밀번호가 null이거나 비어있는 경우
@@ -300,6 +305,7 @@ public class CompanyController {
    }
    //-------------------------------------------------------------------
 
+
    // Login
    // /Users/LoginForm
    @GetMapping("/LoginForm")
@@ -337,21 +343,16 @@ public class CompanyController {
       
       return  "redirect:/";
       
+
    }
 
-    // 유저 로그아웃
-    @RequestMapping(value="/Logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        session.invalidate(); // 세션 무효화
-        return "redirect:/"; // 홈으로 리다이렉트
-    }
 
     
     // 채용공고 상세보기
     @RequestMapping("/OneRecruit")
     public ModelAndView onerecruit(HttpSession session,
                                  @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
-    	
+
         String company_id = (String) session.getAttribute("company_id");
 
 
@@ -370,9 +371,9 @@ public class CompanyController {
     @RequestMapping("/RecruitUpdateForm")
     public ModelAndView recruitUpdateForm (CompanyRecruitVo companyRecruitVo) {
 
-    	ModelAndView mv = new ModelAndView();
-    	
-    	HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+       ModelAndView mv = new ModelAndView();
+       
+       HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
         List<SkillVo> skillList = skillMapper.getSkillList();
         List<RegionVo> regionList = regionMapper.getRegionList();
         
@@ -386,6 +387,7 @@ public class CompanyController {
        
     }
     @RequestMapping("/RecruitUpdate")
+
 
    	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
    		Map<String, String[]> companyRecruitmap = request.getParameterMap();
@@ -415,15 +417,16 @@ public class CompanyController {
    		return mv;
    	}
 
+
    
 
 
     
 
     
-    	//회사정보 수정 폼
-  		@RequestMapping("/InfoUpdateForm")
-  		public ModelAndView infoEdit(CompanyUserVo companyUserVo) {
+       //회사정보 수정 폼
+        @RequestMapping("/InfoUpdateForm")
+        public ModelAndView infoEdit(CompanyUserVo companyUserVo) {
           String company_id;
           
           company_id = companyUserVo.getCompany_id();
@@ -434,23 +437,23 @@ public class CompanyController {
           mv.setViewName("/company/infoUpdateForm");
           
           return mv;
-  		}
-  		
-  		//내 회사정보 수정
-  		@RequestMapping(value = "/InfoUpdate", method = RequestMethod.POST)
-  		public String InfoUpdate(CompanyUserVo companyUserVo, HttpSession session) {
-  		    System.out.println("Updated CompanyUserVo: " + companyUserVo);
-  		    
-  		    companyMapper.updateInfoUser(companyUserVo);
-  		    session.setAttribute("companyUserLogin", companyUserVo);
-  		    
-  		    session.setMaxInactiveInterval(60*60);
-  		    
-  		    return "redirect:/Company/Info";
-  		}
+        }
+        
+        //내 회사정보 수정
+        @RequestMapping(value = "/InfoUpdate", method = RequestMethod.POST)
+        public String InfoUpdate(CompanyUserVo companyUserVo, HttpSession session) {
+            System.out.println("Updated CompanyUserVo: " + companyUserVo);
+            
+            companyMapper.updateInfoUser(companyUserVo);
+            session.setAttribute("companyUserLogin", companyUserVo);
+            
+            session.setMaxInactiveInterval(60*60);
+            
+            return "redirect:/Company/Info";
+        }
 
-  		
-  		//내 회사 정보 보기
+        
+        //내 회사 정보 보기
         @RequestMapping("/Info")
         public ModelAndView info(HttpSession session) {
             CompanyUserVo companyUserLogin = (CompanyUserVo) session.getAttribute("companyUserLogin");
@@ -467,7 +470,7 @@ public class CompanyController {
         //채용공고 상세보기에서 삭제
         @RequestMapping( "/DeleteRecruit" )
         public  ModelAndView deleteRecruit( CompanyRecruitVo companyRecruitVo ) {
-        	
+
            applicationsMapper.deletApplicstionData(companyRecruitVo.getCompany_recruit_idx());
            commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(companyRecruitVo.getCompany_recruit_idx());
            companyRecruitMapper.deleteCompanyRecruit( companyRecruitVo.getCompany_recruit_idx() );
@@ -483,48 +486,48 @@ public class CompanyController {
    // 채용공고에서 이력서온거 리스트보기 
     @RequestMapping("/ResumeViewList")
     public ModelAndView resumeViewList (@RequestParam(value="nowpage", required =false)  Integer nowpage ,
-						            @RequestParam(value = "pageSize", required = false) Integer pageSize , 
-						            CompanyRecruitVo companyRecruitVo, HttpSession session ) {
-    	
-    	ModelAndView mv = new ModelAndView();
-    	System.out.println(companyRecruitVo);
-		if( nowpage == null ) {
-			nowpage=1;
-			pageSize=5;
-		};
+                              @RequestParam(value = "pageSize", required = false) Integer pageSize , 
+                              CompanyRecruitVo companyRecruitVo, HttpSession session ) {
+       
+       ModelAndView mv = new ModelAndView();
+       System.out.println(companyRecruitVo);
+      if( nowpage == null ) {
+         nowpage=1;
+         pageSize=5;
+      };
 
-		
-		CompanyUserVo companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin"); 
-		
-		
-		int count = userResumeMapper.getRecruitResumeListCount(companyRecruitVo);
-		
-		
-		PagingResponse<CompanyRecruitVo> response = null;
-	    if( count < 1 ) {   // 현재 Menu_id 조회한 자료가 없다면
-	    	response = new PagingResponse<>(
-	    		Collections.emptyList(), null);
-	    	// Collections.emptyList() : 자료는 없는 빈 리스트를 채운다
-	    }
-		
-	    
-		SearchVo  searchVo = new SearchVo();
-		searchVo.setPage(nowpage);   // 현재 페이지 정보
-		searchVo.setRecordSize(5);   // 페이지당 10개
-		searchVo.setPageSize(10);    // paging.jsp 에 출력할 페이지번호수  
-		
-		
-		
-		Pagination  pagination = new Pagination(count, searchVo);
-		searchVo.setPagination(pagination);
-	
+      
+      CompanyUserVo companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin"); 
+      
+      
+      int count = userResumeMapper.getRecruitResumeListCount(companyRecruitVo);
+      
+      
+      PagingResponse<CompanyRecruitVo> response = null;
+       if( count < 1 ) {   // 현재 Menu_id 조회한 자료가 없다면
+          response = new PagingResponse<>(
+             Collections.emptyList(), null);
+          // Collections.emptyList() : 자료는 없는 빈 리스트를 채운다
+       }
+      
+       
+      SearchVo  searchVo = new SearchVo();
+      searchVo.setPage(nowpage);   // 현재 페이지 정보
+      searchVo.setRecordSize(5);   // 페이지당 10개
+      searchVo.setPageSize(10);    // paging.jsp 에 출력할 페이지번호수  
+      
+      
+      
+      Pagination  pagination = new Pagination(count, searchVo);
+      searchVo.setPagination(pagination);
+   
 
         
         int      startRow      =  searchVo.getOffset();
-	    int      endRow        =  searchVo.getRecordSize();
-	    
+       int      endRow        =  searchVo.getRecordSize();
+       
         
-	    List<HashMap<String, String>> recruitResumeList = userResumeMapper.getRecruitResumeList(companyRecruitVo.getCompany_recruit_idx(), startRow, endRow);
+       List<HashMap<String, String>> recruitResumeList = userResumeMapper.getRecruitResumeList(companyRecruitVo.getCompany_recruit_idx(), startRow, endRow);
         
         int totalPages = (int) Math.ceil((double) count / pageSize);
         
@@ -544,25 +547,25 @@ public class CompanyController {
     // 채용공고에서 이력서상세보기
     @RequestMapping("/OneResumeView")
     public ModelAndView resumeApplication (UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
-    	ModelAndView mv = new ModelAndView();
-    	HashMap<String, String> resumeResponMap = userResumeMapper.getUserResumeMap(userResumeVo.getUser_resume_idx(), companyRecruitVo.getCompany_recruit_idx());
-    	//System.out.println(resumeResponMap);
-    	mv.addObject("resumeResponMap",resumeResponMap);
-    	mv.setViewName("/company/oneResumeView");
-    	return mv;
-    	
+       ModelAndView mv = new ModelAndView();
+       HashMap<String, String> resumeResponMap = userResumeMapper.getUserResumeMap(userResumeVo.getUser_resume_idx(), companyRecruitVo.getCompany_recruit_idx());
+       //System.out.println(resumeResponMap);
+       mv.addObject("resumeResponMap",resumeResponMap);
+       mv.setViewName("/company/oneResumeView");
+       return mv;
+       
     }
     // 이력서 상태바꾸기
     @RequestMapping("/ChangeApplicationStatus")
     public ModelAndView changeApplicationStatus (ApplicaionVo applicationVo) {
-    	ModelAndView mv = new ModelAndView();
-    	applicationsMapper.setApplicationStatusData(applicationVo);
-    	mv.setViewName("redirect:/Company/OneResumeView?user_resume_idx="+applicationVo.getUser_resume_idx()+
-    			"&company_recruit_idx="+applicationVo.getCompany_recruit_idx());
-    	return mv;
-    	
+       ModelAndView mv = new ModelAndView();
+       applicationsMapper.setApplicationStatusData(applicationVo);
+       mv.setViewName("redirect:/Company/OneResumeView?user_resume_idx="+applicationVo.getUser_resume_idx()+
+             "&company_recruit_idx="+applicationVo.getCompany_recruit_idx());
+       return mv;
+       
     }
     
     
-	
+   
 }
