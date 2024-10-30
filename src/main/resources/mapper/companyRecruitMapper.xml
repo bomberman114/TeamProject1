@@ -284,7 +284,7 @@
 		FROM company_recruit
 		WHERE company_recruit_idx = #{ company_recruit_idx}
 	</select>
-	
+
 	<select id="getCompanyOneRecruitData">
 	SELECT 
 	   *
@@ -320,7 +320,15 @@
 				     COMPANY_RECRUIT_IDX = #{company_recruit_idx}
 				     
 	</update>
-  	
+	
+	
+	<delete id="deleteCompanyRecruit">
+			DELETE
+			FROM COMPANY_RECRUIT
+			WHERE COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+	</delete>
+	
+
 
 
 </mapper>

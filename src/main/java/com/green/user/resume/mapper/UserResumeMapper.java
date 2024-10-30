@@ -17,31 +17,31 @@ import com.green.users.vo.UserVo;
 @Mapper
 public interface UserResumeMapper {
 
-	List<UserResumeVo> getUserResumeList( @Param( "user_id" ) String user_id );
+   List<UserResumeVo> getUserResumeList( @Param( "user_id" ) String user_id );
 
-	List<SkillVo> getSkill();
+   List<SkillVo> getSkill();
 
-	List<RegionVo> getRegion();
+   List<RegionVo> getRegion();
 
-	void insertUserResume( UserResumeVo userResumeVo );
+   void insertUserResume( UserResumeVo userResumeVo );
 
-	void insertUserSkill( @Param( "user_resume_idx" ) int user_resume_idx, @Param( "skillList" ) List<SkillVo> skillList );
+   void insertUserSkill( @Param( "user_resume_idx" ) int user_resume_idx, @Param( "skillList" ) List<SkillVo> skillList );
 
-	UserResumeVo getUserResume( UserResumeVo userResumeVo );
-
-
-	void deleteUserResume( UserResumeVo userResumeVo );
-
-	void deleteUserResumeSkills( UserResumeVo userResumeVo );
-
-	int getUserResumeIdx( @Param( "user_id" ) String user_id );
+   UserResumeVo getUserResume( UserResumeVo userResumeVo );
 
 
-	List<SkillVo> getSelectedSkills( @Param("user_resume_idx") int user_resume_idx);
+   void deleteUserResume( UserResumeVo userResumeVo );
 
-	void updateUserResume(UserResumeVo userResumeVo);
+   void deleteUserResumeSkills( UserResumeVo userResumeVo );
 
-	List<UserResumeVo> getUserResumeListData(UserVo userVo);
+   int getUserResumeIdx( @Param( "user_id" ) String user_id );
+
+
+   List<SkillVo> getSelectedSkills( @Param("user_resume_idx") int user_resume_idx);
+
+   void updateUserResume(UserResumeVo userResumeVo);
+
+   List<UserResumeVo> getUserResumeListData(UserVo userVo);
 
 	List<UserResumeVo> getResumeIdx(UserVo userVo);
 
