@@ -325,6 +325,7 @@ nav ul {
             <button class="search-button">⌕</button>
         </div>
 
+
       <div class="popular">인기공고</div>
       <div class="grid-container">
          <c:forEach var="companyRecruit" items="${companyRecruitList}">
@@ -339,6 +340,7 @@ nav ul {
       </div>
 </div>
     </main>
+
     </div>
     <script>
         const menuToggle = document.getElementById( 'menu-toggle' );

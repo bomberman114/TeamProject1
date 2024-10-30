@@ -19,6 +19,7 @@
         padding: 20px;
     }
 
+
     .container {
         max-width: 600px;
         margin: auto;
@@ -74,6 +75,8 @@
     
   
 </style>
+
+
 
 </head>
 <body>
