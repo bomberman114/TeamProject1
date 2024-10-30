@@ -8,10 +8,17 @@
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/resume/view.jsp
         html, body {
        height: 100%; /* 전체 높이를 100%로 설정 */
        margin: 0; /* 기본 마진 제거 */
       }
+=======
+ 	    html, body {
+	    height: 100%; /* 전체 높이를 100%로 설정 */
+	    margin: 0;
+		}
+>>>>>>> 713f589d97d8a205166534db17be679ad9099dae:src/main/webapp/WEB-INF/views/users/resume/view.jsp
 
         body {
             font-family: 'Arial', sans-serif;
@@ -90,12 +97,18 @@
         .input-container, .checkbox-group, .form-group {
             margin-bottom: 20px;
         }
-
-        .skill-category {
-            font-weight: bold;
-            color: #6A5ACD;
-            margin-bottom: 10px;
-        }
+        
+		.skill-category:first-line {
+			border-top:2px solid black; 
+		    font-weight: bold;
+		    color: #6A5ACD;
+		}
+		
+/* 		.skill-item {
+		    border-bottom: 2px solid black; 
+		    margin-bottom: 10px;
+		    padding-bottom: 10px;
+		} */
 
         .checkbox-group {
             padding: 10px;
@@ -129,8 +142,13 @@
          <input type="hidden" name="user_id" value="${user_id}">
          <input type="hidden" name="user_resume_idx" value="${userResume.user_resume_idx}">
             <div class="form-group">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/resume/view.jsp
                <label>이력서 제목</label>
                 <input type="text" name="user_title" value="${userResume.user_title}"readonly />
+=======
+            	<label>이력서 제목</label>
+                <input type="text" name="user_title" value = "${userResume.user_title}"readonly />
+>>>>>>> 713f589d97d8a205166534db17be679ad9099dae:src/main/webapp/WEB-INF/views/users/resume/view.jsp
             </div>
             <div class="form-group">
                 <label> 이름</label>
@@ -149,6 +167,7 @@
                 <input type="text" name="user_phone" placeholder="-없이 입력해주세요" value="${userResume.user_phone}" readonly/>
             </div>
 
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/resume/view.jsp
          <!-- 스킬 섹션 -->
          <div class="input-container"><span class="red">*</span>사용 스킬
          
@@ -170,6 +189,22 @@
          </div>
          
             
+=======
+			<!-- 스킬 섹션 -->
+			<div class="input-container">
+			    <label> 사용 스킬</label>
+			    <c:forEach var="skill" items="${selectedSkills}">
+			        <c:if test="${skill.skill_stack != previousSkillStack}">
+			            <div class="skill-category">${skill.skill_stack}</div>
+					    <c:set var="previousSkillStack" value="${skill.skill_stack}" />
+					</c:if>
+					        <div class="skill-item">
+					            <label for="skill_name_${skill.skill_name}">${skill.skill_name}</label>
+					        </div>
+			    </c:forEach>
+			</div>
+				
+>>>>>>> 713f589d97d8a205166534db17be679ad9099dae:src/main/webapp/WEB-INF/views/users/resume/view.jsp
             <!-- 지역 및 주소 -->
             <div class="input-container">
                 <div class="address-container">
@@ -181,7 +216,11 @@
                     </select>
                     <label>거주지 상세 주소</label>
                     <div class="form-group">
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/resume/view.jsp
                    <input type="text" name="region_address" id="roadFullAddr"  value="${userResume.region_address}" readonly/>
+=======
+                	<input type="text" name="region_address" id="roadFullAddr" value="${userResume.region_address}" readonly/>
+>>>>>>> 713f589d97d8a205166534db17be679ad9099dae:src/main/webapp/WEB-INF/views/users/resume/view.jsp
                     </div>
                 </div>
             </div>
@@ -192,8 +231,15 @@
             </div>
 
             <div>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/resume/view.jsp
                 <a href="/User/UpdateResume?user_id=${ userLogin.user_id }&user_resume_idx=${user_resume_idx}">내 이력서 수정하기</a>
                 <a href="/User/ResumeList?user_id=${ userLogin.user_id }">이력서 목록</a>
+=======
+       			<a href="/Resume/DeleteResume?user_id=${userLogin.user_id}&user_resume_idx=${userResume.user_resume_idx}">이력서 삭제하기</a>
+       			<a href="/Resume/UpdateResumeForm?user_id=${userLogin.user_id}&user_resume_idx=${userResume.user_resume_idx}">이력서 수정하기</a>
+       			<a href="/Resume/ResumeList?user_id=${userLogin.user_id}">이력서 목록</a>
+
+>>>>>>> 713f589d97d8a205166534db17be679ad9099dae:src/main/webapp/WEB-INF/views/users/resume/view.jsp
             </div>
     </main>
 

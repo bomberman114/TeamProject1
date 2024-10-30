@@ -75,4 +75,6 @@ public interface CompanyRecruitMapper {
 
 	void setCompanyRecruitUpdate(CompanyRecruitVo companyRecruitVo);
 
+	void deleteCompanyRecruit(int company_recruit_idx);
+
 }

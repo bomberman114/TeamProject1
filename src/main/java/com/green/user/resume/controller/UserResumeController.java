@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping( "/User" )
+@RequestMapping( "/Resume" )
 public class UserResumeController {
 
    ModelAndView mv = new ModelAndView();
@@ -59,7 +59,7 @@ public class UserResumeController {
        List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeList( user_id );
 
       mv.addObject( "userResumeList", userResumeList );
-      mv.setViewName( "resume/list" );
+      mv.setViewName( "users/resume/list" );
       return mv;
    }
    
@@ -79,13 +79,13 @@ public class UserResumeController {
        List<RegionVo> regionList = userResumeMapper.getRegion(); 
        mv.addObject( "regionList", regionList );
 
-       mv.setViewName( "resume/registerform" );
+       mv.setViewName( "users/resume/registerform" );
        return mv;
    }
    
     @RequestMapping( "/SearchAddress" )
     public String serarchAddress() {
-        return "resume/popupaddress";
+        return "users/resume/popupaddress";
     }
    
    @RequestMapping( "/RegisterResume" )
@@ -117,7 +117,7 @@ public class UserResumeController {
       userResumeMapper.insertUserSkill( user_resume_idx, skillList );
 
       ModelAndView mv = new ModelAndView();
-      mv.setViewName( "redirect:/User/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
+      mv.setViewName( "redirect:/Resume/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
       return mv;
    }
    
@@ -132,46 +132,72 @@ public class UserResumeController {
        
        List<SkillVo> skillList = userResumeMapper.getSkill();
        mv.addObject( "skillList", skillList );
-       List<SkillVo> selectedSkills = userResumeMapper.getSelectedSkills(userResume.getUser_resume_idx());
-
-       mv.addObject( "user_id", user_id );
        
+       List<SkillVo> selectedSkills = userResumeMapper.getSelectedSkills(userResume.getUser_resume_idx());
        mv.addObject( "selectedSkills", selectedSkills );
+       
+       mv.addObject( "user_id", user_id );
         mv.addObject( "userResume", userResume );
-      mv.setViewName( "resume/view" );
+      mv.setViewName( "users/resume/view" );
       return mv;
-      
       
    }
    
    /* 이력서 수정 */
    @RequestMapping( "/UpdateResumeForm" )
-   public  ModelAndView  updateResumeForm( UserResumeVo userResumeVo ) {
-      UserResumeVo userResume =  userResumeMapper.getUserResume( userResumeVo );
+   public  ModelAndView  updateResumeForm( UserResumeVo userResumeVo, UserVo userVo) {
+      UserResumeVo userResume = userResumeMapper.getUserResume( userResumeVo );
       ModelAndView mv = new ModelAndView();
-      mv.setViewName( "resume/updateform" );
-      mv.addObject( "userResume", userResume );
+       String user_id = userVo.getUser_id();
+       List<RegionVo> regionList = userResumeMapper.getRegion(); 
+       mv.addObject( "regionList", regionList );
+       
+       List<SkillVo> skillList = userResumeMapper.getSkill();
+       mv.addObject( "skillList", skillList );
+       
+       List<SkillVo> selectedSkills = userResumeMapper.getSelectedSkills(userResume.getUser_resume_idx());
+       mv.addObject( "selectedSkills", selectedSkills );
+       
+       mv.addObject( "user_id", user_id );
+        mv.addObject( "userResume", userResume );
+      mv.setViewName( "users/resume/updateform" );
       return mv;
    }
+   
 
    @RequestMapping( "/UpdateResume" )
-   public  ModelAndView  updateResume( UserResumeVo userResumeVo ) {
-      userResumeMapper.updateUserResume( userResumeVo );
-      userResumeMapper.updateUserResumeSkills( userResumeVo );
+   public  ModelAndView  updateResume( UserResumeVo userResumeVo, UserVo userVo, HttpServletRequest request ) {
       ModelAndView mv = new ModelAndView();
       String user_id = userResumeVo.getUser_id();
-      mv.setViewName( "redirect:/User/ResumeList?user_id=" + user_id );
+      userResumeMapper.updateUserResume( userResumeVo );
+      userResumeMapper.deleteUserResumeSkills( userResumeVo );
+      //-----
+      Map<String, String[]> userResumemap = request.getParameterMap();
+      String [] skills = userResumemap.get("skill_name");
+      
+      List<SkillVo> skillList = new ArrayList<>();
+      
+      for ( int i = 0; i < skills.length; i++ ) {
+         SkillVo skillVo = new SkillVo();
+         skillVo.setSkill_name( skills[i] );
+         skillList.add( skillVo );
+      };
+      
+      userResumeVo.setUser_resume_idx( userResumeMapper.getUserResumeIdx( user_id ) );
+      int user_resume_idx = userResumeVo.getUser_resume_idx();
+      userResumeMapper.insertUserSkill( user_resume_idx, skillList );
+
+        mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
       return mv;
    }
    
    /*이력서 삭제*/
    @RequestMapping( "/DeleteResume" )
    public  ModelAndView delete( UserResumeVo userResumeVo ) {
-      userResumeMapper.deleteUserResumeSkills( userResumeVo );
       userResumeMapper.deleteUserResume( userResumeVo );
       ModelAndView  mv  =  new ModelAndView();
       String user_id = userResumeVo.getUser_id();
-      mv.setViewName( "redirect:/User/ResumeList?user_id=" + user_id );
+      mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
       return mv;
    }
    
@@ -193,3 +219,4 @@ public class UserResumeController {
    }
    
 }
+	

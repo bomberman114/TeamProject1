@@ -74,12 +74,13 @@
         .link-box {
             background-color: #EBFFEE;
             color: green;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             font-size: 18px;
             font-weight: bold;
             width: 200px;
             margin: 10px;
+            text-align: center;
             text-decoration: none;
             border: 1px solid;
             cursor: pointer;
@@ -95,44 +96,43 @@
             margin-top: 20px;
         }
 
-   
-        .button {
-            background-color: #EBFFEE;
-            color: green;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            width: 70px;
-            margin: 10px;
-            text-decoration: none;
-            border: 1px solid;
-            cursor: pointer;
-            
-        }
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #343a40;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-right: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
 
-        .button:hover {
-            background-color: #1c6b43;
-        }
-        
-        
+    .button:hover {
+        background-color: #495057;
+    }
+
         form {
             text-align: center;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
     <h1>회사 정보 수정</h1>
-    <form action="/Company/InfoUpdate" method="POST">
-        <!-- 회사 ID는 수정하지 않으므로 hidden 필드로 유지 -->
-        <input type="hidden" name="company_id" value="${companyUserVo.company_id}" />
-
-        <!-- 정보 수정 가능한 필드들 -->
-        회사 이름: <input type="text" name="company_name" value="${companyUserVo.company_name}" /><br />
-        대표자: <input type="text" name="company_boss_name" value="${companyUserVo.company_boss_name}" /><br />
-        전화번호: <input type="text" name="company_phone" value="${companyUserVo.company_phone}" /><br />
-        이메일: <input type="text" name="company_email" value="${companyUserVo.company_email}" /><br />
-        설립일: <input type="text" name="company_establish" value="${companyUserVo.company_establish}" /><br />
-
-        <input type="submit" value="저장" />
-    </form>
+        <div class="info-box">
+        <form action="/Company/InfoUpdate" method="POST">
+                <div class="info-item">회사 ID: <input type="text" name="company_id" value="${companyUserVo.company_id}" readonly /></div>
+                <div class="info-item">회사 이름: <input type="text" name="company_name" value="${companyUserVo.company_name}" /></div>
+                <div class="info-item">대표자: <input type="text" name="company_boss_name" value="${companyUserVo.company_boss_name}" /></div>
+                <div class="info-item">전화번호: <input type="text" name="company_phone" value="${companyUserVo.company_phone}" /></div>
+                <div class="info-item">이메일: <input type="text" name="company_email" value="${companyUserVo.company_email}" /></div>
+                <div class="info-item">설립일: <input type="text" name="company_establish" value="${companyUserVo.company_establish}" /></div>
+                <div class="info-item">등록일: <input type="text" name="company_regdate" value="${companyUserVo.company_regdate}" readonly /></div>
+                <input type="submit" class="button" value="저장" />
+            </form>
+        </div>
+    </div>
+</body>
 </html>

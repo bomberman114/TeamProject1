@@ -9,13 +9,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회사 정보</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Poor+Story&display=swap" rel="stylesheet">    
+    
     <style>
         body {
             background-color: #ffffff;
-            font-family: 'Arial', sans-serif;
+    
             margin: 0;
             padding: 0;
             text-align: center;
+            font-family: "Jua", serif;
         }
 
         .header {
@@ -24,31 +27,36 @@
             padding: 20px;
             font-size: 24px;
             font-weight: bold;
+            border-bottom: 2px solid #470065;
+            
         }
 
         .container {
             max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #ffffff;
+            background-color: #EBFFEE;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             text-align: center;
+            
         }
 
         .info-box {
-            background-color: #e6ffe6;
+            background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 1px solid #b3ffb3;
             font-weight: bold;
             font-size: 18px;
             text-align: left;
+            padding-bottom: 10px; 
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15); 
+          
         }
 
         h1 {
-            color: #2e8b57;
+            color: #470065;
             font-size: 28px;
             margin-bottom: 20px;
         }
@@ -66,25 +74,33 @@
         }
 
         .link-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
+      		display: flex;
+      	    justify-content: center;
+      	    margin: 20px 0;
+       	    max-width: 600px; /* 고정된 최대 너비 */
+       	    width: 100%; /* 화면 크기에 따라 적응 */
+       		margin: 0 auto;
+        
+   	    }
 
- .link-box {
-    background-color: #EBFFEE;
-    color: green;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    width: 200px;
-    margin: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    border: 1px solid;
-}
+
+
+ 	    .link-box {
+            flex: 1;
+            max-width: 280px; /* 각 링크 박스의 고정된 최대 너비 */
+            background-color: #EBFFEE;
+            color: #470065;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
+        
+        }
 
         .link-box:hover {
             background-color: #DFF5E1;
@@ -96,40 +112,55 @@
             margin-top: 20px;
         }
 
-        .button {
+    	.button {  
             background-color: #EBFFEE;
-            color: green;
-            padding: 10px;
+            color: #470065;
+            padding: 10px 20px;
             border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            width: 70px;
+            text-align: center;
+            font-size: 20px;
             margin: 10px;
-            text-decoration: none;
-            border: 1px solid;
             cursor: pointer;
-            
-        }
+            text-decoration: none;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
+            border: none; /* 테두리 제거 */
+            font-weight: bold;
+        
+    	}
 
-        .button:hover {
-            background-color: #1c6b43;
-        }
-        
-        
+   		.button:hover {
+            background-color: #495057;
+    	}
+     
         form {
             text-align: center;
         }
+        
+              
+        footer {
+            text-align: center;
+            font-family: "Jua", serif;
+        }
+      
+        .logo-container {
+            margin-top: 20px; 
+            margin-bottom: 10px;
+            text-align: center;
+        }
+      
     </style>
 </head>
 <body>
+    <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
     <div class="link-container">
-        <a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
-        <a href="/Company/Info" class="link-box">내 정보</a>
-    </div>
-
-
-
-    <!-- "내 회사 정보" 컨테이너 -->
+   		<a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
+    	<a href="/Company/Info" class="link-box">내 정보
+    </a>
+</div>
     <div class="container">
         <h1>내 회사 정보</h1>
         <div class="info-box">
@@ -143,8 +174,14 @@
             <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
             <input type="submit" class="button" value="수정"/>
             </form>
-           
         </div>
-   </div>
+    </div>
+<footer>    
+    <br/><span>이메일 : help@arabojob.co.kr, Fax : 02-0000-0000(대표)</span><br/>
+    <span>(주)아라보잡, 그린구 그린로 00길 00, 0층, 대표 : 조현길</span><br/>
+	<span>사업자등록 : 000-00-00000, 직업정보제공사업 : 그린 그린 제 0000-0호</span><br/>
+	<span>Copyright (c) (주)아라보잡. All rights reserved.</span>
+	<p></p>
+</footer>
 </body>
 </html>

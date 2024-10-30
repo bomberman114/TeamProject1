@@ -65,13 +65,22 @@
             border-color: #6A5ACD;
             box-shadow: 0 0 8px rgba(106, 90, 205, 0.5);
         }
+		
+		.action-container {
+	        display: flex; /* Flexbox를 사용하여 수평 정렬 */
+	        align-items: center; /* 수직 중앙 정렬 */
+	        gap: 10px; /* 요소 간의 간격 */
+    	}
 
         textarea {
             height: 150px;
             resize: vertical;
         }
 
-        button, input[type="submit"] {
+		a{
+			text-align: center;
+		}
+        button, input[type="submit"], a {
             background-color: #6A5ACD;
             color: white;
             border: none;
@@ -81,10 +90,12 @@
             font-size: 16px;
             transition: background-color 0.3s;
             width: 100%;
+            text-decoration: none;
         }
 
-        button:hover, input[type="submit"]:hover {
+        button:hover, input[type="submit"], a:hover {
             background-color: #5A4FCF;
+            text-decoration: none;
         }
 
         .input-container, .checkbox-group, .form-group {
@@ -126,41 +137,39 @@
 <body>
     <main>
         <h2>이력서 작성하기</h2>
-        <form action="/User/RegisterResume" method="POST" id="form">
+        <form action="/Resume/RegisterResume" method="POST" id="form">
          <input type="hidden" name="user_id" value="${user_id}">
              <div class="form-group">
                 <label><span class="red">*</span> 제목</label>
-                <input type="text" name="user_title" value="이력서10" required />
+                <input type="text" name="user_title" required />
             </div>
             <div class="form-group">
-                <label><span class="red">*</span> 이름</label>
+                <label><span class="red">*</span>이름</label>
                 <input type="text" name="user_name" value="${user_name}" readonly />
             </div>
             <div class="form-group">
                 <label><span class="red">*</span>생일</label>
-                <input type="date" id="dateInput">
+                <input type="date" id="dateInput" required />
     			<input type="text" name="user_birth" id="textOutput" placeholder="YYYY-MM-DD" required readonly/>
             </div>
             <div class="form-group">
-                <label><span class="red">*</span>이메일</label>
-                <input type="email" name="user_email" value="ftht@ghf" required />
-<%--                 <input type="email" name="user_email" value="${user_email}" required /> --%>
+	           	<label><span class="red">*</span>이메일</label>
+			        <input type="email" id="user_email" name="user_email" value="${user_email}" placeholder="이메일 입력" required/>
+			        <select id="email_domain" onchange="updateEmail()" required>
+			            <option value="" selected>직접입력</option> <!-- 기본 선택값으로 설정 -->
+			            <option value="gmail.com">gmail.com</option>
+			            <option value="naver.com">naver.com</option>
+			            <option value="kakao.com">kakao.com</option>
+			            <option value="yahoo.com">yahoo.com</option>
+			            <option value="outlook.com">outlook.com</option>
+			            <option value="green.com">green.com</option>
+			        </select>
             </div>
+            
             <div class="form-group">
                 <label><span class="red">*</span> 연락처</label>
                 <input type="text" name="user_phone" value="${user_phone}" readonly />
             </div>
-
-            <!-- 스킬 섹션 -->
-         <c:forEach var="skillList" items="${selectedSkills}">
-            <div class="skill-category">${skillList.key}</div>
-            <ul>
-                <c:forEach var="skill" items="${skillList.value}">
-                    <li>${skill}</li>
-                </c:forEach>
-            </ul>
-        </c:forEach>
-        
         
             <div class="input-container"><span class="red">*</span>사용 스킬
                 <div class="skill-category">백엔드</div>
@@ -235,7 +244,7 @@
                     </select>
                     <label><span class="red">*</span>거주지 상세 주소</label>
                     <div class="form-group">
-                	<input type="text" name="region_address" id="roadFullAddr" value="이력서10" />
+                	<input type="text" name="region_address" id="roadFullAddr" required/>
                     </div>
 					<button type="button" onclick="searchAddress()">주소 검색</button>
                 </div>
@@ -247,15 +256,16 @@
                 <textarea name="user_intro" required>ㄴㄷㄹ</textarea>
             </div>
 
-            <div>
-                <input type="submit" value="제출"  onclick="return getSelectSkills()" />
+            <div class="action-container">
+                <input type="submit" value="이력서 등록"  onclick="return validateCheckbox()" />
+                <a href="/Resume/ResumeList?user_id=${user_id}" >이력서 목록</a>
             </div>
         </form>
     </main>
 
     <script>
     function searchAddress() {
-        window.open("/User/SearchAddress","pop","width=570,height=430, scrollbars=yes, resizable=yes");
+        window.open("/Resume/SearchAddress","pop","width=570,height=430, scrollbars=yes, resizable=yes");
     }
     function jusoCallBack(roadFullAddr){
     document.getElementById('roadFullAddr').value = roadFullAddr;
@@ -274,20 +284,35 @@
         textOutput.value = formattedDate;
         console.log(typeof(textOutput.value), textOutput.value)
     });
+   
+    
+    function updateEmail() {
+        var emailInput = document.getElementById('user_email');
+        var domainSelect = document.getElementById('email_domain');
+
+        var selectedDomain = domainSelect.value;
+
+        if (selectedDomain) {
+            emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
+        } else {
+            emailInput.value = emailInput.value.split('@')[0]; // 도메인 제거
+        }
+    }
+    
+
+    /* 스킬 필수 선택 */
+	    function validateCheckbox() {
+	        const checkboxes = document.querySelectorAll('input[name="skill_name"]');
+	        const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+	
+	        if (!isChecked) {
+	            alert("사용 스킬 중 하나 이상을 선택해주세요.");
+	            
+	            return false;
+	        }
+	        return true;
+	    }
 	</script>
 	
-	<script>
-	function getSelectedSkills() {
-	    const selectedSkills = [];
-	    var checkboxes = document.querySelectorAll("input[name='skill_name']:checked");
-
-	    for (var i = 0; i < checkboxes.length; i++) {
-	        selectedSkills.push(checkboxes[i].value);
-	    }
-	    
-	    console.log(selectedSkills); // 확인용 출력
-	    return selectedSkills;
-	}
-	</script>
 </body>
 </html>

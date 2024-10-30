@@ -24,7 +24,10 @@
         th, td {
             padding: 15px; 
         }
-        input[type="button"] {
+        a{
+        text-decoration: none;
+        }
+        input[type="button"],a {
             background-color: #470065; 
             color: white; 
             border: none; 
@@ -33,7 +36,8 @@
             cursor: pointer; 
             transition: background-color 0.3s;
         }
-        input[type="button"]:hover {
+        input[type="button"],a:hover {
+            text-decoration: none;
             background-color: #5a0072;
         }
     </style>
@@ -44,27 +48,27 @@
         <table class="table table-bordered">
             <tr>
                 <td>아이디</td>
-                <td><input type="text" name="user_id" value="${user.user_id}" readonly/></td>
+                <td><input type="text" name="user_id" value="${ user.user_id }" readonly/></td>
             </tr>
             <tr>
                 <td>비밀번호</td>
-                <td><input type="password" name="user_passwd" id="passwd1" value="${user.user_passwd}" readonly/></td>
+                <td><input type="password" name="user_passwd" id="passwd1" value="${ user.user_passwd }" readonly/></td>
             </tr>
             <tr>
                 <td>이름</td>
-                <td><input type="text" name="user_name" value="${user.user_name}" readonly/></td>
+                <td><input type="text" name="user_name" value="${ user.user_name }" readonly/></td>
             </tr>
             <tr>
                 <td>연락처</td>
-                <td><input type="text" name="user_phone" value="${user.user_phone}" readonly /></td>
+                <td><input type="text" name="user_phone" value="${ user.user_phone }" readonly /></td>
             </tr>
             <tr>
                 <td>이메일</td>
-                <td><input type="email" name="user_email" value="${user.user_email}" readonly /></td>
+                <td><input type="email" name="user_email" value="${ user.user_email }" readonly /></td>
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <input type="button" value="수정하기" id="goUpdate" />
+                    <a href="/Users/CheckPassword?user_id=${ userLogin.user_id }">수정하기</a>
                     <input type="button" value="회원탈퇴" id="delete" />
                 </td>
             </tr>
@@ -89,14 +93,6 @@
 
         <script>
             const user_id = document.querySelector('[name=user_id]').value;
-            const goUpdate = document.getElementById('goUpdate');
-
-            goUpdate.onclick = function() {
-                let  html     = '/Users/CheckPassword?user_id=' + user_id;
-                let  name     = 'checkpasswd';  // 이름을 주면 새창은 한번만 열림
-                let  features = 'height=300,width=500,top=250,left=800';
-                window.open(html, name, features)
-            }
             
             const deleteBtn = document.getElementById('delete');
             deleteBtn.onclick = function() {
