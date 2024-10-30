@@ -45,7 +45,7 @@
                     </td>
                     <td><a href="/Resume/UpdateResumeForm?user_id=${userLogin.user_id}&user_resume_idx=${resume.user_resume_idx}">수정</a></td>
                 </tr> 
-            </c:forEach>	    
+            </c:forEach>       
         </table>
     </main>
 </body>

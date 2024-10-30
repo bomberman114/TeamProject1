@@ -60,6 +60,15 @@
 			WHERE    
 			     APPLICATIONS_IDX = #{ applications_idx }
 	</update>
-
+	
+	<delete id="deletApplicstionData">
+	
+	DELETE 
+	FROM 
+		APPLICATIONS
+	WHERE
+    	COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+			
+	</delete>
 
 </mapper>

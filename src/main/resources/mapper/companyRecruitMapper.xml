@@ -24,7 +24,7 @@
 	    COMPANY_RECRUIT
 	 ORDER BY
 	 	VIEWS DESC
-	 FETCH FIRST 6 ROWS ONLY
+	 FETCH FIRST 12 ROWS ONLY
 	 
  </select>
  
@@ -106,6 +106,16 @@
 				) VALUES (
 				      COMPANY_RECRUIT_SEQ.NEXTVAL
 				    , #{company_id}
+				    , #{company_name}
+				    , #{recruit_title}
+				    , #{company_job}
+				    , #{getman}
+				    , #{region_idx}
+				    , #{company_address}
+				    , #{company_info}
+				    , #{application_deadline}
+				    , #{company_establish}
+				    )
 	</insert>
 
 
@@ -129,7 +139,6 @@
 				) VALUES (
 				      COMPANY_RECRUIT_SEQ.NEXTVAL,
 				      #{company_id}
-
 				    , #{company_name}
 				    , #{recruit_title}
 				    , #{company_job}
@@ -279,7 +288,7 @@
 		FROM company_recruit
 		WHERE company_recruit_idx = #{ company_recruit_idx}
 	</select>
-	
+
 	<select id="getCompanyOneRecruitData">
 	SELECT 
 	   *
@@ -315,7 +324,15 @@
 				     COMPANY_RECRUIT_IDX = #{company_recruit_idx}
 				     
 	</update>
-  	
+	
+	
+	<delete id="deleteCompanyRecruit">
+			DELETE
+			FROM COMPANY_RECRUIT
+			WHERE COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+	</delete>
+	
+
 
 
 </mapper>

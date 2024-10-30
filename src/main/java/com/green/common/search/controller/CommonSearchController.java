@@ -56,7 +56,7 @@ public class CommonSearchController {
 		List<SkillVo> skillList   = skillMapper.getSkillList();
 		List<RegionVo> regionList = regionMapper.getRegionList();
 		String recruit_title      = null;
-		
+
 		mv.addObject("recruit_title", recruit_title);
 		mv.addObject("skillList", skillList);
 		mv.addObject("regionList", regionList);
@@ -171,7 +171,7 @@ public class CommonSearchController {
 			message = "지원가능";
 		};
 		if( applicationsCount != 0 ){
-			message = "지원불가능";
+			message = "이미 지원한 공고입니다.";
 		};
 		
 		mv.addObject("message" , message);
@@ -181,7 +181,6 @@ public class CommonSearchController {
 		
 	}
 	
-	
-	
+
 	
 }

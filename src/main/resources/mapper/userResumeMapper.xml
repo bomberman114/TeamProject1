@@ -171,6 +171,7 @@
         DELETE FROM USER_RESUME
         WHERE USER_RESUME_IDX = #{ user_resume_idx }
     </delete>
+
     
     <select id="getUserResumeListData">
     	SELECT

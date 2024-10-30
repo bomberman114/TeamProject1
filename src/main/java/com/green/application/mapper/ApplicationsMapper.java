@@ -23,4 +23,6 @@ public interface ApplicationsMapper {
 
 	void setApplicationStatusData(ApplicaionVo applicationVo);
 
+	void deletApplicstionData(int company_recruit_idx);
+
 }

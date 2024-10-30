@@ -128,7 +128,9 @@
 	            <input type="hidden" id="company_recruit_idx" value="${ companyOneRecruit.COMPANY_RECRUIT_IDX }">
 	            <div class="info-item">채용공고 제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
 	            <div class="info-item">회사 이름: <span class="highlight">${companyOneRecruit.COMPANY_NAME}</span></div>
-	            <div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
+	            <c:if test="${ companyOneRecruit.SKILL_NAME ne null }">
+	            	<div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
+	            </c:if>
 	            <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
 	            <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
 	            <div class="info-item">근무지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
@@ -144,7 +146,7 @@
         <c:if test="${message eq '지원가능'}">
         	<a href="#" id="resumeList">이력서 들고오기</a>
     	</c:if>
-    	<c:if test="${ message eq '지원불가능' }">
+    	<c:if test="${ message eq '이미 지원한 공고입니다.' }">
     		<div>${ message }</div>
     	</c:if>
     </div>
