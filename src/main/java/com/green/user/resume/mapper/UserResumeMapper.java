@@ -1,7 +1,7 @@
 package com.green.user.resume.mapper;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +15,7 @@ import com.green.users.vo.UserVo;
 @Mapper
 public interface UserResumeMapper {
 
-	List<UserResumeVo> getUserResumeList( @Param( "user_id" ) String user_id );
+	//List<UserResumeVo> getUserResumeList( @Param( "user_id" ) String user_id );
 
 	List<SkillVo> getSkill();
 
@@ -34,13 +34,13 @@ public interface UserResumeMapper {
 
 	int getUserResumeIdx( @Param( "user_id" ) String user_id );
 
-
 	List<SkillVo> getSelectedSkills( @Param("user_resume_idx") int user_resume_idx);
 
 	void updateUserResume(UserResumeVo userResumeVo);
 
 	List<UserResumeVo> getUserResumeListData(UserVo userVo);
 
+	List<HashMap<String, String>> getUserResumeList( @Param( "user_id" ) String user_id);
 
 
 

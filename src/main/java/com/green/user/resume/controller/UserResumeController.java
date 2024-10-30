@@ -2,6 +2,7 @@ package com.green.user.resume.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,11 +54,10 @@ public class UserResumeController {
 	
 	/*이력서 목록*/
 	@RequestMapping( "/ResumeList" )
-	public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo ) {
+	public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo, CompanyRecruitVo companyRecruitVo  ) {
 		ModelAndView  mv  =  new ModelAndView();
 	    String user_id = userVo.getUser_id();
-	    List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeList( user_id );
-
+	    List<HashMap<String, String>> userResumeList = userResumeMapper.getUserResumeList( user_id );
 		mv.addObject( "userResumeList", userResumeList );
 		mv.setViewName( "users/resume/list" );
 		return mv;
@@ -136,6 +136,9 @@ public class UserResumeController {
 	    List<SkillVo> selectedSkills = userResumeMapper.getSelectedSkills(userResume.getUser_resume_idx());
 	    mv.addObject( "selectedSkills", selectedSkills );
 	    
+	    List<HashMap<String, String>> userResumeList = userResumeMapper.getUserResumeList( user_id );
+		mv.addObject( "userResumeList", userResumeList );
+		
 	    mv.addObject( "user_id", user_id );
         mv.addObject( "userResume", userResume );
 		mv.setViewName( "users/resume/view" );
@@ -201,6 +204,7 @@ public class UserResumeController {
 		return mv;
 	}
 	
+	/* 이력서 지원 */
 	@RequestMapping("/ResumeSubmit")
 	public ModelAndView resumeSubmit(UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo) {
 		ModelAndView mv = new ModelAndView();
@@ -217,5 +221,6 @@ public class UserResumeController {
 		return mv;
 		
 	}
+	
 	
 }

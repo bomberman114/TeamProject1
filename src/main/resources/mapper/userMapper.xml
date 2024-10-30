@@ -48,15 +48,9 @@
 	</select>
 	
 	<select id="getUserById">
-	    SELECT 
-	    	USER_ID
-		   ,USER_PASSWD
-		   ,USER_NAME
-		   ,USER_PHONE
-		   ,USER_EMAIL
-		   ,USER_REGDATE
-		FROM  USERS 
-		WHERE USER_ID = #{ user_id }
+	    SELECT USER_ID, USER_PASSWD, USER_NAME, USER_PHONE, USER_EMAIL, USER_REGDATE
+	    FROM USERS 
+	    WHERE USER_ID = #{user_id}
 	</select>
 	
 	<!-- 회원정보 수정 -->

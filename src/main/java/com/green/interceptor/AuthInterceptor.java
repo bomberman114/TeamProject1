@@ -21,7 +21,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         // 로그인 페이지 제외 설정
         if (requestURI.equals("/Users/Login") || requestURI.equals("/Users/LoginForm") ||
-            requestURI.equals("/Company/Login") || requestURI.equals("/Company/LoginForm")) {
+            requestURI.equals("/Company/Login") || requestURI.equals("/Company/LoginForm") || 
+            requestURI.equals("/Users/RegisterForm") || requestURI.equals("/Users/Register") ||
+            requestURI.equals("/Company/RegisterForm") || requestURI.equals("/Company/Register")
+            ) {
             return true;
         }
 

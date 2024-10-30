@@ -38,14 +38,16 @@ public class UserController {
 	}
 	
 	// 아이디 중복 체크
-	@RequestMapping( "/CheckDuplication" )
-	@ResponseBody
-	public String checkDuplication( @RequestParam( "user_id" ) String user_id ) {
-	    UserVo user = userMapper.getUserById(user_id);
-	    if (user == null) {
-	        return "가능";  // 아이디가 존재하지 않으면 가능
+	@RequestMapping(value = "/CheckDuplication", method = RequestMethod.GET)
+	@ResponseBody                              
+	public String checkDuplication(@RequestParam("user_id") String user_id) {
+	    System.out.println("중복 확인 요청된 아이디: " + user_id); 
+	    UserVo userVo = userMapper.getUserById(user_id);
+
+	    if (userVo == null) {
+	        return "가능"; // 아이디가 없으면 "가능" 반환
 	    }
-	    return "불가능";  // 아이디가 존재하면 불가능
+	    return "불가능";  // 아이디가 있으면 "불가능" 반환
 	}
 
 	@RequestMapping("/Register")
@@ -134,13 +136,18 @@ public class UserController {
 	@PostMapping( "/Login" )
 	public String login(
 		HttpServletRequest   request,
-		HttpServletResponse  response
+		HttpServletResponse  response,
+		Model model
 		) {
 		String userid  = request.getParameter( "user_id" );
 		String passwd  = request.getParameter( "user_passwd" );
 		
 		UserVo userVo = userMapper.login( userid, passwd );
-			
+	    if (userVo == null) { // db에 없는 계정으로 로그인 시
+	        model.addAttribute("loginError", "아이디 또는 비밀번호를 확인해주세요.");
+	        return "users/loginform"; // 로그인 폼 페이지로 이동
+	    }
+		
 		HttpSession  session = request.getSession();
 		session.setAttribute( "userLogin", userVo );
 

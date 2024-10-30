@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="text-center">
-                    <a href="/Users/CheckPassword?user_id=${ userLogin.user_id }">수정하기</a>
+                    <a href="/Users/CheckPassword?user_id=${ userLogin.user_id }">정보 수정하기</a>
                     <input type="button" value="회원탈퇴" id="delete" />
                 </td>
             </tr>

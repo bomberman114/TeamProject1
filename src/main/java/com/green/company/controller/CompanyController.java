@@ -334,7 +334,8 @@ public class CompanyController {
 	@PostMapping("/Login")
 	public  String   login(
 		HttpServletRequest   request,
-		HttpServletResponse  response
+		HttpServletResponse  response,
+		Model model
 		) {
 		String company_id  = request.getParameter("company_id");
 		String company_passwd  = request.getParameter("company_passwd");
@@ -342,7 +343,12 @@ public class CompanyController {
 		// db 조회
 		CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
 		System.out.println(companyUserVo);
-			
+		
+	    if (companyUserVo == null) { // db에 없는 계정으로 로그인 시
+	        model.addAttribute("loginError", "아이디 또는 비밀번호를 확인해주세요.");
+	        return "company/loginform"; // 로그인 폼 페이지로 이동
+	    }
+		
 		HttpSession  session = request.getSession();
 		session.setAttribute( "companyUserLogin", companyUserVo );
 

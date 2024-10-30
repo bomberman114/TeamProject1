@@ -321,6 +321,22 @@
 				     
 	</update>
   	
+    <update id="updateRecruitView">
+        UPDATE COMPANY_RECRUIT
+        SET VIEWS = VIEWS + 1
+        WHERE COMPANY_RECRUIT_IDX = #{company_recruit_idx}
+    </update>
 
+    <select id="getRecruitListByViews">
+        SELECT *
+        FROM COMPANY_RECRUIT
+        ORDER BY VIEWS DESC
+    </select>
+
+	<select id="getCompanyRecruitId">
+		SELECT *
+		FROM COMPANY_RECRUIT
+		WHERE COMPANY_RECRUIT = #{ company_recruit_idx }
+	</select>
 
 </mapper>
