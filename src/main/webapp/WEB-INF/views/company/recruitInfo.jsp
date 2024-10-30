@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -9,10 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용공고</title>
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Poor+Story&display=swap" rel="stylesheet"> 
+<style>
+
         body {
             background-color: #ffffff;
-            font-family:'Arial', sans-serif;
+            font-family: "Jua", serif;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -22,44 +23,92 @@
             max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #ffffff;
-            font-size : 22px;
+            background-color: #EBFFEE;;
+            font-size: 22px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             font-weight: bold;
+            text-align: center;
         }
 
         .info-box {
-            background-color: #EBFFEE;
+            background-color: #ffffff;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border: 10px solid #ffffff;
+            font-weight: bold;
+            font-size: 18px;
+            padding-bottom: 10px;
+           
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
         }
 
         h1 {
-            color: #2e8b57;
-            text-align: center;
+            color: #470065;
             font-size: 35px;
             margin-bottom: 20px;
-            background-color: #EBFFEE;
         }
         
-        h2 {
-        	color:green;
-         	font-size: 40px;
-        
-        }
-
         .info-item {
             font-size: 18px;
             margin: 10px 0;
             text-align: center;
+            font-weight: bold;
         }
 
         .highlight {
             font-weight: bold;
             color: #2e8b57;
+        }
+
+        .link-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .link-box {
+            flex: 1;
+            max-width: 280px;
+            background-color: #EBFFEE;
+            color: #470065;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .link-box:hover {
+            background-color: #DFF5E1;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #EBFFEE;
+            color: #470065;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-link:hover {
+            background-color: #495057;
+            color: #ffffff;
         }
 
         ul {
@@ -68,11 +117,14 @@
         }
 
         li {
-            background-color: #EBFFEE;
-            border: 10px solid #ffffff;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            
         }
 
         .no-offers {
@@ -82,103 +134,102 @@
             margin-top: 20px;
         }
 
-        .link-container {
+        .pagination {
             display: flex;
             justify-content: center;
-            margin-bottom: 0px;
             margin-top: 20px;
         }
 
-        .link-box {
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
             background-color: #EBFFEE;
-            color: green;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            width: 200px;
-            margin: 10px;
-            cursor: pointer;
+            color: #470065;
             text-decoration: none;
-            border: 1px solid;
+            border-radius: 5px;
+            font-weight: bold;
         }
 
-        .link-box:hover {
-            background-color: #EBFFEE;
+        .pagination a.active {
+            background-color: #470065;
+            color: #ffffff;
         }
 
- 	    .button-link {
-        	display: inline-block;
-	        padding: 10px 20px;
-	        background-color: #343a40;
-	        color: white;
-	        text-decoration: none;
-	        border-radius: 4px;
-	        font-size: 16px;
-	        margin-right: 10px;
-	        text-align: center;
-	        cursor: pointer;
-   	    }
+        .pagination a:hover {
+            background-color: #495057;
+            color: #ffffff;
+        }
 
-    	.button-link:hover {
-        background-color: #495057;
-    	}
-    	
+        footer {
+            text-align: center;
+            font-family: "Jua", serif;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        .logo-container {
+            margin-top: 20px; 
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
     </style>
 </head>
 <body>
- <header style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <a href="/">
-        <img src="\css\NEXT.png" alt="사이트 로고" style="height: 15em;">
-    </a>
-</header>
-    <div class="link-container">
-        <a href="/Company/Info" class="link-box">내 정보</a>
-        <a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
-    </div>
-    <div class="container">
-        <div class="info-box">
-          <h1>채용 공고 관리</h1>
-            회사 이름 : <span class="highlight">${ companyUserVo.company_name }</span>&nbsp&nbsp&nbsp    
-            회사 아이디:<span class="highlight">${ companyUserVo.company_id }</span>
-            <p class="info-item">내가 올린 채용 공고: <span class="highlight">" ${recruitCount} "</span> 개 </p>
-        </div>
-<c:if test="${ not empty companyRecruitList }">
-    <ul>
-        <c:forEach var="recruit" items="${ companyRecruitList }" varStatus="status">
-            <li>
-                <span>
-                    <p></p>
-                    번호&nbsp:&nbsp${status.index + 1}&nbsp번<br />
-                    제목 : ${ recruit.recruit_title }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp날짜 : ${ recruit.company_recruit_regdate }<br />
-                    
-                    </br><a href="/Company/OneRecruit?company_recruit_idx=${recruit.company_recruit_idx}" class="button-link">상세 보기</a>
-                    <p> </p>
-                </span>
-            </li>
-            <br/>
-        </c:forEach>
-    </ul>
-</c:if>
+    <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
 
-        <c:if test="${ empty companyRecruitList }">
-            <p class="no-offers">내가 올린 채용 공고가 없습니다</p>
+    <div class="link-container">
+        <a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
+        <a href="/Company/Info" class="link-box">내 정보</a>
+        <a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
+    </div>
+		 
+    <div class="container">
+    <h1>채용 공고 관리</h1>
+        <div class="info-box">
+         	<p></p>
+            회사 이름 : <span class="highlight">${ companyUserVo.company_name }</span>&nbsp;&nbsp;    
+            회사 아이디 : <span class="highlight">${ companyUserVo.company_id }</span>
+            <p class="info-item">내가 올린 채용 공고: <span class="highlight">${recruitCount}</span> 개</p>
+            <p></p>
+        </div>
+
+    <c:if test="${ not empty companyRecruitList }">
+        <ul>
+            <c:forEach var="recruit" items="${ companyRecruitList }" varStatus="status">
+                <li>
+                    <p>번호 : ${status.index + 1} 번</p>
+                    <p>제목 : ${ recruit.recruit_title }</p>
+                    <p>날짜 : ${ recruit.company_recruit_regdate }</p>
+                    <a href="/Company/OneRecruit?company_recruit_idx=${recruit.company_recruit_idx}" class="button-link">상세 보기</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </c:if>
+
+    <c:if test="${ empty companyRecruitList }">
+        <p class="no-offers">내가 올린 채용 공고가 없습니다</p>
+    </c:if>
+    <div class="pagination">
+        <c:if test="${currentPage > 1}">
+            <a href="?nowpage=${currentPage - 1}&pageSize=${pageSize}">이전</a>
         </c:if>
 
-        <div class="pagination">
-            <c:if test="${currentPage > 1}">
-                <a href="?nowpage=${currentPage - 1}&pageSize=${pageSize}">이전</a>
-            </c:if>
+        <c:forEach var="i" begin="1" end="${totalPages}">
+            <a href="?nowpage=${i}&pageSize=${pageSize}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+        </c:forEach>
 
-            <c:forEach var="i" begin="1" end="${totalPages}">
-                <a href="?nowpage=${i}&pageSize=${pageSize}" class="${i == currentPage ? 'active' : ''}">${i}</a>
-            </c:forEach>
-
-            <c:if test="${currentPage < totalPages}">
-                <a href="?nowpage=${currentPage + 1}&pageSize=${pageSize}">다음</a>
-            </c:if>
-        </div>
+        <c:if test="${currentPage < totalPages}">
+            <a href="?nowpage=${currentPage + 1}&pageSize=${pageSize}">다음</a>
+        </c:if>
     </div>
+    </div>
+    <footer>    
+        <p>이메일 : help@arabojob.co.kr<br/> Fax : 02-0000-0000(대표)</p>
+    </footer>
 </body>
 </html>

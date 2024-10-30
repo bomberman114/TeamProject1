@@ -9,68 +9,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>알아보JOB</title>
     <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png?raw=true" />
-	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Poor+Story&display=swap" rel="stylesheet">    
-        <style>
-        body {
+	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Nanum+Brush+Script&family=Poor+Story&display=swap" rel="stylesheet">
+	 
+<style>
+      	body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
             color: #333;
             margin: 0;
             padding: 0;
         }
-      header {
-          background-color: #ffffff;
-          padding: 10px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          border-bottom: 2px solid #EBFFEE;
-      }
+     	   
+    	header {
+            background-color: #ffffff;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;      
+            border-bottom: 2px solid #EBFFEE;
+    	}
       
-      .logo-container {
-          margin-bottom: 10px;
-          text-align: center;
-      }
+     	.logo-container {
+	        margin-bottom: 10px;
+	        text-align: center;
+    	}
 
         .logo-container img {
             height: 180px;
         }
         
-.nav-menu {
-    width: 100%;
-    padding: 0;
-    background-color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 5px;
+		.nav-menu {
+		    width: 100%;
+		    padding: 0;
+		    background-color: white;
+		    display: flex;
+		    justify-content: flex-end;
+		    align-items: center;
+		    padding-top: 5px;
+		}
+		   
+		nav ul {
+		    list-style: none;
+		    display: flex;
+		    gap: 25px; /* 버튼 간 간격 */
+		    margin: 0;
+		    padding: 0;
+		    padding-right: 10px;
+		    align-items: center; /* 수직 정렬 */
+		}
+
+       nav a {
+    text-decoration: none;
+    color: #470065;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    padding: 10px 15px; /* 패딩을 추가하여 버튼 크기 조정 */
+    display: inline-block; /* 버튼 형태로 만들기 위해 inline-block 설정 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    font-size: 30px; /* 글자 크기 조정 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; /* !important 추가 */
 }
-   
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-    padding-right: 10px;
-}
 
-        nav a {
-            text-decoration: none;
-            color: #470065;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
 
-        nav a:hover {
-            color: #333;
-        }
-
+       nav a:hover {
+		    color: #333;
+		    background-color: #f0f0f0; /* 호버 시 배경색 추가 */
+		}
         .container {
             display: flex;
             flex: 1;
             position: relative;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .menu-toggle {
@@ -83,41 +93,48 @@ nav ul {
             margin: 0;
         }
 
-      .sidebar {
-          width: 250px; /* 사이드바 너비 */
-          background-color: #ffffff; /* 배경색 */
-          padding: 20px; /* 패딩 */
-          box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
-          position: fixed; /* 고정 위치 */
-          top: 0; /* 상단 정렬 */
-          left: -250px; /* 화면 밖으로 숨김 */
-          height: 100%; /* 전체 높이 */
-          transition: left 0.3s ease; /* 애니메이션 효과 */
-          z-index: 1000; /* 다른 요소 위에 표시 */
-      }
+        .sidebar {
+            width: 250px; /* 사이드바 너비 */
+            background-color: #ffffff; /* 배경색 */
+            padding: 20px; /* 패딩 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+            position: fixed; /* 고정 위치 */
+            top: 0; /* 상단 정렬 */
+            left: -350px; /* 화면 밖으로 숨김 */
+            height: 100%; /* 전체 높이 */
+            transition: left 0.3s ease; /* 애니메이션 효과 */
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
       
-      .sidebar.active {
-          left: 0; /* 사이드바 표시 */
-      }
+         .sidebar.active {
+            left: 0; /* 사이드바 표시 */
+        }
+
+        .sidebar button {
+   			background-color: #EBFFEE; /* 버튼 색상 */
+    		color: #470065; /* 텍스트 색상 */
+    		border: none; /* 테두리 없음 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    padding: 10px 0; /* 패딩 (좌우 여백 제거) */
+		    cursor: pointer; /* 커서 변경 */
+		    margin-bottom: 20px; /* 버튼과 다른 요소 간 여백 */
+		    transition: background-color 0.3s ease; /* 호버 효과 */
+		    box-shadow: 0 0 5px rgba(71, 0, 101, 0.4);
+		    font-weight: bold;
+		    font-size: 30px; /* 글자 크기 조정 */
+		    width: 100%; /* 버튼의 너비를 100%로 설정 */
+		    max-width: 250px; /* 최대 너비 설정 (사이드바 너비와 동일) */
+		}
       
-      .sidebar button {
-          background-color: #470065; /* 닫기 버튼 색상 */
-          color: white; /* 텍스트 색상 */
-          border: none; /* 테두리 없음 */
-          border-radius: 5px; /* 모서리 둥글게 */
-          padding: 10px; /* 패딩 */
-          cursor: pointer; /* 커서 변경 */
-          margin-bottom: 20px; /* 버튼과 다른 요소 간 여백 */
-          transition: background-color 0.3s ease; /* 호버 효과 */
-      }
-      
-      .sidebar button:hover {
-          background-color: #333; /* 호버 시 색상 변경 */
-      }
-      
-      .sidebar p {
-          margin: 15px 0; /* 각 항목 간 여백 */
-      }
+        .sidebar button:hover {
+            background-color: #333; /* 호버 시 색상 변경 */
+            color: white; /* 호버 시 텍스트 색상 변경 */
+        }
+
+        .sidebar p {
+            margin: 10px 0; /* 각 항목 간 여백 */
+        }
+
       
       .sidebar a {
           text-decoration: none; /* 링크 밑줄 제거 */
@@ -189,6 +206,7 @@ nav ul {
           max-width: 1200px;
           margin: 0 auto;
           padding: 20px;
+         
       }
 
       .card {
@@ -250,6 +268,7 @@ nav ul {
           letter-spacing: 1px; /* 글자 간격 조정 */
           font-family: "Jua", serif; /* 인기공고 글씨체 변경 */
           
+          
       }
       
       .login-menu {
@@ -259,10 +278,22 @@ nav ul {
       
       }
       
+      h2{
+	      font-family: "Nanum Brush Script", cursive;;
+	      color:black;
+	      font-size:40px;
+	      
+      }
+      .highlight {
+		    color: #00B300; /* 선명한 초록색 */
+		    font-weight: bold; /* 굵게 설정 */
+		    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 */
+		}
+      
       footer {
       text-align: center;
       font-family: "Jua", serif;
-      border-top: 2px solid #470065; /* 아래쪽에 밑줄 추가 */
+
       padding-bottom: 10px; /* 밑줄과 텍스트 사이 여백 추가 */
       }
       
@@ -271,29 +302,25 @@ nav ul {
     </style>
 </head>
 <body>
-    <nav class="nav-menu">
-      <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
-         <button class="menu-toggle" id="menu-toggle">☰</button>
-      <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
-         <button class="menu-toggle" id="menu-toggle">☰</button>
-      <% } %>   
-        <nav>
-            <ul>
-            
-               <!-- 개인과 기업 로그인 상태 처리 -->
+   <nav class="nav-menu">
+    <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+    <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+    <% } %>   
+    <nav>
+        <ul>
             <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
                 <li><a href="/Users/Logout">로그아웃</a></li>
             <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
                 <li><a href="/Company/Logout">로그아웃</a></li>
             <% } %>
-                
-                <% if ((Boolean) request.getAttribute("logInUser") && (Boolean) request.getAttribute("logInCompanyUser")) {%>
+            <% if ((Boolean) request.getAttribute("logInUser") && (Boolean) request.getAttribute("logInCompanyUser")) {%>
                 <li><a href="/Users/LoginForm">로그인</a></li>
-                <!-- <li><a href="/Users/RegisterForm">회원가입</a></li> -->
-                <% } %>
-            </ul>
-        </nav>
-      </nav>           
+            <% } %>
+        </ul>
+    </nav>
+</nav>
     <header>
    
     </header>
@@ -306,24 +333,31 @@ nav ul {
     </div>
     <% if (!((Boolean) request.getAttribute("logInUser")) || !((Boolean) request.getAttribute("logInCompanyUser"))) {%>
     <div class="container">
-      <div class="sidebar" id="sidebar">
-          <button id="close-menu">닫기</button>
-          <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
-              <p><a href="/Users/View?user_id=${ userLogin.user_id }">내 정보</a></p>
-              <p><a href="/Resume/RegisterResumeForm?user_id=${ userLogin.user_id }">새 이력서 작성하기</a></p>
-              <p><a href="/Resume/ResumeList?user_id=${ userLogin.user_id }">내 이력서 목록</a></p>
-          <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
-              <p><a href="/Company/Info?company_id=${ companyUserLogin.company_id }">회사 정보</a></p>
-          <% } %>
-      </div>
+   <div class="sidebar" id="sidebar">
+    <button id="close-menu">닫기</button>
+    <div class="button-container">
+        <% if ((Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser")) { %>
+            <button onclick="location.href='/Users/View?user_id=${ userLogin.user_id }'">내 정보</button>
+            <button onclick="location.href='/Resume/RegisterResumeForm?user_id=${ userLogin.user_id }'">이력서 작성하기</button>
+            <button onclick="location.href='/Resume/ResumeList?user_id=${ userLogin.user_id }'">이력서 목록</button>
+        <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
+            <button onclick="location.href='/Company/Info?company_id=${ companyUserLogin.company_id }'">내 정보</button>
+            <button onclick="location.href='/Company/RecruitInfo?company_id=${ companyUserLogin.company_id }'">채용 공고 관리</button>
+            <button onclick="location.href='/Company/RecruitWriteForm?company_id=${ companyUserLogin.company_id }'">채용 공고 등록</button>
+        <% } %>
+    </div>
+</div>
    <% } %>   
 
     <main>
-
+		<h2>
+		    구인구직, <span class="highlight">알아보JOB</span>에서 한 번에!
+		</h2>
         <div class="search-container">
             <input type="text" placeholder="찾고 싶은 채용공고를 검색하세요">
             <button class="search-button">⌕</button>
         </div>
+
 
       <div class="popular">인기공고</div>
       <div class="grid-container">
@@ -339,6 +373,7 @@ nav ul {
       </div>
 </div>
     </main>
+
     </div>
     <script>
         const menuToggle = document.getElementById( 'menu-toggle' );
