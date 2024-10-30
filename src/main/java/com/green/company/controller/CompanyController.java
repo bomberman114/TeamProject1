@@ -353,9 +353,6 @@ public class CompanyController {
     public ModelAndView onerecruit(HttpSession session,
                                  @RequestParam(name="company_recruit_idx") int company_recruit_idx) {
 
-        String company_id = (String) session.getAttribute("company_id");
-
-
         CompanyRecruitVo companyRecruitVo = new CompanyRecruitVo();
         companyRecruitVo.setCompany_recruit_idx(company_recruit_idx);
         HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
@@ -389,6 +386,7 @@ public class CompanyController {
     @RequestMapping("/RecruitUpdate")
 
 
+
    	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
    		Map<String, String[]> companyRecruitmap = request.getParameterMap();
    		String [] skills = companyRecruitmap.get("skill_name");
@@ -416,6 +414,7 @@ public class CompanyController {
    		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
    		return mv;
    	}
+
 
 
    

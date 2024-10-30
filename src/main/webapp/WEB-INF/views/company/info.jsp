@@ -10,11 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회사 정보</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Poor+Story&display=swap" rel="stylesheet">    
-    
     <style>
         body {
             background-color: #ffffff;
-    
             margin: 0;
             padding: 0;
             text-align: center;
@@ -57,7 +55,7 @@
 
         h1 {
             color: #470065;
-            font-size: 28px;
+            font-size: 35px;
             margin-bottom: 20px;
         }
 
@@ -82,8 +80,6 @@
        		margin: 0 auto;
         
    	    }
-
-
 
  	    .link-box {
             flex: 1;
@@ -125,7 +121,6 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
             border: none; /* 테두리 제거 */
             font-weight: bold;
-        
     	}
 
    		.button:hover {
@@ -135,8 +130,7 @@
         form {
             text-align: center;
         }
-        
-              
+          
         footer {
             text-align: center;
             font-family: "Jua", serif;
@@ -157,9 +151,12 @@
         </a>
     </header>
     <div class="link-container">
-   		<a href="/Company/RecruitInfo" class="link-box">우리회사의 채용공고</a>
-    	<a href="/Company/Info" class="link-box">내 정보</a>
-    	<a href="/Company/RecruitWriteForm" class="link-box">채용공고 등록</a>
+
+        <a href="/Company/Info" class="link-box">내 정보</a>
+   		<a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
+    	<a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
+    </a>
+
 </div>
     <div class="container">
         <h1>내 회사 정보</h1>
@@ -177,10 +174,7 @@
         </div>
     </div>
 <footer>    
-    <br/><span>이메일 : help@arabojob.co.kr, Fax : 02-0000-0000(대표)</span><br/>
-    <span>(주)아라보잡, 그린구 그린로 00길 00, 0층, 대표 : 조현길</span><br/>
-	<span>사업자등록 : 000-00-00000, 직업정보제공사업 : 그린 그린 제 0000-0호</span><br/>
-	<span>Copyright (c) (주)아라보잡. All rights reserved.</span>
+    <br/><span>이메일 : help@arabojob.co.kr<br/> Fax : 02-0000-0000(대표)</span><br/>
 	<p></p>
 </footer>
 </body>

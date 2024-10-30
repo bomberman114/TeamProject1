@@ -18,6 +18,7 @@
             text-align: center;
         }
 
+
         .container {
             max-width: 600px;
             margin: 20px auto;
@@ -82,6 +83,7 @@
             color: #ffffff;
         }
 
+
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -108,8 +110,9 @@
 </head>
 <body>
     <header class="logo-container">
-        <a href="/">
-            <img src="\css\NEXT.png" alt="사이트 로고">
+
+        <a href="/Company/RecruitInfo">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
         </a>
     </header>
 
@@ -125,23 +128,27 @@
             <c:if test="${ companyOneRecruit.SKILL_NAME eq null }">
                 <div class="info-item">스킬: <span class="highlight">없음</span></div>
             </c:if>
-            <div class="info-item">모집지역: <span class="highlight">${ companyOneRecruit.REGION_NAME }</span></div>
-            <div class="info-item">상세주소: <span class="highlight">${ companyOneRecruit.COMPANY_ADDRESS }</span></div>
-            <div class="info-item">회사정보: <span class="highlight">${ companyOneRecruit.COMPANY_INFO }</span></div>
-            <div class="info-item">회사이름: <span class="highlight">${ companyOneRecruit.COMPANY_NAME }</span></div>
-            <div class="info-item">마감기한: <span class="highlight">${ companyOneRecruit.APPLICATION_DEADLINE }</span></div>
-            <div class="info-item">설립일: <span class="highlight">${ companyOneRecruit.COMPANY_ESTABLISH }</span></div>
-            <div class="info-item">등록일: <span class="highlight">${ companyOneRecruit.COMPANY_RECRUIT_REGDATE }</span></div>
-            <div class="info-item">조회수: <span class="highlight">${ companyOneRecruit.VIEWS }</span></div>
+
+            <div class="info-item">모집지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
+            <div class="info-item">상세주소: <span class="highlight">${companyOneRecruit.COMPANY_ADDRESS}</span></div>
+            <div class="info-item">회사정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
+            <div class="info-item">회사이름: <span class="highlight">${companyOneRecruit.COMPANY_NAME}</span></div>
+            <div class="info-item">마감기한: <span class="highlight">${companyOneRecruit.APPLICATION_DEADLINE}</span></div>
+            <div class="info-item">설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
+            <div class="info-item">등록일: <span class="highlight">${companyOneRecruit.COMPANY_RECRUIT_REGDATE}</span></div>
+            <div class="info-item">조회수: <span class="highlight">${companyOneRecruit.VIEWS}</span></div>
                <div class="action-buttons">
-            <a href="/Company/RecruitUpdateForm?company_recruit_idx=${ companyOneRecruit.COMPANY_RECRUIT_IDX }" class="button">수정</a>
+            <a href="/Company/RecruitUpdateForm?company_recruit_idx=${companyOneRecruit.COMPANY_RECRUIT_IDX}" class="button">수정</a>
             <form action="/Company/DeleteRecruit" method="post" style="display:inline;">
-                <input type="hidden" name="company_recruit_idx" value="${ companyOneRecruit.COMPANY_RECRUIT_IDX }">
+                <input type="hidden" name="company_recruit_idx" value="${companyOneRecruit.COMPANY_RECRUIT_IDX}">
                 <input type="submit" class="button" value="삭제">
+        </div>
+  
+
             </form>
                 <a class="button"  href="/Company/ResumeViewList?company_recruit_idx=${ companyOneRecruit.COMPANY_RECRUIT_IDX }">들어온 이력서보기</a>
         </div>
-        </div>
+
     </div>
 
     <footer>
