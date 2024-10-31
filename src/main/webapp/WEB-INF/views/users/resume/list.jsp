@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>개인이력서목록</title>
+    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
     <style>
         body {
             font-family: 'Arial', sans-serif;

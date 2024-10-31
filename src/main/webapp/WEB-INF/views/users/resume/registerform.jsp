@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>개인회원가입</title>
+    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
