@@ -10,19 +10,22 @@
     <!-- 이력서 목록 조회 -->
 
       <select id="getUserResumeList">
-		SELECT
-		    UR.*,          
-		    A.*           
-		FROM
-		    USER_RESUME UR
-		LEFT JOIN 
-		    APPLICATIONS A ON UR.USER_RESUME_IDX = A.USER_RESUME_IDX
-		JOIN
-		    USERS U ON UR.USER_ID = U.USER_ID
-		WHERE
-		    U.USER_ID = #{user_id}
-		ORDER BY
-		    UR.USER_RESUME_REGDATE DESC
+SELECT
+    UR.*,          
+    A.*, 
+    CR.*
+FROM
+    USER_RESUME UR
+LEFT JOIN 
+    APPLICATIONS A ON UR.USER_RESUME_IDX = A.USER_RESUME_IDX
+LEFT JOIN
+    COMPANY_RECRUIT CR ON CR.COMPANY_RECRUIT_IDX = A.COMPANY_RECRUIT_IDX  
+JOIN
+    USERS U ON UR.USER_ID = U.USER_ID
+WHERE
+    U.USER_ID = #{user_id}
+ORDER BY
+    UR.USER_RESUME_REGDATE DESC
 
     </select>
 
@@ -173,6 +176,24 @@
         WHERE USER_RESUME_IDX = #{ user_resume_idx }
     </delete>
 
+<!-- 회원삭제시 이력서 삭제 -->
+	<delete id="deleteUserResumesSkills">
+	    DELETE FROM 
+	    COMMON_USER_RESUME_SKILL
+	    WHERE USER_RESUME_IDX 
+	    IN (
+	        SELECT UR.USER_RESUME_IDX
+	        FROM USER_RESUME UR
+	        JOIN USERS U 
+	        ON UR.USER_ID = U.USER_ID
+	        WHERE U.USER_ID = #{user_id}
+	    )
+	</delete>
+
+    <delete id="deleteUserResumes">
+        DELETE FROM USER_RESUME UR
+        WHERE UR.USER_ID = #{ user_id }
+    </delete>
     
     <select id="getUserResumeListData">
     	SELECT

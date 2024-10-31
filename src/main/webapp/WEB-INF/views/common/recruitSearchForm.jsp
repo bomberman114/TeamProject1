@@ -295,7 +295,7 @@
             <h3>검색결과</h3>
             <c:forEach var="companyRecruit" items="${companyRecruitList}">
                 <div class="job-card">
-                <a style="text-decoration:none" href="/Common/RecruitInfo?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
+                <a style="text-decoration:none" href="/Common/IncrementView?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
                     <div class="job-title">제목 : ${ companyRecruit.RECRUIT_TITLE }</div>
                     <div class="job-title">회사이름 : ${ companyRecruit.COMPANY_NAME }</div>
                     <div class="job-location">지역: ${ companyRecruit.REGION_NAME }</div>

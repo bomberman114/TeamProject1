@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>개인 로그인</title>
-<link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png?raw=true" />
+<link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 
     <style>
@@ -101,7 +101,9 @@
 	            <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
 	        </div>
 	        <div class="title">개인회원 로그인</div>
+
           	<div style="color: red">${ loginFalseMessage }</div>
+
 	        <input type="text" name="user_id" placeholder="아이디" />
 	        <input type="password" name="user_passwd" placeholder="비밀번호" />
 	        <input class="btn" type="submit" value="로그인"/>

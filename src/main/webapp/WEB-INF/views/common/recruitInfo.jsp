@@ -115,7 +115,7 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert("데이터 요청 중 오류가 발생했습니다.");
+                        window.location.href = "/Users/LoginForm";
                     });
             };
         });
@@ -138,6 +138,7 @@
 	            <div class="info-item">기업정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
 	            <div class="info-item">접수기간: <span class="highlight">${companyOneRecruit.APPLICATION_DEADLINE}</span></div>
 	            <div class="info-item">기업설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
+	            <div class="info-item">조회수: <span class="highlight">${companyOneRecruit.VIEWS}</span></div>
         </div>
         
         <div class="link-container">
@@ -149,6 +150,7 @@
     	<c:if test="${ message eq '이미 지원한 공고입니다.' }">
     		<div>${ message }</div>
     	</c:if>
+
     </div>
 </body>
 </html>

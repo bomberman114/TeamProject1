@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>채용공고 작성</title>
+    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"> 
 <style type="text/css">
 body {

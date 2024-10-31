@@ -102,7 +102,7 @@
         <div style="color: red">${ loginFalseMessage }</div>
         <input type="text" name="company_id" placeholder="아이디" />
         <input type="password" name="company_passwd" placeholder="비밀번호" />
-        <input type=submit value="로그인" />
+	    <input class="btn" type="submit" value="로그인"/>
         <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
    </form>

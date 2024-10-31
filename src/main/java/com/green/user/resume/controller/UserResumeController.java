@@ -196,6 +196,8 @@ public class UserResumeController {
 	/*이력서 삭제*/
 	@RequestMapping( "/DeleteResume" )
 	public  ModelAndView delete( UserResumeVo userResumeVo ) {
+		userResumeMapper.deleteUserResumeSkills( userResumeVo );
+		userResumeMapper.deleteUserResume( userResumeVo );
 		ModelAndView  mv  =  new ModelAndView();
 		userResumeMapper.deleteUserResume( userResumeVo );
 		String user_id = userResumeVo.getUser_id();

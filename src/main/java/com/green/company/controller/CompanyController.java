@@ -92,7 +92,7 @@ public class CompanyController {
    public ModelAndView recruitWriteForm (HttpSession session ,CompanyUserVo companyUserVo) {
 
       
-	   
+      
       List<RegionVo> regionList = regionMapper.getRegionList();
       List<SkillVo> skillList   = skillMapper.getSkillList();
 
@@ -288,10 +288,11 @@ public class CompanyController {
    
    // /Users/Update
    @RequestMapping("/Update")
-   public  ModelAndView  update(CompanyUserVo companyUserVo) {
+   public  ModelAndView  update(CompanyUserVo companyUserVo, @RequestParam(  value="company_id", required=false )String company_id) {
       companyUserMapper.updateCompanyUser(companyUserVo);
+      companyUserMapper.getCompanyUserById(company_id);
       ModelAndView  mv  =  new ModelAndView();
-      mv.setViewName("redirect:/Company/List");
+      mv.setViewName("redirect:/Company/View?company_id=" + company_id);
       return        mv;
    }
    //-------------------------------------------------------------------
@@ -315,6 +316,7 @@ public class CompanyController {
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
+
 	   ModelAndView mv = new ModelAndView();
       String company_id  = request.getParameter("company_id");
       String company_passwd  = request.getParameter("company_passwd");
@@ -332,6 +334,7 @@ public class CompanyController {
     	  loginFalseMessage = "다시 로그인 시도해주세요";
     	  mv.addObject("loginFalseMessage", loginFalseMessage);
     	  mv.setViewName("redirect:/Company/LoginForm");
+
       };
       
       return  mv;
@@ -425,6 +428,7 @@ public class CompanyController {
    		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
    		return mv;
    	}
+
 
 
 

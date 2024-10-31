@@ -157,8 +157,30 @@ public class CommonSearchController {
 		ModelAndView mv = new ModelAndView();
 		
 		UserVo userVo = (UserVo) session.getAttribute("userLogin");
+		if (userVo == null) {
+			companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(companyRecruitVo.getCompany_recruit_idx());
+			
+			int views = companyRecruitVo.getViews(); 
+			
+			companyRecruitVo.setViews(views++);
+			HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
+			int applicationsCount = applicationsMapper.getApplicationsCountByNoLog(companyRecruitVo.getCompany_recruit_idx());
+			mv.addObject("companyOneRecruit" , companyOneRecruit);
+			if( applicationsCount == 0 ) {
+				message = "지원가능";
+			};
+			if( applicationsCount != 0 ){
+				message = "이미 지원한 공고입니다.";
+			};
+			
+			mv.addObject("message" , message);
+			
+			mv.setViewName("/common/recruitInfo");
+			return mv;
+		}
 		
 		List<UserResumeVo> userResumeIdxList = userResumeMapper.getResumeIdx(userVo);
+		
 		companyRecruitVo = companyRecruitMapper.getCompanyOneRecruit(companyRecruitVo.getCompany_recruit_idx());
 		
 		int views = companyRecruitVo.getViews(); 
@@ -194,7 +216,7 @@ public class CommonSearchController {
 	    // 조회수 높은 순으로 채용 공고 리스트 가져오기
 	    List<CompanyRecruitVo> companyRecruitList = companyRecruitMapper.getRecruitListByViews( companyRecruitVo );
 	    mv.addObject("companyRecruitList", companyRecruitList);
-		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+		mv.setViewName("redirect:/Common/RecruitInfo?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
 	    return mv;
 	}
 	
