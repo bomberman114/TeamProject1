@@ -146,6 +146,19 @@
     </form>
 
 	<script>
+	
+	window.onload = function(){
+		
+	 	 const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
+
+        // 현재까지의 날짜만 가능하도록 설정 (회사설립일)
+        const companyEstablishEl = document.querySelector('[name=company_establish]');
+        companyEstablishEl.setAttribute("max", today);
+        
+	};
+	
+	
+	
 	    const formEl       		 = document.querySelector('form');
 	    const company_idEl       = document.querySelector('[name=company_id]');
 	    const passwd1El    		 = document.querySelector('#pass_wd1');

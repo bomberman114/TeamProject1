@@ -265,6 +265,9 @@
                         </c:if>
                     </c:forEach>
                 </div>
+                
+                
+                
             </div>
                <!-- 지역 선택 섹션 -->
 	        <div class="filter-section">
@@ -350,13 +353,10 @@
              <c:forEach var="region" items="${regionListCheck}">
                  <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
              </c:forEach>
-             
               <a href="${ url }">다음</a>
            </c:if>
         </div>
-        
         </c:if>
-        
         
     </div>
 
@@ -384,34 +384,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var skillSections = ["backendSkills", "frontendSkills", "dbSkills", "mobileSkills"];
-
-        skillSections.forEach(function(sectionId) {
-            var checkboxes = document.querySelectorAll(`#${sectionId} input[type="checkbox"]`);
-            var sectionVisible = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줍니다.
-            if (sectionVisible) {
-                var categoryBar = document.querySelector(`.category-bar[onclick*="${sectionId}"]`);
-                if (categoryBar) {
-                    toggleSection(sectionId, categoryBar, true); // 강제 활성화
-                }
-            }
-        });
-
-        // 지역 체크박스도 동일하게 처리
-        var regionCheckboxes = document.querySelectorAll("#regions input[type='checkbox']");
-        var regionVisible = Array.from(regionCheckboxes).some(checkbox => checkbox.checked);
-
-        if (regionVisible) {
-            var regionCategoryBar = document.querySelector(`.category-bar[onclick*="regions"]`);
-            if (regionCategoryBar) {
-                toggleSection('regions', regionCategoryBar, true); // 강제 활성화
-            }
-        }
-    });
-
+   
 
     </script>
 

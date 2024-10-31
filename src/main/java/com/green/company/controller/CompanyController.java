@@ -119,8 +119,14 @@ public class CompanyController {
       
       List<SkillVo> skillList = new ArrayList<>();
       
-      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+      
+      companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
      
+      companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
+
+      int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
+      System.out.println(companyRecruitVo);
+      
       if( skills != null) {
 
          for(int i =0; i< skills.length; i++ ) {
@@ -131,10 +137,6 @@ public class CompanyController {
          commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
 
       };
-      companyRecruitMapper.setCompanyRecruit(companyRecruitVo);
-        
-      companyRecruitVo.setCompany_recruit_idx(companyRecruitMapper.getCompanyRecruitIdx(companyRecruitVo.getCompany_id()));
-    
 
       
       mv.setViewName("redirect:/Company/RecruitInfo");
@@ -246,17 +248,6 @@ public class CompanyController {
        }
        return "불가능";  // 아이디가 존재하면 불가능
    }
-
-
-   
-   // 회원 삭제
-   @RequestMapping("/CompanyDelete")
-   public  ModelAndView delete(CompanyUserVo companyUserVo) {
-      companyUserMapper.deleteCompanyUser( companyUserVo );
-      ModelAndView  mv  =  new ModelAndView();
-      mv.setViewName("redirect:/");
-      return mv;
-   }
    
    // 회원정보 수정
    // 비밀번호 확인 후 수정 페이지로 이동
@@ -325,7 +316,8 @@ public class CompanyController {
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
-      ModelAndView mv = new ModelAndView();
+
+	   ModelAndView mv = new ModelAndView();
       String company_id  = request.getParameter("company_id");
       String company_passwd  = request.getParameter("company_passwd");
       
@@ -333,15 +325,16 @@ public class CompanyController {
       CompanyUserVo companyUserVo    = companyUserMapper.login(company_id, company_passwd);
       String loginFalseMessage = "";
       if( companyUserVo != null ) {
-         HttpSession  session = request.getSession();
-         session.setAttribute( "companyUserLogin", companyUserVo );
-         session.setMaxInactiveInterval(60*60);
-         mv.setViewName("redirect:/");
+    	  HttpSession  session = request.getSession();
+    	  session.setAttribute( "companyUserLogin", companyUserVo );
+    	  session.setMaxInactiveInterval(60*60);
+    	  mv.setViewName("redirect:/");
       };         
       if( companyUserVo == null ) {
-         loginFalseMessage = "다시 로그인 시도해주세요";
-         mv.addObject("loginFalseMessage", loginFalseMessage);
-         mv.setViewName("redirect:/Company/LoginForm");
+    	  loginFalseMessage = "다시 로그인 시도해주세요";
+    	  mv.addObject("loginFalseMessage", loginFalseMessage);
+    	  mv.setViewName("redirect:/Company/LoginForm");
+
       };
       
       return  mv;
@@ -349,6 +342,26 @@ public class CompanyController {
 
    }
 
+   // 회사 탈퇴
+   @RequestMapping("/UserDelete")
+   public ModelAndView UserDelete (HttpSession session , CompanyUserVo companyUserVo) {
+	   ModelAndView mv = new ModelAndView();
+	   List<CompanyRecruitVo> comPanyRecruitList = companyRecruitMapper.getCompanyRecruitIdxsData(companyUserVo);
+	   int companyRecruitCount = companyRecruitMapper.getCompanyRecruitCount(companyUserVo);
+	   
+	   if(companyRecruitCount != 0) {
+		   commonCompanyRecruitSkillMapper.deleteCompanyRecruitIdx(comPanyRecruitList);
+		   applicationsMapper.deletApplicstionCompanyRecruitIdx(comPanyRecruitList);
+		   companyRecruitMapper.deleteCompanyRecruitUserId(companyUserVo);
+	   };
+	   
+	   companyUserMapper.deleteCompanyUser(companyUserVo);
+	   session.invalidate();
+	   mv.setViewName("redirect:/");
+	   return mv;
+	   
+   };
+   
 
     
     // 채용공고 상세보기
@@ -387,36 +400,35 @@ public class CompanyController {
        
     }
     @RequestMapping("/RecruitUpdate")
+   	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
+   		Map<String, String[]> companyRecruitmap = request.getParameterMap();
+   		String [] skills = companyRecruitmap.get("skill_name");
+   		
+   		companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
+   		
+   		List<SkillVo> skillList = new ArrayList<>();
+   		
+   		int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
 
+   		commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
+   		
+   		if( skills != null) {
+   			for(int i =0; i< skills.length; i++ ) {
+   				SkillVo skillVo = new SkillVo();
+   				skillVo.setSkill_name(skills[i]);
+   				skillList.add(skillVo);
+   			};
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
+   		};
+   		if( skills == null) {
+   			skillList = null;
+   			commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkillNotSkill(company_recruit_idx);
+   		};
 
+   		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+   		return mv;
+   	}
 
-      public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
-         Map<String, String[]> companyRecruitmap = request.getParameterMap();
-         String [] skills = companyRecruitmap.get("skill_name");
-         
-         companyRecruitMapper.setCompanyRecruitUpdate(companyRecruitVo);
-         
-         List<SkillVo> skillList = new ArrayList<>();
-         
-         int company_recruit_idx = companyRecruitVo.getCompany_recruit_idx();
-         
-         if( skills != null) {
-            for(int i =0; i< skills.length; i++ ) {
-               SkillVo skillVo = new SkillVo();
-               skillVo.setSkill_name(skills[i]);
-               skillList.add(skillVo);
-            };
-            commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkill(company_recruit_idx, skillList);
-         };
-         if( skills == null) {
-            skillList = null;
-            commonCompanyRecruitSkillMapper.setCommonCompanyRecruitSkillNotSkill(company_recruit_idx);
-         };
-         commonCompanyRecruitSkillMapper.deletCommonCompanyRecruitSkill(company_recruit_idx);
-
-         mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
-         return mv;
-      }
 
 
 

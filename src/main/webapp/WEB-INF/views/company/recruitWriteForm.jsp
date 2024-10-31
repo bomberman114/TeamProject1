@@ -143,9 +143,19 @@ select:focus {
     
     window.onload = function(){
     	
+    	 const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
+
+         // 오늘부터 가능하도록 설정 (채용공고기간)
+         const applicationDeadlineEl = document.querySelector('[name=application_deadline]');
+         applicationDeadlineEl.setAttribute("min", today);
+
+         // 현재까지의 날짜만 가능하도록 설정 (회사설립일)
+         const companyEstablishEl = document.querySelector('[name=company_establish]');
+         companyEstablishEl.setAttribute("max", today);
+    	
     	const formEl = document.querySelector('#form');
-    			formEl.onsubmit = function(){
-    		
+    			formEl.onsubmit = function(event){
+    			//event.preventDefault(); // 기본 제출 동작을 막음
     	        const regionSelect           = document.getElementById('regionSelect');
     	        const recruit_titleEl        = document.querySelector('[name=recruit_title]');
     	        const company_nameEl         = document.querySelector('[name=company_name]');
@@ -155,18 +165,17 @@ select:focus {
     	        const application_deadlineEl = document.querySelector('[name=application_deadline]');
     	        const company_establishEl    = document.querySelector('[name=company_establish]');
     	        const company_infoEl         = document.querySelector('[name=company_info]');
-    	        
-    	        if (regionSelect.value == "") {
-    	            alert("지역을 선택하세요.");
-    	            regionSelect.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
     	        if (recruit_titleEl.value == "") {
     	            alert("공고제목을 입력하세요.");
     	            recruit_titleEl.focus();  // 지역 선택 dropdown에 포커스를 줌
     	            return false;  // form 제출 방지
     	        }
     	       
+    	        if (regionSelect.value == "") {
+    	            alert("지역을 선택하세요.");
+    	            regionSelect.focus();  // 지역 선택 dropdown에 포커스를 줌
+    	            return false;  // form 제출 방지
+    	        }
     	        if (company_jobEl.value == "") {
     	            alert("모집부분을 입력하세요.");
     	            company_jobEl.focus();  // 지역 선택 dropdown에 포커스를 줌
@@ -202,10 +211,7 @@ select:focus {
     	};
     	
     };
-    	
     
-    	
-
     
    
     
@@ -226,7 +232,7 @@ select:focus {
         <form action="/Company/RecruitWrite" id="form">
            <div class="input-container">
                <input type="hidden" name="company_id" value="${ companyUserVo.company_id }">
-               공고제목<input type="text" placeholder="제목" name="recruit_title">
+               공고제목<input type="text" placeholder="제목" name="recruit_title" value="">
                회사이름<input type="text" placeholder="회사이름" name="company_name" value="${ companyUserVo.company_name }" readonly="readonly">
 
                <!-- 백엔드 섹션 -->
@@ -310,16 +316,16 @@ select:focus {
                </div>
 
                모집부문<input type="text" placeholder="모집부문" name="company_job">
-               모집인원<input type="text" placeholder="모집인원" name="getman">
-              근무지역<select name="region_idx">
-                  <option>---지역선택----</option>
+               모집인원<input type="number" placeholder="모집인원" name="getman"><br><br>
+              근무지역<select id="regionSelect" name="region_idx">
+                  <option value="">---지역선택----</option>
                   <c:forEach var="regionList" items="${ regionList }">
                      <option value="${ regionList.region_idx }">${ regionList.region_name }</option>
                   </c:forEach>
               </select><br><br>
                상세근무주소    <input type="text" placeholder="근무주소" name="company_address">
-               채용공고기간    <input type="text" placeholder="채용공고기간" name="application_deadline">
-               회사설립일      <input type="text" placeholder="회사설립일" name="company_establish">
+               채용공고기간    <input type="date" placeholder="채용공고기간" name="application_deadline"><br><br>
+               회사설립일      <input type="date" placeholder="회사설립일" name="company_establish"><br><br>
                회사설명        <textarea placeholder="회사설명" name="company_info"></textarea>
            </div>
            <input class="save-button" type="submit" value="공고저장">

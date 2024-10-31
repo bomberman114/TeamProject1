@@ -18,10 +18,10 @@
             height: 100vh;
             margin: 0;
         }
-		.logo-container { 
-			text-align: center; 
-			margin-bottom: 20px; 
-		}
+      .logo-container { 
+         text-align: center; 
+         margin-bottom: 20px; 
+      }
         .logo-container img {
             height: 100px;
             width: 150px;
@@ -97,6 +97,7 @@
                 <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
                 <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
             </div>
+
         <div class="title">기업회원 로그인</div>
         <div style="color: red">${ loginFalseMessage }</div>
         <input type="text" name="company_id" placeholder="아이디" />

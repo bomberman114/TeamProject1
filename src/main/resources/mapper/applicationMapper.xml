@@ -78,5 +78,19 @@
     	COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
 			
 	</delete>
+	
+	<delete id="deletApplicstionCompanyRecruitIdx">
+	DELETE 
+	FROM 
+		APPLICATIONS
+	WHERE
+    	COMPANY_RECRUIT_IDX IN
+    		<foreach item="idx" index="index" collection="comPanyRecruitList"
+	     		 open="(" separator="," close=")">
+        	 #{ idx.company_recruit_idx }
+  	 		
+  	 		</foreach>
+	
+	</delete>
 
 </mapper>

@@ -143,11 +143,9 @@
             <form action="/Company/DeleteRecruit" method="post" style="display:inline;">
                 <input type="hidden" name="company_recruit_idx" value="${companyOneRecruit.COMPANY_RECRUIT_IDX}">
                 <input type="submit" class="button" value="삭제">
-        </div>
-  
-
-            </form>
                 <a class="button"  href="/Company/ResumeViewList?company_recruit_idx=${ companyOneRecruit.COMPANY_RECRUIT_IDX }">들어온 이력서보기</a>
+            </form>
+        		</div>
         </div>
 
     </div>
