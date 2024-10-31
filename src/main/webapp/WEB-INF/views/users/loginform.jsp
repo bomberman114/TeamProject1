@@ -101,7 +101,7 @@
 	            <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
 	        </div>
 	        <div class="title">개인회원 로그인</div>
-          <div style="color: red">${ loginFalseMessage }</div>
+          	<div style="color: red">${ loginFalseMessage }</div>
 	        <input type="text" name="user_id" placeholder="아이디" />
 	        <input type="password" name="user_passwd" placeholder="비밀번호" />
 	        <input class="btn" type="submit" value="로그인"/>

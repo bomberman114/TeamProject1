@@ -101,15 +101,15 @@
 		WHERE 
 			COMPANY_ID = #{ company_id }
 	</update>
-
-	<!-- deleteUserList -->
+	
 	<delete id="deleteCompanyUser">
-		DELETE 
-		FROM 
-			COMPANY_USERS 
-		WHERE 
-			COMPANY_ID = #{ company_id }
+	    DELETE FROM 
+	    	COMPANY_USERS
+		WHERE
+       		COMPANY_ID = #{ company_id }
+    
 	</delete>
+
 
    <!-- login user_id : arg0,  param1,  user_passwd : arg1,  param2-->
    <select  id="login">

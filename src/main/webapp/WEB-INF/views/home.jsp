@@ -358,6 +358,7 @@
             <button onclick="location.href='/Company/Info?company_id=${ companyUserLogin.company_id }'">내 정보</button>
             <button onclick="location.href='/Company/RecruitInfo?company_id=${ companyUserLogin.company_id }'">채용 공고 관리</button>
             <button onclick="location.href='/Company/RecruitWriteForm?company_id=${ companyUserLogin.company_id }'">채용 공고 등록</button>
+        	<button onclick="location.href='/Company/UserDelete?company_id=${ companyUserLogin.company_id }'">회원 탈퇴</button>
         <% } %>
     </div>
 </div>
@@ -404,6 +405,8 @@
         closeMenu.addEventListener( 'click', () => {
             sidebar.classList.remove( 'active' );
         });
+        
+        
     </script>
     
     <footer>

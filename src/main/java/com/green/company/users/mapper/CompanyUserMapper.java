@@ -25,7 +25,6 @@ public interface CompanyUserMapper {
 
 	void insertCompanyUser(CompanyUserVo companyUserVo);
 
-	void deleteCompanyUser(CompanyRecruitVo companyRecruitVo);
 
 	void deleteCompanyUser(CompanyUserVo companyUserVo);
 
