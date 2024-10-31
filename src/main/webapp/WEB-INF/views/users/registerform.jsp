@@ -141,6 +141,8 @@
     </form>
 
 	<script>
+	
+	
 	    const formEl       		 = document.querySelector('form');
 	    const useridEl     		 = document.querySelector('[name=user_id]');
 	    const passwd1El    		 = document.querySelector('#pass_wd1');

@@ -151,6 +151,7 @@ public class UserController {
         	HttpSession  session = request.getSession();
         	session.setAttribute( "userLogin", userVo );
         	session.setMaxInactiveInterval(60*60);
+        	mv.setViewName("redirect:/");
         };
         if( userVo == null ) {
         	loginFalseMessage = "다시 로그인 시도해주세요";

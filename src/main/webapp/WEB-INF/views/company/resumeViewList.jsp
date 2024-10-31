@@ -137,7 +137,7 @@
                 <ul>
                     <c:forEach var="resume" items="${ recruitResumeList }">
                         <li>
-                        	<span><a href="/Company/OneResumeView?user_resume_idx=${resume.USER_RESUME_IDX}&company_recruit_idx=${resume.COMPANY_RECRUIT_IDX}">채용 공고 제목: ${ resume.USER_TITLE }</a><br></br>
+                        	<span><a href="/Company/OneResumeView?user_resume_idx=${resume.USER_RESUME_IDX}&company_recruit_idx=${resume.COMPANY_RECRUIT_IDX}">이력서 제목: ${ resume.USER_TITLE }</a><br></br>
                    				  이력서상태:${resume.APPLICATION_STATUS }
                    				  <br>이력서 넣은 날짜: ${ resume.USER_RESUME_REGDATE }
                         	</span>
