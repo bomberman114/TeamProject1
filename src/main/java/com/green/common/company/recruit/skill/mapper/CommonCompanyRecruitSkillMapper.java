@@ -15,15 +15,17 @@ public interface CommonCompanyRecruitSkillMapper {
 
 
 
-	void setCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx, @Param("skillList") List<SkillVo> skillList);
+   void setCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx, @Param("skillList") List<SkillVo> skillList);
 
-	void deletCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx);
+   void deletCommonCompanyRecruitSkill(@Param("company_recruit_idx") int company_recruit_idx);
 
-	void deleteCompanyRecruitSkill(CompanyRecruitVo companyRecruitVo);
+   void deleteCompanyRecruitSkill(CompanyRecruitVo companyRecruitVo);
 
-	void setCommonCompanyRecruitSkillNotSkill(int company_recruit_idx);
+   void setCommonCompanyRecruitSkillNotSkill(int company_recruit_idx);
 
-	void setCommonCompanyRecruitSkillData(@Param("company_recruit_idx") int company_recruit_idx);
+   void setCommonCompanyRecruitSkillData(@Param("company_recruit_idx") int company_recruit_idx);
+
+   void deleteCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
 
 	void deleteCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
 

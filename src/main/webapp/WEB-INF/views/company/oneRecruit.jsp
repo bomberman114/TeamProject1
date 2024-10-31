@@ -19,7 +19,6 @@
             text-align: center;
         }
 
-
         .container {
             max-width: 600px;
             margin: 20px auto;
@@ -84,7 +83,6 @@
             color: #ffffff;
         }
 
-
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -111,25 +109,22 @@
 </head>
 <body>
     <header class="logo-container">
-
-        <a href="/Company/RecruitInfo">
+        <a href="/Company/RecruitInfo?company_recruit_idx=${companyOneRecruit.COMPANY_RECRUIT_IDX}">
     		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
         </a>
     </header>
-
     <div class="container">
         <h1>채용 공고</h1>
         <div class="info-box">
-            <div class="info-item">공고제목: <span class="highlight">${ companyOneRecruit.RECRUIT_TITLE }</span></div>
-            <div class="info-item">모집부문: <span class="highlight">${ companyOneRecruit.COMPANY_JOB }</span></div>
-            <div class="info-item">모집인원: <span class="highlight">${ companyOneRecruit.GETMAN }</span></div>
+            <div class="info-item">공고제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
+            <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
+            <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
             <c:if test="${ companyOneRecruit.SKILL_NAME ne null }">
                 <div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
             </c:if>
             <c:if test="${ companyOneRecruit.SKILL_NAME eq null }">
                 <div class="info-item">스킬: <span class="highlight">없음</span></div>
             </c:if>
-
             <div class="info-item">모집지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
             <div class="info-item">상세주소: <span class="highlight">${companyOneRecruit.COMPANY_ADDRESS}</span></div>
             <div class="info-item">회사정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
@@ -147,11 +142,10 @@
             </form>
         		</div>
         </div>
-
     </div>
 
     <footer>
-        <p>이메일 : help@arabojob.co.kr | Fax : 02-0000-0000(대표)</p>
+        <p>이메일 : help@arabojob.co.kr <br/> Fax : 02-0000-0000(대표)</p>
     </footer>
 </body>
 </html>

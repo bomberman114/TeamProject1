@@ -152,18 +152,15 @@
         </a>
     </header>
     <div class="link-container">
-
         <a href="/Company/Info" class="link-box">내 정보</a>
    		<a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
     	<a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
-    </a>
-
-</div>
+    </div>
     <div class="container">
         <h1>내 회사 정보</h1>
         <div class="info-box">
         <form action="/Company/InfoUpdateForm?company_id=${companyUserVo.company_id}" METHOD="POST">
-            <div class="info-item">회사 ID: <span class="highlight">${companyUserVo.company_id}</span></div>
+            <div class="info-item">회사 ID: <span class="highlight" data-name = "company_id" >${companyUserVo.company_id}</span></div>
             <div class="info-item">회사 이름: <span class="highlight">${companyUserVo.company_name}</span></div>
             <div class="info-item">대표자: <span class="highlight">${companyUserVo.company_boss_name}</span></div>
             <div class="info-item">전화번호: <span class="highlight">${companyUserVo.company_phone}</span></div>
@@ -172,8 +169,19 @@
             <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
             <input type="submit" class="button" value="수정"/>
             </form>
+            <button id = "delete">회원 탈퇴</button>
         </div>
     </div>
+    
+    <script>
+    const company_id = document.querySelector('[data-name=company_id]').innerText;
+    console.log(company_id)
+    const deleteBtn = document.getElementById('delete');
+    deleteBtn.onclick = function() {
+    	alert(company_id + " 계정을 정말 삭제하시겠습니까?")
+        location.href = '/Company/UserDelete?company_id=' + company_id
+    };
+    </script>
 <footer>    
     <br/><span>이메일 : help@arabojob.co.kr<br/> Fax : 02-0000-0000(대표)</span><br/>
 	<p></p>

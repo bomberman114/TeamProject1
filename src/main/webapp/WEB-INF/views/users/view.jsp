@@ -11,8 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
- 
-      <style>
+  <style>
         body {
             background-color: #ffffff;
             margin: 0;
@@ -146,10 +145,8 @@
             margin-top: 20px; 
             margin-bottom: 10px;
             text-align: center;
-        }
-
-      
-    </style>
+        }   
+</style>
 </head>
 <body>
  <header class="logo-container">
@@ -163,20 +160,21 @@
        <a href="/Resume/ResumeList?user_id=${user.user_id}" class="link-box">이력서 목록</a>
     </div>
      <div class="container">
-     	<h1>내 정보</h1>
-		<div class="info-box">
-		    <form action="/Users/CheckPassword?user_id=${ userLogin.user_id }" METHOD="POST">
-		        <div class="info-item">아이디: <span class="highlight" data-name="user_id">${user.user_id}</span></div>
-		        <div class="info-item">비밀번호: <span class="highlight">${user.user_passwd}</span></div>
-		        <div class="info-item">이름: <span class="highlight">${user.user_name}</span></div>
-		        <div class="info-item">연락처: <span class="highlight">${user.user_phone}</span></div>
-		        <div class="info-item">이메일: <span class="highlight">${user.user_email}</span></div>
-		        <input type="submit" class="button" value="회원 수정"/>
-		    </form>
-		    <div class="delete-container">
-		    <input type="button" id="delete" class="button" value="회원 탈퇴" />
-			</div>
-		</div>
+        <h1>내 정보</h1>
+      <div class="info-box">
+          <form action="/Users/CheckPassword?user_id=${ userLogin.user_id }" METHOD="POST">
+              <div class="info-item">아이디: <span class="highlight" data-name="user_id">${user.user_id}</span></div>
+              <div class="info-item">비밀번호: <span class="highlight">${user.user_passwd}</span></div>
+              <div class="info-item">이름: <span class="highlight">${user.user_name}</span></div>
+              <div class="info-item">연락처: <span class="highlight">${user.user_phone}</span></div>
+              <div class="info-item">이메일: <span class="highlight">${user.user_email}</span></div>
+              <input type="submit" class="button" value="회원 수정"/>
+          </form>
+          <div class="delete-container">
+          <input type="button" id="delete" class="button" value="회원 탈퇴" />
+         </div>
+      </div>
+
     </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -207,6 +205,7 @@
                 };
             };
         </script> 
+
 	    <footer>
 	        <br/><span>이메일 : help@arabojob.co.kr<br/> Fax : 02-0000-0000(대표)</span><br/>
 	    </footer>

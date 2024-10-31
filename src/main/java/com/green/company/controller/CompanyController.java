@@ -317,6 +317,7 @@ public class CompanyController {
       HttpServletResponse  response
       ) {
 
+
 	   ModelAndView mv = new ModelAndView();
       String company_id  = request.getParameter("company_id");
       String company_passwd  = request.getParameter("company_passwd");
@@ -334,7 +335,6 @@ public class CompanyController {
     	  loginFalseMessage = "다시 로그인 시도해주세요";
     	  mv.addObject("loginFalseMessage", loginFalseMessage);
     	  mv.setViewName("redirect:/Company/LoginForm");
-
       };
       
       return  mv;
@@ -359,10 +359,7 @@ public class CompanyController {
 	   session.invalidate();
 	   mv.setViewName("redirect:/");
 	   return mv;
-	   
    };
-   
-
     
     // 채용공고 상세보기
     @RequestMapping("/OneRecruit")
@@ -399,6 +396,7 @@ public class CompanyController {
        return mv;
        
     }
+  
     @RequestMapping("/RecruitUpdate")
    	public ModelAndView recruitUpdate (HttpServletRequest request, CompanyRecruitVo companyRecruitVo,RegionVo regionVO  ) {
    		Map<String, String[]> companyRecruitmap = request.getParameterMap();
@@ -428,15 +426,6 @@ public class CompanyController {
    		mv.setViewName("redirect:/Company/OneRecruit?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
    		return mv;
    	}
-
-
-
-
-   
-
-
-    
-
     
        //회사정보 수정 폼
         @RequestMapping("/InfoUpdateForm")
@@ -494,9 +483,6 @@ public class CompanyController {
            return mv;
         }
    
-
-
-      
    // 채용공고에서 이력서온거 리스트보기 
     @RequestMapping("/ResumeViewList")
     public ModelAndView resumeViewList (@RequestParam(value="nowpage", required =false)  Integer nowpage ,
@@ -509,8 +495,7 @@ public class CompanyController {
          nowpage=1;
          pageSize=5;
       };
-
-      
+     
       CompanyUserVo companyUserVo = (CompanyUserVo) session.getAttribute("companyUserLogin"); 
       
       
@@ -537,7 +522,7 @@ public class CompanyController {
    
 
         
-        int      startRow      =  searchVo.getOffset();
+       int      startRow      =  searchVo.getOffset();
        int      endRow        =  searchVo.getRecordSize();
        
         

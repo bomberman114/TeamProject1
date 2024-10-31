@@ -12,24 +12,21 @@ import com.green.user.resume.vo.UserResumeVo;
 @Mapper
 public interface ApplicationsMapper {
 
-	void setApplicationData(ApplicaionVo applicationVo);
+   void setApplicationData(ApplicaionVo applicationVo);
 
-	   int countApplication(ApplicaionVo applicationVo);
+      int countApplication(ApplicaionVo applicationVo);
 
-	   void updateApplicationData(ApplicaionVo applicationVo);
+      void updateApplicationData(ApplicaionVo applicationVo);
+  
+      int getApplicationsCount(@Param("company_recruit_idx") int company_recruit_idx,@Param("userResumeIdxList") List<UserResumeVo> userResumeIdxList);
 
+      void setApplicationStatusData(ApplicaionVo applicationVo);
 
-	   int getApplicationsCount(@Param("company_recruit_idx") int company_recruit_idx,@Param("userResumeIdxList") List<UserResumeVo> userResumeIdxList);
+      void deletApplicstionData(int company_recruit_idx);
 
-	   void setApplicationStatusData(ApplicaionVo applicationVo);
+	    int getApplicationsCountByNoLog(int company_recruit_idx);
 
-	   void deletApplicstionData(int company_recruit_idx);
-
-
-	int getApplicationsCountByNoLog(int company_recruit_idx);
-
-	void deletApplicstionCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
-
+	    void deletApplicstionCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
 
 
 }

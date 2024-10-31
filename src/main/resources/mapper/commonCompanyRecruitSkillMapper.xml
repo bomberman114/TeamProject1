@@ -3,9 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.common.company.recruit.skill.mapper.CommonCompanyRecruitSkillMapper">  
 
- 	<insert id="setCommonCompanyRecruitSkill">
-		
-		   <foreach collection="skillList" item ="skill" 
+    <insert id="setCommonCompanyRecruitSkill">
+      
+         <foreach collection="skillList" item ="skill" 
          index      = "i"
          open       = "INSERT ALL"
          close      = "SELECT * FROM DUAL"
@@ -13,24 +13,21 @@
         INTO  COMMON_COMPANY_RECRUIT_SKILL VALUES (
             GET_FILENUM()    
            , #{ skill.skill_name }
-		   , #{ company_recruit_idx }  
+         , #{ company_recruit_idx }  
         )
      </foreach> 
-		
+      
 
- 	</insert>
- 	
- 	<insert id="setCommonCompanyRecruitSkillNotSkill">
- 	   INSERT
+    </insert>
+    
+    <insert id="setCommonCompanyRecruitSkillNotSkill">
+       INSERT
         INTO  COMMON_COMPANY_RECRUIT_SKILL (COMMON_COMPANY_IDX,COMPANY_RECRUIT_IDX) 
         VALUES (GET_FILENUM()    
-		   	    ,#{ company_recruit_idx }  
+                ,#{ company_recruit_idx }  
         )
 		
  	</insert>
-  	
-
-  	
   	<delete id="deletCommonCompanyRecruitSkill">
   		DELETE 
   		FROM 
@@ -50,8 +47,6 @@
         	 #{ idx.company_recruit_idx }
   	 		</foreach>
 	</delete>
-	
-
 </mapper>
 
 

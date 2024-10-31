@@ -161,14 +161,15 @@ public class UserController {
         	session.setAttribute( "userLogin", userVo );
         	session.setMaxInactiveInterval(60*60);
         	mv.setViewName("redirect:/");
-
         };
         if( userVo == null ) {
 
         	loginFalseMessage = "다시 로그인 시도해주세요";
         	mv.addObject("loginFalseMessage",loginFalseMessage);
         	mv.setViewName("redirect:/Users/LoginForm");
+    
         };
+    
       return  mv;
 
       
