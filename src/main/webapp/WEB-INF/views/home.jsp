@@ -10,10 +10,10 @@
     <title>알아보JOB</title>
     <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png?raw=true" />
 
-	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Nanum+Brush+Script&family=Poor+Story&display=swap" rel="stylesheet">
-	 
+   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Jua&family=Nanum+Brush+Script&family=Poor+Story&display=swap" rel="stylesheet">
+    
 <style>
-      	body {
+         body {
 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
@@ -22,8 +22,8 @@
             padding: 0;
         }
 
-     	   
-    	header {
+           
+       header {
 
             background-color: #ffffff;
             padding: 10px;
@@ -32,12 +32,12 @@
             align-items: center;      
             border-bottom: 2px solid #EBFFEE;
 
-    	}
+       }
       
-     	.logo-container {
-	        margin-bottom: 10px;
-	        text-align: center;
-    	}
+        .logo-container {
+           margin-bottom: 10px;
+           text-align: center;
+       }
 
 
         .logo-container img {
@@ -45,25 +45,25 @@
         }
         
 
-		.nav-menu {
-		    width: 100%;
-		    padding: 0;
-		    background-color: white;
-		    display: flex;
-		    justify-content: flex-end;
-		    align-items: center;
-		    padding-top: 5px;
-		}
-		   
-		nav ul {
-		    list-style: none;
-		    display: flex;
-		    gap: 25px; /* 버튼 간 간격 */
-		    margin: 0;
-		    padding: 0;
-		    padding-right: 10px;
-		    align-items: center; /* 수직 정렬 */
-		}
+      .nav-menu {
+          width: 100%;
+          padding: 0;
+          background-color: white;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          padding-top: 5px;
+      }
+         
+      nav ul {
+          list-style: none;
+          display: flex;
+          gap: 25px; /* 버튼 간 간격 */
+          margin: 0;
+          padding: 0;
+          padding-right: 10px;
+          align-items: center; /* 수직 정렬 */
+      }
 
 
        nav a {
@@ -81,9 +81,9 @@
 
        nav a:hover {
 
-		    color: #333;
-		    background-color: #f0f0f0; /* 호버 시 배경색 추가 */
-		}
+          color: #333;
+          background-color: #f0f0f0; /* 호버 시 배경색 추가 */
+      }
 
         .container {
             display: flex;
@@ -122,20 +122,20 @@
         }
 
         .sidebar button {
-   			background-color: #EBFFEE; /* 버튼 색상 */
-    		color: #470065; /* 텍스트 색상 */
-    		border: none; /* 테두리 없음 */
-		    border-radius: 5px; /* 모서리 둥글게 */
-		    padding: 10px 0; /* 패딩 (좌우 여백 제거) */
-		    cursor: pointer; /* 커서 변경 */
-		    margin-bottom: 20px; /* 버튼과 다른 요소 간 여백 */
-		    transition: background-color 0.3s ease; /* 호버 효과 */
-		    box-shadow: 0 0 5px rgba(71, 0, 101, 0.4);
-		    font-weight: bold;
-		    font-size: 30px; /* 글자 크기 조정 */
-		    width: 100%; /* 버튼의 너비를 100%로 설정 */
-		    max-width: 250px; /* 최대 너비 설정 (사이드바 너비와 동일) */
-		}
+            background-color: #EBFFEE; /* 버튼 색상 */
+          color: #470065; /* 텍스트 색상 */
+          border: none; /* 테두리 없음 */
+          border-radius: 5px; /* 모서리 둥글게 */
+          padding: 10px 0; /* 패딩 (좌우 여백 제거) */
+          cursor: pointer; /* 커서 변경 */
+          margin-bottom: 20px; /* 버튼과 다른 요소 간 여백 */
+          transition: background-color 0.3s ease; /* 호버 효과 */
+          box-shadow: 0 0 5px rgba(71, 0, 101, 0.4);
+          font-weight: bold;
+          font-size: 30px; /* 글자 크기 조정 */
+          width: 100%; /* 버튼의 너비를 100%로 설정 */
+          max-width: 250px; /* 최대 너비 설정 (사이드바 너비와 동일) */
+      }
       
 
         .sidebar button:hover {
@@ -292,16 +292,16 @@
       
       h2{
 
-	      font-family: "Nanum Brush Script", cursive;;
-	      color:black;
-	      font-size:40px;
-	      
+         font-family: "Nanum Brush Script", cursive;;
+         color:black;
+         font-size:40px;
+         
       }
       .highlight {
-		    color: #00B300; /* 선명한 초록색 */
-		    font-weight: bold; /* 굵게 설정 */
-		    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 */
-		}
+          color: #00B300; /* 선명한 초록색 */
+          font-weight: bold; /* 굵게 설정 */
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 약간의 그림자 효과 */
+      }
 
       
       footer {
@@ -365,13 +365,13 @@
 
     <main>
 
-		<h2>
-		    구인구직, <span class="highlight">알아보JOB</span>에서 한 번에!
-		</h2>
+      <h2>
+          구인구직, <span class="highlight">알아보JOB</span>에서 한 번에!
+      </h2>
 
         <div class="search-container">
-        	<form action="/Common/RecruitSearch" method="get">
-            <input type="text" name="recruit_title" placeholder="⌕ 	찾고 싶은 채용공고를 검색하세요">
+           <form action="/Common/RecruitSearch" method="get">
+            <input type="text" name="recruit_title" placeholder="⌕    찾고 싶은 채용공고를 검색하세요">
             </form>
         </div>
 
@@ -404,6 +404,17 @@
         closeMenu.addEventListener( 'click', () => {
             sidebar.classList.remove( 'active' );
         });
+        
+        const user_id = document.querySelector('[name=user_id]').value;
+        
+        const deleteBtn = document.getElementById('delete');
+        deleteBtn.onclick = function() {
+            document.getElementById('deleteMessage').innerText = user_id + " 계정을 정말 삭제하시겠습니까?";
+            $('#deleteModal').modal('show');
+            document.getElementById('confirmDelete').onclick = function() {
+                location.href = '/Users/Delete?user_id=' + user_id;
+            };
+        };
     </script>
     
     <footer>

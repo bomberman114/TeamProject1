@@ -11,22 +11,21 @@ import com.green.company.users.vo.CompanyUserVo;
 public interface CompanyUserMapper {
 
 
-	List<CompanyUserVo> getCompanyUserList();
+   List<CompanyUserVo> getCompanyUserList();
 
 
-	CompanyUserVo getCompanyUser(CompanyUserVo companyUserVo);
+   CompanyUserVo getCompanyUser(CompanyUserVo companyUserVo);
 
-	void updateCompanyUser(CompanyUserVo companyUserVo);
+   void updateCompanyUser(CompanyUserVo companyUserVo);
 
 
-	CompanyUserVo getCompanyUserById(String company_id);
+   CompanyUserVo getCompanyUserById(String company_id);
 
-	CompanyUserVo login(String company_id, String company_passwd);
+   CompanyUserVo login(String company_id, String company_passwd);
 
-	void insertCompanyUser(CompanyUserVo companyUserVo);
+   void insertCompanyUser(CompanyUserVo companyUserVo);
 
-	void deleteCompanyUser(CompanyRecruitVo companyRecruitVo);
 
-	void deleteCompanyUser(CompanyUserVo companyUserVo);
+   void deleteCompanyUser(CompanyUserVo companyUserVo);
 
 }

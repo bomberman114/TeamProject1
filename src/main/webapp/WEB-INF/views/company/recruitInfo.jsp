@@ -23,7 +23,7 @@
             max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #EBFFEE;;
+            background-color: #EBFFEE;
             font-size: 22px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
