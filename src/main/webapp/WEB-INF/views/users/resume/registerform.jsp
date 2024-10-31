@@ -95,47 +95,38 @@
 		    margin-top: 20px; /* 카테고리와 위쪽 요소 간 여백 */
 		}
 		
-		.skill-item {
-		    font-weight: lighter;
-		    font-size: 12px;
-		    color: #333; /* 검은색 텍스트 */
-		}
-		
-		.skill-item:last-child {
+
+		.category-bar {
+		    cursor: pointer;
+		    padding: 10px;
+		    background-color: #eee;
+		    border-radius: 4px;
 		    margin-bottom: 10px;
-		    padding-bottom: 10px;
-		}
-		
-		.address-container input {
-		    margin-top: 10px;
-		}
-		
-		/* 링크 스타일 */
-		a {
-		    color: #470065; /* 링크 색상 */
-		    text-decoration: none; /* 밑줄 제거 */
-		    font-weight: bold; /* 링크 텍스트 굵게 */
-		    display: block; /* 블록 요소로 변경하여 여백 추가 */
-		    margin: 10px 0; /* 여백 추가 */
-		}
-		
-		a:hover {
-		    color: #333; /* 호버 시 색상 변경 */
-		}
-		
-		/* 결과 메시지 스타일 */
-		#dupResult {
-		    margin-top: 10px;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    border: 1px solid;
 		    font-weight: bold;
 		}
 		
-		.green {
-		    color: green; /* 성공 메시지 색상 */
+		.category-bar:hover {
+		    background-color: #ddd;
 		}
 		
-		.red {
-		    color: red; /* 오류 메시지 색상 */
+		.checkbox-group {
+		    display: none; /* 기본적으로 숨김 */
+		    flex-wrap: wrap;
 		}
+		
+		.checkbox-group label {
+		    margin-right: 20px;
+		    margin-bottom: 10px;
+		}
+		
+		.checkbox-group input {
+		    margin-right: 5px;
+		}
+
 
     </style>
 </head>
@@ -177,66 +168,85 @@
             </div>
         
             <div class="input-container"><span class="red">*</span>사용 스킬
-                <div class="skill-category">백엔드</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '백엔드'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
+               <!-- 백엔드 섹션 -->
+               <div class="category-bar" onclick="toggleSection('backendSkills', this)">
+                   <span>백엔드</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="backendSkills" class="checkbox-group">
+                   <c:forEach var="skillList" items="${ skillList }">
+                       <c:if test="${ skillList.skill_stack eq '백엔드'}">
+                           <div>
+                               <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+                               <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                           </div>
+                       </c:if>    
+                   </c:forEach>
+               </div>
 
-                <div class="skill-category">프론트엔드</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '프론트엔드'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
+               <!-- 프론트엔드 섹션 -->
+               <div class="category-bar" onclick="toggleSection('frontendSkills', this)">
+                   <span>프론트엔드</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="frontendSkills" class="checkbox-group">
+                   <c:forEach var="skillList" items="${ skillList }">
+                       <c:if test="${ skillList.skill_stack eq '프론트엔드'}">
+                           <div>
+                               <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+                               <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                           </div>
+                       </c:if>    
+                   </c:forEach>
+               </div>
 
-                <div class="skill-category">데이터베이스</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '데이터베이스'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
+               <!-- 데이터베이스 섹션 -->
+               <div class="category-bar" onclick="toggleSection('dbSkills', this)">
+                   <span>데이터베이스</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="dbSkills" class="checkbox-group">
+                   <c:forEach var="skillList" items="${ skillList }">
+                       <c:if test="${ skillList.skill_stack eq '데이터베이스'}">
+                           <div>
+                               <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+                               <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                           </div>
+                       </c:if>    
+                   </c:forEach>
+               </div>
 
-                <div class="skill-category">모바일</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '모바일'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
+               <!-- 모바일 섹션 -->
+               <div class="category-bar" onclick="toggleSection('mobileSkills', this)">
+                   <span>모바일</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="mobileSkills" class="checkbox-group">
+                   <c:forEach var="skillList" items="${ skillList }">
+                       <c:if test="${ skillList.skill_stack eq '모바일'}">
+                           <div>
+                               <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+                               <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                           </div>
+                       </c:if>    
+                   </c:forEach>
+               </div>
 
-                <div class="skill-category">협업툴</div>
-                <div class="checkbox-group">
-                    <c:forEach var="skillList" items="${skillList}">
-                        <c:if test="${skillList.skill_stack eq '협업툴'}">
-                            <div>
-                                <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${skillList.skill_name}" />
-                                <label for="skill_name_${skillList.skill_name}">${skillList.skill_name}</label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </div>
+               <!-- 협업툴 섹션 -->
+               <div class="category-bar" onclick="toggleSection('collaborationTools', this)">
+                   <span>협업툴</span>
+                   <span class="toggle-icon">▼</span>
+               </div>
+               <div id="collaborationTools" class="checkbox-group">
+                   <c:forEach var="skillList" items="${ skillList }">
+                       <c:if test="${ skillList.skill_stack eq '협업툴'}">
+                           <div>
+                               <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+                               <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+                           </div>
+                       </c:if>    
+                   </c:forEach>
+               </div>
 
             <!-- 지역 및 주소 -->
             <div class="input-container">
@@ -303,6 +313,19 @@
             emailInput.value = emailInput.value.split('@')[0]; // 도메인 제거
         }
     }
+    
+    function toggleSection(sectionId, element) {
+        var section = document.getElementById(sectionId);
+        var icon = element.querySelector(".toggle-icon");
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "block";  // 섹션을 보여줍니다.
+            icon.textContent = "▲";  // 펼쳐진 상태로 아이콘 변경.
+        } else {
+            section.style.display = "none";  // 섹션을 숨깁니다.
+            icon.textContent = "▼";  // 닫힌 상태로 아이콘 변경.
+        }
+
+    };
     
 
     /* 스킬 필수 선택 */

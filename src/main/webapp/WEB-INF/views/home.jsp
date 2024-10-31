@@ -30,7 +30,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;      
-            border-bottom: 2px solid #EBFFEE;
 
     	}
       
@@ -378,15 +377,29 @@
 
       <div class="popular">인기공고</div>
       <div class="grid-container">
+      
+        <% if ( ( (Boolean) request.getAttribute("logOutUser") && (Boolean) request.getAttribute("logInCompanyUser") )
+        		||  ( (Boolean) request.getAttribute("logInUser") && (Boolean) request.getAttribute("logInCompanyUser") ) ) { %>
          <c:forEach var="companyRecruit" items="${companyRecruitList}">
             <a
-               href="/Common/RecruitInfo?company_recruit_idx=${companyRecruit.company_recruit_idx}"
+               href="/Common/IncrementView?company_recruit_idx=${companyRecruit.company_recruit_idx}"
                class="card">
                <h3 class="company-name">${companyRecruit.company_name}</h3>
                <p class="recruit-title">${companyRecruit.recruit_title}</p>
                <p>지원종료일: ${companyRecruit.application_deadline}</p> <!-- 등록일 추가 -->
             </a>
          </c:forEach>
+        <% } else if ((Boolean) request.getAttribute("logOutCompanyUser") && (Boolean) request.getAttribute("logInUser")) { %>
+         <c:forEach var="companyRecruit" items="${companyRecruitList}">
+            <a
+               href="/Company/OneRecruit?company_recruit_idx=${companyRecruit.company_recruit_idx}"
+               class="card">
+               <h3 class="company-name">${companyRecruit.company_name}</h3>
+               <p class="recruit-title">${companyRecruit.recruit_title}</p>
+               <p>지원종료일: ${companyRecruit.application_deadline}</p> <!-- 등록일 추가 -->
+            </a>
+         </c:forEach>
+   <% } %>   
       </div>
 </div>
     </main>

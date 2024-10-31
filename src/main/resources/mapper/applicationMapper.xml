@@ -43,6 +43,14 @@
 	  	 		</foreach>
 		   AND COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
 	</select>
+	<select id="getApplicationsCountByNoLog">
+		SELECT
+	    	COUNT(*)
+		FROM
+		    APPLICATIONS
+		 WHERE
+		   COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+	</select>
 	
 	<update id="updateApplicationData">
 		  UPDATE APPLICATIONS

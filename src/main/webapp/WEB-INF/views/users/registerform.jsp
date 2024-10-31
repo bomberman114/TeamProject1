@@ -132,8 +132,7 @@
 	</tr>
 	 <tr>
 		<td colspan="2">
-       		<input type="submit" value="등록" />
-       		<input type="button" value="목록" id="goList" />
+       		<input type="submit" value="회원가입" />
        	</td>
      </tr>
     
@@ -189,10 +188,19 @@
 			return true;
 		  }
 	      
-	      const  goListEl = document.getElementById('goList')
-	      goListEl.onclick = function() {
-	         location.href = '/home'
+	      function updateEmail() {
+	          var emailInput = document.getElementById('user_email');
+	          var domainSelect = document.getElementById('email_domain');
+
+	          var selectedDomain = domainSelect.value;
+
+	          if (selectedDomain) {
+	              emailInput.value = emailInput.value.split('@')[0] + '@' + selectedDomain;
+	          } else {
+	              emailInput.value = emailInput.value.split('@')[0]; // 도메인 제거
+	          }
 	      }
+	      
     	</script>
     	<script>
     	 $(function() {

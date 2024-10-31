@@ -25,6 +25,7 @@ public interface ApplicationsMapper {
 
 	   void deletApplicstionData(int company_recruit_idx);
 
-	void deletApplicstionData(int company_recruit_idx);
+	int getApplicationsCountByNoLog(int company_recruit_idx);
+
 
 }

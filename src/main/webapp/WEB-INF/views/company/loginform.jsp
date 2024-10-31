@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -99,19 +97,11 @@
                 <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
                 <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
             </div>
-            <div class="title">기업회원 로그인</div>
-            <input type="text" name="company_id" placeholder="아이디" required />
-            <input type="password" name="company_passwd" placeholder="비밀번호" required />
-            <input class="btn" type="submit" value="로그인" />
-            <button class="btn" type="button" onclick="location.href='/Company/RegisterForm'">회원가입</button>
-        </div>
-
-        <div class="title">ALGO JJOB</div>
         <div class="title">기업회원 로그인</div>
         <div style="color: red">${ loginFalseMessage }</div>
         <input type="text" name="company_id" placeholder="아이디" />
         <input type="password" name="company_passwd" placeholder="비밀번호" />
-        <input type=submit value="로그인" />
+	    <input class="btn" type="submit" value="로그인"/>
         <button class="btn" type=button onclick="location.href='/Company/RegisterForm'">회원가입</button>
     </div>
    </form>

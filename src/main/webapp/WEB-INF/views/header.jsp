@@ -16,7 +16,7 @@
         }
         .logo-container {
         	padding:10px;
-            text-align: left;
+            text-align: center;
         }
         .logo-container img {
             max-width: 100%; 

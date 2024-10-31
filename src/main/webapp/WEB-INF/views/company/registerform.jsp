@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,8 +138,7 @@
 	 </tr>
 	 <tr>
 		<td colspan="2">
-       		<input type="submit" value="등록" />
-       		<input type="button" value="목록" id="goList" />
+       		<input type="submit" value="회원가입" />
        	</td>
      </tr>
     
@@ -268,10 +269,6 @@
 			
 			return true;
 		  }
-	      const  goListEl = document.getElementById('goList')
-	      goListEl.onclick = function() {
-	         location.href = '/Company/List'
-	      }
     	</script>
 	
 	</main>

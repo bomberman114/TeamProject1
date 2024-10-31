@@ -55,6 +55,10 @@ public interface UserResumeMapper {
 
 	List<HashMap<String, String>> getUserResumeList( @Param( "user_id" ) String user_id);
 
+	void deleteUserResumesSkills(UserResumeVo userResumeVo);
+
+	void deleteUserResumes(UserResumeVo userResumeVo);
+
 
 
 }
