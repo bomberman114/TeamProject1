@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>개인이력서목록</title>
+    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -100,6 +101,7 @@
                     <th>작성일</th>
                     <th>지원 상태</th>
                     <th>지원일</th>
+                    <th>지원공고</th>
                     <th>수정</th>
                     <th>삭제</th>
                 </tr>
@@ -112,6 +114,7 @@
 				        <td>${resume['USER_RESUME_REGDATE']}</td>
 				        <td>${resume['APPLICATION_STATUS']}</td>
 				        <td>${resume['APPLIED_DATE']}</td>
+				        <td><a href="/Common/IncrementView?company_recruit_idx=${resume['COMPANY_RECRUIT_IDX']}">${resume['RECRUIT_TITLE']}</a></td>
 				        <td><a href="/Resume/UpdateResumeForm?user_id=${userLogin.user_id}&user_resume_idx=${resume['USER_RESUME_IDX']}">수정</a></td>
 				        <td>
 				            <a href="/Resume/DeleteResume?user_id=${userLogin.user_id}&user_resume_idx=${resume['USER_RESUME_IDX']}" 

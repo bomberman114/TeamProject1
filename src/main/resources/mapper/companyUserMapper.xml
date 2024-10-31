@@ -52,63 +52,63 @@
       COMPANY_ID ASC    
    </select>
 
-   <select id="getCompanyUser">
-   SELECT
-       COMPANY_ID
-      , COMPANY_PASSWD
-      , COMPANY_USER_NAME
-      , COMPANY_PHONE
-      , COMPANY_NAME
-      , COMPANY_BCODE
-      , COMPANY_BOSS_NAME
-      , COMPANY_EMAIL
-      , COMPANY_REGDATE
-      , COMPANY_ESTABLISH
-   FROM 
-      COMPANY_USERS
-   WHERE 
-      COMPANY_ID = #{ company_id }
-   </select>
-   
-   <select id="getCompanyUserById">
-       SELECT 
-       COMPANY_ID
-      , COMPANY_PASSWD
-      , COMPANY_USER_NAME
-      , COMPANY_PHONE
-      , COMPANY_NAME
-      , COMPANY_BCODE
-      , COMPANY_BOSS_NAME
-      , COMPANY_EMAIL
-      , COMPANY_REGDATE
-      , COMPANY_ESTABLISH
-   FROM 
-      COMPANY_USERS
-   WHERE 
-      COMPANY_ID = #{ company_id }
-   </select>
-   
-   <update id="updateCompanyUser">
-      UPDATE COMPANY_USERS
-      SET      COMPANY_PASSWD = #{ company_passwd }
-            , COMPANY_USER_NAME = #{ company_user_name }
-            , COMPANY_PHONE = #{ company_phone }
-            , COMPANY_NAME = #{ company_name }
-            , COMPANY_BCODE = #{ company_bcode }
-            , COMPANY_BOSS_NAME = #{ company_boss_name }
-            , COMPANY_EMAIL = #{ company_email }
-            , COMPANY_ESTABLISH = #{ company_establish }
-      WHERE 
-         COMPANY_ID = #{ company_id }
-   </update>
-   
-   <delete id="deleteCompanyUser">
-     DELETE 
-     FROM 
-        COMPANY_RECRUIT
-     WHERE
-        COMPANY_ID = #{company_id}
-   </delete>
+	<select id="getCompanyUser">
+	SELECT
+	    COMPANY_ID
+	   , COMPANY_PASSWD
+	   , COMPANY_USER_NAME
+	   , COMPANY_PHONE
+	   , COMPANY_NAME
+	   , COMPANY_BCODE
+	   , COMPANY_BOSS_NAME
+	   , COMPANY_EMAIL
+	   , COMPANY_REGDATE
+	   , COMPANY_ESTABLISH
+	FROM 
+		COMPANY_USERS
+	WHERE 
+		COMPANY_ID = #{ company_id }
+	</select>
+	
+	<select id="getCompanyUserById">
+	    SELECT 
+	    COMPANY_ID
+	   , COMPANY_PASSWD
+	   , COMPANY_USER_NAME
+	   , COMPANY_PHONE
+	   , COMPANY_NAME
+	   , COMPANY_BCODE
+	   , COMPANY_BOSS_NAME
+	   , COMPANY_EMAIL
+	   , COMPANY_REGDATE
+	   , COMPANY_ESTABLISH
+	FROM 
+		COMPANY_USERS
+	WHERE 
+		COMPANY_ID = #{ company_id }
+	</select>
+	
+	<update id="updateCompanyUser">
+		UPDATE COMPANY_USERS
+		SET	   COMPANY_PASSWD = #{ company_passwd }
+			   , COMPANY_USER_NAME = #{ company_user_name }
+			   , COMPANY_PHONE = #{ company_phone }
+			   , COMPANY_NAME = #{ company_name }
+			   , COMPANY_BCODE = #{ company_bcode }
+			   , COMPANY_BOSS_NAME = #{ company_boss_name }
+			   , COMPANY_EMAIL = #{ company_email }
+			   , COMPANY_ESTABLISH = #{ company_establish }
+		WHERE 
+			COMPANY_ID = #{ company_id }
+	</update>
+	
+	<delete id="deleteCompanyUser">
+	    DELETE FROM 
+	    	COMPANY_USERS
+		WHERE
+       		COMPANY_ID = #{ company_id }
+    
+	</delete>
 
 
    <!-- login user_id : arg0,  param1,  user_passwd : arg1,  param2-->

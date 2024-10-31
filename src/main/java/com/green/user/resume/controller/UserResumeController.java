@@ -196,8 +196,10 @@ public class UserResumeController {
 	/*이력서 삭제*/
 	@RequestMapping( "/DeleteResume" )
 	public  ModelAndView delete( UserResumeVo userResumeVo ) {
+		userResumeMapper.deleteUserResumeSkills( userResumeVo );
 		userResumeMapper.deleteUserResume( userResumeVo );
 		ModelAndView  mv  =  new ModelAndView();
+		userResumeMapper.deleteUserResume( userResumeVo );
 		String user_id = userResumeVo.getUser_id();
 		mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
 		return mv;
@@ -210,6 +212,7 @@ public class UserResumeController {
 
 	@RequestMapping("/ResumeSubmit")
 	public ModelAndView resumeSubmit( UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo ) {
+		
 		ModelAndView mv = new ModelAndView();
 		
 		ApplicaionVo applicationVo = new ApplicaionVo();
@@ -226,7 +229,6 @@ public class UserResumeController {
 					applicationsMapper.setApplicationData(applicationVo);
 			message = "지원성공";
 		};
-		
 		mv.addObject("message", message);
 		mv.setViewName("redirect:/Common/RecruitInfo?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
 		return mv;

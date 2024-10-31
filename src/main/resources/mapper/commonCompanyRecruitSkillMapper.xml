@@ -26,32 +26,27 @@
         VALUES (GET_FILENUM()    
                 ,#{ company_recruit_idx }  
         )
-      
-    </insert>
-     
-
-     
-     <delete id="deletCommonCompanyRecruitSkill">
-        DELETE 
-        FROM 
-           common_company_recruit_skill
-      WHERE
-           company_recruit_idx = #{company_recruit_idx}
-     </delete>
-   
-   <delete id="deleteCompanyRecruitIdx">
-      DELETE 
-        FROM 
-           COMMON_COMPANY_RECRUIT_SKILL
-      WHERE
-           COMPANY_RECRUIT_IDX IN
-            <foreach item="idx" index="index" collection="comPanyRecruitList"
-               open="(" separator="," close=")">
-            #{ idx.company_recruit_idx }
-            </foreach>
-   </delete>
-   
-
+		
+ 	</insert>
+  	<delete id="deletCommonCompanyRecruitSkill">
+  		DELETE 
+  		FROM 
+  			common_company_recruit_skill
+		WHERE
+        	company_recruit_idx = #{company_recruit_idx}
+  	</delete>
+	
+	<delete id="deleteCompanyRecruitIdx">
+		DELETE 
+  		FROM 
+  			COMMON_COMPANY_RECRUIT_SKILL
+		WHERE
+        	COMPANY_RECRUIT_IDX IN
+        	 <foreach item="idx" index="index" collection="comPanyRecruitList"
+	     		 open="(" separator="," close=")">
+        	 #{ idx.company_recruit_idx }
+  	 		</foreach>
+	</delete>
 </mapper>
 
 

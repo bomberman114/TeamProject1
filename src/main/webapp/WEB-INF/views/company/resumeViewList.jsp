@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용공고</title>
+        <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
     <style>
         body {
             background-color: #ffffff;
@@ -137,7 +138,7 @@
                 <ul>
                     <c:forEach var="resume" items="${ recruitResumeList }">
                         <li>
-                        	<span><a href="/Company/OneResumeView?user_resume_idx=${resume.USER_RESUME_IDX}&company_recruit_idx=${resume.COMPANY_RECRUIT_IDX}">채용 공고 제목: ${ resume.USER_TITLE }</a><br></br>
+                        	<span><a href="/Company/OneResumeView?user_resume_idx=${resume.USER_RESUME_IDX}&company_recruit_idx=${resume.COMPANY_RECRUIT_IDX}">이력서 제목: ${ resume.USER_TITLE }</a><br></br>
                    				  이력서상태:${resume.APPLICATION_STATUS }
                    				  <br>이력서 넣은 날짜: ${ resume.USER_RESUME_REGDATE }
                         	</span>

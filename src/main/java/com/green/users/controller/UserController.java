@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.user.resume.mapper.UserResumeMapper;
+import com.green.user.resume.vo.UserResumeVo;
 import com.green.users.mapper.UserMapper;
 import com.green.users.vo.UserVo;
 
@@ -27,6 +29,9 @@ public class UserController {
    
    @Autowired
    private  UserMapper  userMapper;
+   
+   @Autowired
+   private  UserResumeMapper userResumeMapper;
    
    // 개인회원 추가
    // /Users/RegisterForm
@@ -51,17 +56,21 @@ public class UserController {
 
 
    @RequestMapping("/Register")
-   public  ModelAndView  register( UserVo userVo) {
+   public  ModelAndView  register( UserVo userVo, @RequestParam( value="user_id", required=false ) String user_id) {
+	  ModelAndView  mv  =  new ModelAndView();
       userMapper.insertUser( userVo );
-      ModelAndView  mv  =  new ModelAndView();
-      mv.setViewName("redirect:/Users/List");
+      userMapper.getUserById( user_id );
+      mv.setViewName("redirect:/Users/View?user_id"+user_id);
       return  mv;
    }
    
    // 회원 삭제
    @RequestMapping( "/Delete" )
-   public  ModelAndView delete( UserVo userVo ) {
+   public  ModelAndView delete( UserVo userVo, UserResumeVo userResumeVo, HttpSession session ) {
+	  userResumeMapper.deleteUserResumesSkills( userResumeVo );
+	  userResumeMapper.deleteUserResumes( userResumeVo );
       userMapper.deleteUser( userVo );
+      session.invalidate();
       ModelAndView  mv  =  new ModelAndView();
       mv.setViewName("redirect:/");
       return mv;
@@ -154,6 +163,7 @@ public class UserController {
         	mv.setViewName("redirect:/");
         };
         if( userVo == null ) {
+
         	loginFalseMessage = "다시 로그인 시도해주세요";
         	mv.addObject("loginFalseMessage",loginFalseMessage);
         	mv.setViewName("redirect:/Users/LoginForm");
