@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>채용공고 작성</title>
-    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"> 
 <style type="text/css">
 body {
@@ -142,6 +141,7 @@ select:focus {
     };
     
     window.onload = function(){
+    	
     	 const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
 
          // 오늘부터 가능하도록 설정 (채용공고기간)
@@ -209,7 +209,11 @@ select:focus {
     		
     	};
     	
-    };  
+    };
+    
+    
+   
+    
 </script>
 
 </head>
@@ -217,7 +221,7 @@ select:focus {
 <body>
     <header class="logo-container">
         <a href="/Company/RecruitInfo">
-          <img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
         </a>
     </header>
   <div class="container">

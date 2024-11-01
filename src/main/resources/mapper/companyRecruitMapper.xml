@@ -353,15 +353,7 @@
       WHERE COMPANY_RECRUIT = #{ company_recruit_idx }
    </select>
 
-   <select id="getCompanyRecruitIdxsData">
-      SELECT 
-         *
-      FROM 
-         COMPANY_RECRUIT
-      WHERE 
-         COMPANY_ID = #{ company_id }
-   </select>
-
+  
 	<select id="getCompanyRecruitIdxsData">
 		SELECT 
 			*
