@@ -9,6 +9,11 @@
 <title>채용공고 검색</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <style>
+
+		header {
+		
+		text-align: center;
+		}
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -179,6 +184,11 @@
     </style>
 </head>
 <body>
+ <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
 
     <div class="container">
         <h2>채용공고 검색</h2>
@@ -265,6 +275,9 @@
                         </c:if>
                     </c:forEach>
                 </div>
+                
+                
+                
             </div>
                <!-- 지역 선택 섹션 -->
 	        <div class="filter-section">
@@ -292,7 +305,7 @@
             <h3>검색결과</h3>
             <c:forEach var="companyRecruit" items="${companyRecruitList}">
                 <div class="job-card">
-                <a style="text-decoration:none" href="/Common/RecruitInfo?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
+                <a style="text-decoration:none" href="/Common/IncrementView?company_recruit_idx=${ companyRecruit.COMPANY_RECRUIT_IDX }">
                     <div class="job-title">제목 : ${ companyRecruit.RECRUIT_TITLE }</div>
                     <div class="job-title">회사이름 : ${ companyRecruit.COMPANY_NAME }</div>
                     <div class="job-location">지역: ${ companyRecruit.REGION_NAME }</div>
@@ -350,13 +363,10 @@
              <c:forEach var="region" items="${regionListCheck}">
                  <c:set var="url" value="${url}&region_idx=${region.region_idx}" />
              </c:forEach>
-             
               <a href="${ url }">다음</a>
            </c:if>
         </div>
-        
         </c:if>
-        
         
     </div>
 
@@ -384,34 +394,7 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var skillSections = ["backendSkills", "frontendSkills", "dbSkills", "mobileSkills"];
-
-        skillSections.forEach(function(sectionId) {
-            var checkboxes = document.querySelectorAll(`#${sectionId} input[type="checkbox"]`);
-            var sectionVisible = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-            // 체크된 항목이 있다면 toggleSection 함수를 사용하여 강제로 펼쳐줍니다.
-            if (sectionVisible) {
-                var categoryBar = document.querySelector(`.category-bar[onclick*="${sectionId}"]`);
-                if (categoryBar) {
-                    toggleSection(sectionId, categoryBar, true); // 강제 활성화
-                }
-            }
-        });
-
-        // 지역 체크박스도 동일하게 처리
-        var regionCheckboxes = document.querySelectorAll("#regions input[type='checkbox']");
-        var regionVisible = Array.from(regionCheckboxes).some(checkbox => checkbox.checked);
-
-        if (regionVisible) {
-            var regionCategoryBar = document.querySelector(`.category-bar[onclick*="regions"]`);
-            if (regionCategoryBar) {
-                toggleSection('regions', regionCategoryBar, true); // 강제 활성화
-            }
-        }
-    });
-
+   
 
     </script>
 

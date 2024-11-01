@@ -30,48 +30,48 @@ import jakarta.servlet.http.HttpSession;
 public class UserResumeController {
 
 
-	ModelAndView mv = new ModelAndView();
-	
-	@Autowired
-	private UserResumeMapper userResumeMapper;
-	
-	@Autowired
-	private UserMapper userMapper;
-	
-	@Autowired
-	private ApplicationsMapper applicationsMapper;
-	
-	// 채용공고에서 자신의 이력서 ajax로 가져오기
-	@RequestMapping("/ResumeListSubmit")
-	@ResponseBody
-	public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
-		
-		UserVo userVo = (UserVo)session.getAttribute("userLogin");
-		System.out.println("userVo:"+userVo);
-		List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeListData( userVo );
-		System.err.println("userResumeList:"+userResumeList);
-		return userResumeList;
-		
-	} 
-	
-	
-	/*이력서 목록*/
-	@RequestMapping( "/ResumeList" )
-	public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo, CompanyRecruitVo companyRecruitVo  ) {
-		ModelAndView  mv  =  new ModelAndView();
-	    String user_id = userVo.getUser_id();
-	    List<HashMap<String, String>> userResumeList = userResumeMapper.getUserResumeList( user_id );
-		mv.addObject( "userResumeList", userResumeList );
-		mv.setViewName( "users/resume/list" );
-		return mv;
-	}
-	
-	/*이력서 등록*/
-	@RequestMapping( "/RegisterResumeForm" )
-	public ModelAndView resumeregisterForm( UserResumeVo userResumeVo, UserVo userVo ) {
-	    ModelAndView mv = new ModelAndView();
-	    String user_id = userVo.getUser_id();
-	    mv.addObject( "user_id", user_id );
+   ModelAndView mv = new ModelAndView();
+   
+   @Autowired
+   private UserResumeMapper userResumeMapper;
+   
+   @Autowired
+   private UserMapper userMapper;
+   
+   @Autowired
+   private ApplicationsMapper applicationsMapper;
+   
+   // 채용공고에서 자신의 이력서 ajax로 가져오기
+   @RequestMapping("/ResumeListSubmit")
+   @ResponseBody
+   public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
+      
+      UserVo userVo = (UserVo)session.getAttribute("userLogin");
+      System.out.println("userVo:"+userVo);
+      List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeListData( userVo );
+      System.err.println("userResumeList:"+userResumeList);
+      return userResumeList;
+      
+   } 
+   
+   
+   /*이력서 목록*/
+   @RequestMapping( "/ResumeList" )
+   public  ModelAndView  resumelist( UserResumeVo userResumeVo, UserVo userVo, CompanyRecruitVo companyRecruitVo  ) {
+      ModelAndView  mv  =  new ModelAndView();
+       String user_id = userVo.getUser_id();
+       List<HashMap<String, String>> userResumeList = userResumeMapper.getUserResumeList( user_id );
+      mv.addObject( "userResumeList", userResumeList );
+      mv.setViewName( "users/resume/list" );
+      return mv;
+   }
+   
+   /*이력서 등록*/
+   @RequestMapping( "/RegisterResumeForm" )
+   public ModelAndView resumeregisterForm( UserResumeVo userResumeVo, UserVo userVo ) {
+       ModelAndView mv = new ModelAndView();
+       String user_id = userVo.getUser_id();
+       mv.addObject( "user_id", user_id );
         mv.addObject( "user_name", userMapper.getUserById( user_id ).getUser_name() );
         mv.addObject( "user_phone", userMapper.getUserById( user_id ).getUser_phone() );
         mv.addObject( "user_email", userMapper.getUserById( user_id ).getUser_email() );
@@ -90,37 +90,37 @@ public class UserResumeController {
     public String serarchAddress() {
         return "users/resume/popupaddress";
     }
-	
-	@RequestMapping( "/RegisterResume" )
-	public ModelAndView resumeregister( HttpServletRequest request, UserResumeVo userResumeVo ) {
-		
-		Map<String, String[]> userResumemap = request.getParameterMap();
-		String [] skills = userResumemap.get("skill_name");
-		
-		String user_id = userResumeVo.getUser_id();
-		
-		List<SkillVo> skillList = new ArrayList<>();
-		
-		for ( int i = 0; i < skills.length; i++ ) {
-			SkillVo skillVo = new SkillVo();
-			skillVo.setSkill_name( skills[i] );
-			skillList.add( skillVo );
-		};
-		
-		userResumeMapper.insertUserResume( userResumeVo );
-		
-		userResumeVo.setUser_resume_idx( userResumeMapper.getUserResumeIdx( user_id ) );
-		
-		int user_resume_idx = userResumeVo.getUser_resume_idx();
-		
-		userResumeMapper.insertUserSkill( user_resume_idx, skillList );
+   
+   @RequestMapping( "/RegisterResume" )
+   public ModelAndView resumeregister( HttpServletRequest request, UserResumeVo userResumeVo ) {
+      
+      Map<String, String[]> userResumemap = request.getParameterMap();
+      String [] skills = userResumemap.get("skill_name");
+      
+      String user_id = userResumeVo.getUser_id();
+      
+      List<SkillVo> skillList = new ArrayList<>();
+      
+      for ( int i = 0; i < skills.length; i++ ) {
+         SkillVo skillVo = new SkillVo();
+         skillVo.setSkill_name( skills[i] );
+         skillList.add( skillVo );
+      };
+      
+      userResumeMapper.insertUserResume( userResumeVo );
+      
+      userResumeVo.setUser_resume_idx( userResumeMapper.getUserResumeIdx( user_id ) );
+      
+      int user_resume_idx = userResumeVo.getUser_resume_idx();
+      
+      userResumeMapper.insertUserSkill( user_resume_idx, skillList );
 
 
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName( "redirect:/Resume/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
-		return mv;
-	}
-	
+      ModelAndView mv = new ModelAndView();
+      mv.setViewName( "redirect:/Resume/ViewResume?user_id=" + user_id + "&user_resume_idx=" + user_resume_idx );
+      return mv;
+   }
+   
    
    /* 이력서 보기 */
    @RequestMapping( "/ViewResume" )
@@ -190,49 +190,52 @@ public class UserResumeController {
 
         mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
 
-		return mv;
-	}
-	
-	/*이력서 삭제*/
-	@RequestMapping( "/DeleteResume" )
-	public  ModelAndView delete( UserResumeVo userResumeVo ) {
-		userResumeMapper.deleteUserResume( userResumeVo );
-		ModelAndView  mv  =  new ModelAndView();
-		String user_id = userResumeVo.getUser_id();
-		mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
-		return mv;
-	}
-	
+      return mv;
+   }
+   
+   /*이력서 삭제*/
+   @RequestMapping( "/DeleteResume" )
+   public  ModelAndView delete( UserResumeVo userResumeVo ) {
+      applicationsMapper.deleteApplicationResume( userResumeVo );
+      userResumeMapper.deleteUserResumeSkills( userResumeVo );
+      userResumeMapper.deleteUserResume( userResumeVo );
+      ModelAndView  mv  =  new ModelAndView();
+      userResumeMapper.deleteUserResume( userResumeVo );
+      String user_id = userResumeVo.getUser_id();
+      mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
+      return mv;
+   }
+   
 
-	/* 이력서 지원 */
+   /* 이력서 지원 */
 
-	// 이력서 지원하는 기능
+   // 이력서 지원하는 기능
 
-	@RequestMapping("/ResumeSubmit")
-	public ModelAndView resumeSubmit( UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo ) {
-		ModelAndView mv = new ModelAndView();
-		
-		ApplicaionVo applicationVo = new ApplicaionVo();
-		applicationVo.setApplication_status("서류검토중");
-		applicationVo.setUser_resume_idx( userResumeVo.getUser_resume_idx() );
-		applicationVo.setCompany_recruit_idx( companyRecruitVo.getCompany_recruit_idx() );
-		
-		int count = applicationsMapper.countApplication(applicationVo);
-		String message = "";
-		if(count != 0) {
-			message = null;
-		};
-		if(count == 0) {
-					applicationsMapper.setApplicationData(applicationVo);
-			message = "지원성공";
-		};
-		
-		mv.addObject("message", message);
-		mv.setViewName("redirect:/Common/RecruitInfo?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
-		return mv;
-		
-	}
-	
+   @RequestMapping("/ResumeSubmit")
+   public ModelAndView resumeSubmit( UserResumeVo userResumeVo, CompanyRecruitVo companyRecruitVo ) {
+      
+      ModelAndView mv = new ModelAndView();
+      
+      ApplicaionVo applicationVo = new ApplicaionVo();
+      applicationVo.setApplication_status("서류검토중");
+      applicationVo.setUser_resume_idx( userResumeVo.getUser_resume_idx() );
+      applicationVo.setCompany_recruit_idx( companyRecruitVo.getCompany_recruit_idx() );
+      
+      int count = applicationsMapper.countApplication(applicationVo);
+      String message = "";
+      if(count != 0) {
+         message = null;
+      };
+      if(count == 0) {
+               applicationsMapper.setApplicationData(applicationVo);
+         message = "지원성공";
+      };
+      mv.addObject("message", message);
+      mv.setViewName("redirect:/Common/RecruitInfo?company_recruit_idx="+companyRecruitVo.getCompany_recruit_idx());
+      return mv;
+      
+   }
+   
 
 }
-	
+   

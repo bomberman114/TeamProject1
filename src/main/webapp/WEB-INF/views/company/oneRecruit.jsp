@@ -1,153 +1,244 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채용 공고</title>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"> 
-    <style>
-        body {
-            background-color: #ffffff;
-            font-family: "Jua", sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<title>채용공고 작성</title>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
 
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #EBFFEE;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 22px;
-        }
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #EBFFEE;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
 
-        .info-box {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 18px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
-            text-align: left;
-        }
+h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    
+}
 
-        h1 {
-            color: #470065;
-            font-size: 35px;
-            margin-bottom: 20px;
-        }
+.input-container {
+    margin-bottom: 20px;
+}
 
-        .info-item {
-            font-size: 18px;
-            margin: 10px 0;
-            font-weight: bold;
-            text-align: left;
-        }
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
 
-        .highlight {
-            font-weight: bold;
-            color: #2e8b57;
-        }
+textarea {
+    resize: vertical;
+    height: 80px;
+}
 
-        /* 공통 버튼 스타일: a와 button에 동일 적용 */
-        .button,
-        .button-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #EBFFEE;
-            color: #470065;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            border: none;  /* 버튼 테두리 제거 */
-            font-family: "Jua", sans-serif;  /* 동일한 폰트 */
-        }
+.save-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-        .button:hover,
-        .button-link:hover {
-            background-color: #495057;
-            color: #ffffff;
-        }
+.save-button:hover {
+    background-color: #495057;
+}
 
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
+.category-bar {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid;
+    font-weight: bold;
+}
 
-        .logo-container {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
+.category-bar:hover {
+    background-color: #ddd;
+}
 
-        .logo-container img {
-            height: 80px;
-        }
+.checkbox-group {
+    display: none; /* 기본적으로 숨김 */
+    flex-wrap: wrap;
+}
 
-        footer {
-            text-align: center;
-            font-family: "Jua", sans-serif;
-            padding: 20px;
-            margin-top: 20px;
+.checkbox-group label {
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.checkbox-group input {
+    margin-right: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    font-size: 16px;
+    color: #495057;
+    appearance: none; /* 기본 화살표 제거 */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23495057" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* 화살표 추가 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
+    position: relative; /* 아래로 펼쳐지도록 설정 */
+    z-index: 1; /* 다른 요소들과의 충돌 방지 */
+}
+
+select:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    z-index: 2; /* 포커스 시 드롭다운이 맨 위로 나오도록 */
+}
+</style>
+
+<script type="text/javascript">
+    function toggleSection(sectionId, element) {
+        var section = document.getElementById(sectionId);
+        var icon = element.querySelector(".toggle-icon");
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "block";  // 섹션을 보여줍니다.
+            icon.textContent = "▲";  // 펼쳐진 상태로 아이콘 변경.
+        } else {
+            section.style.display = "none";  // 섹션을 숨깁니다.
+            icon.textContent = "▼";  // 닫힌 상태로 아이콘 변경.
         }
-    </style>
+    }
+</script>
+
 </head>
 <body>
-    <header class="logo-container">
-        <a href="/Company/RecruitInfo?company_recruit_idx=${companyOneRecruit.COMPANY_RECRUIT_IDX}">
-    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
-        </a>
-    </header>
-    <div class="container">
-        <h1>채용 공고</h1>
-        <div class="info-box">
-            <div class="info-item">공고제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
-            <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
-            <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
-            <c:if test="${ companyOneRecruit.SKILL_NAME ne null }">
-                <div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
-            </c:if>
-            <c:if test="${ companyOneRecruit.SKILL_NAME eq null }">
-                <div class="info-item">스킬: <span class="highlight">없음</span></div>
-            </c:if>
-            <div class="info-item">모집지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
-            <div class="info-item">상세주소: <span class="highlight">${companyOneRecruit.COMPANY_ADDRESS}</span></div>
-            <div class="info-item">회사정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
-            <div class="info-item">회사이름: <span class="highlight">${companyOneRecruit.COMPANY_NAME}</span></div>
-            <div class="info-item">마감기한: <span class="highlight">${companyOneRecruit.APPLICATION_DEADLINE}</span></div>
-            <div class="info-item">설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
-            <div class="info-item">등록일: <span class="highlight">${companyOneRecruit.COMPANY_RECRUIT_REGDATE}</span></div>
-            <div class="info-item">조회수: <span class="highlight">${companyOneRecruit.VIEWS}</span></div>
-               <div class="action-buttons">
-            <a href="/Company/RecruitUpdateForm?company_recruit_idx=${companyOneRecruit.COMPANY_RECRUIT_IDX}" class="button">수정</a>
-            <form action="/Company/DeleteRecruit" method="post" style="display:inline;">
-                <input type="hidden" name="company_recruit_idx" value="${companyOneRecruit.COMPANY_RECRUIT_IDX}">
-                <input type="submit" class="button" value="삭제">
-                  <a class="button"  href="/Company/ResumeViewList?company_recruit_idx=${ companyOneRecruit.COMPANY_RECRUIT_IDX }">들어온 이력서보기</a>
-            </form>
-        		</div>
-        </div>
-  
-            </form>
-        </div>
-    </div>
+  <div class="container">
+        <h1>채용공고</h1>
+        
+        <form action="/Company/RecruitWrite" id="form">
+        	<div class="input-container">
+	            <input type="hidden" name="company_id" value="${ companyUserVo.company_id }">
+	            공고제목<input type="text" placeholder="제목" name="recruit_title">
+	            회사이름<input type="text" placeholder="회사이름" name="company_name" value="${ companyUserVo.company_name }" readonly="readonly">
 
-    <footer>
-        <p>이메일 : help@arabojob.co.kr <br/> Fax : 02-0000-0000(대표)</p>
-    </footer>
+	            <!-- 백엔드 섹션 -->
+	            <div class="category-bar" onclick="toggleSection('backendSkills', this)">
+	                <span>백엔드</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="backendSkills" class="checkbox-group">
+	                <c:forEach var="skillList" items="${ skillList }">
+	                    <c:if test="${ skillList.skill_stack eq '백엔드'}">
+	                        <div>
+	                            <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+	                            <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+	                        </div>
+	                    </c:if>    
+	                </c:forEach>
+	            </div>
+
+	            <!-- 프론트엔드 섹션 -->
+	            <div class="category-bar" onclick="toggleSection('frontendSkills', this)">
+	                <span>프론트엔드</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="frontendSkills" class="checkbox-group">
+	                <c:forEach var="skillList" items="${ skillList }">
+	                    <c:if test="${ skillList.skill_stack eq '프론트엔드'}">
+	                        <div>
+	                            <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+	                            <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+	                        </div>
+	                    </c:if>    
+	                </c:forEach>
+	            </div>
+
+	            <!-- 데이터베이스 섹션 -->
+	            <div class="category-bar" onclick="toggleSection('dbSkills', this)">
+	                <span>데이터베이스</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="dbSkills" class="checkbox-group">
+	                <c:forEach var="skillList" items="${ skillList }">
+	                    <c:if test="${ skillList.skill_stack eq '데이터베이스'}">
+	                        <div>
+	                            <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+	                            <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+	                        </div>
+	                    </c:if>    
+	                </c:forEach>
+	            </div>
+
+	            <!-- 모바일 섹션 -->
+	            <div class="category-bar" onclick="toggleSection('mobileSkills', this)">
+	                <span>모바일</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="mobileSkills" class="checkbox-group">
+	                <c:forEach var="skillList" items="${ skillList }">
+	                    <c:if test="${ skillList.skill_stack eq '모바일'}">
+	                        <div>
+	                            <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+	                            <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+	                        </div>
+	                    </c:if>    
+	                </c:forEach>
+	            </div>
+
+	            <!-- 협업툴 섹션 -->
+	            <div class="category-bar" onclick="toggleSection('collaborationTools', this)">
+	                <span>협업툴</span>
+	                <span class="toggle-icon">▼</span>
+	            </div>
+	            <div id="collaborationTools" class="checkbox-group">
+	                <c:forEach var="skillList" items="${ skillList }">
+	                    <c:if test="${ skillList.skill_stack eq '협업툴'}">
+	                        <div>
+	                            <input type="checkbox" id="skill_name_${skillList.skill_name}" name="skill_name" value="${ skillList.skill_name }">
+	                            <label for="skill_name_${skillList.skill_name}">${ skillList.skill_name }</label>
+	                        </div>
+	                    </c:if>    
+	                </c:forEach>
+	            </div>
+
+	            모집부문<input type="text" placeholder="모집부문" name="company_job">
+	            모집인원<input type="text" placeholder="모집인원" name="getman">
+		        근무지역<select name="region_idx">
+		            <option>---지역선택----</option>
+	            	<c:forEach var="regionList" items="${ regionList }">
+		            	<option value="${ regionList.region_idx }">${ regionList.region_name }</option>
+	            	</c:forEach>
+		        </select><br><br>
+	            상세근무주소    <input type="text" placeholder="근무주소" name="company_address">
+	            채용공고기간    <input type="text" placeholder="채용공고기간" name="application_deadline">
+	            회사설립일      <input type="text" placeholder="회사설립일" name="company_establish">
+	            회사설명        <textarea placeholder="회사설명" name="company_info"></textarea>
+        	</div>
+        	<input class="save-button" type="submit" value="공고저장">
+        </form>
+    </div>
 </body>
 </html>

@@ -276,18 +276,20 @@
       OFFSET #{ startRow } ROWS FETCH NEXT #{ endRow } ROWS ONLY
     </select>
 
-
-   <select id="getCompanyRecruitCount">
-       SELECT COUNT( * )
-       FROM  company_recruit
-          WHERE company_id = #{ company_id }
-   </select>
-   
-   <select id="getCompanyOneRecruit">
-      SELECT *
-      FROM company_recruit
-      WHERE company_recruit_idx = #{ company_recruit_idx}
-   </select>
+	<select id="getCompanyRecruitCount">
+    	SELECT 
+    		COUNT( * )
+    	FROM  
+    		COMPANY_RECRUIT
+   	    WHERE 
+   	    	COMPANY_ID = #{ company_id }
+	</select>
+	
+	<select id="getCompanyOneRecruit">
+		SELECT *
+		FROM company_recruit
+		WHERE company_recruit_idx = #{ company_recruit_idx}
+	</select>
 
    <select id="getCompanyOneRecruitData">
    SELECT 
@@ -351,13 +353,21 @@
       WHERE COMPANY_RECRUIT = #{ company_recruit_idx }
    </select>
 
-   <select id="getCompanyRecruitIdxsData">
-      SELECT 
-         *
-      FROM 
-         COMPANY_RECRUIT
-      WHERE 
-         COMPANY_ID = #{ company_id }
-   </select>
+	<select id="getCompanyRecruitIdxsData">
+		SELECT 
+			*
+		FROM 
+			COMPANY_RECRUIT
+		WHERE 
+			COMPANY_ID = #{ company_id }
+	</select>
+	
+	<delete id="deleteCompanyRecruitUserId">
+		DELETE
+		FROM 
+			COMPANY_RECRUIT
+		WHERE 
+			COMPANY_ID = #{ company_id }
+	</delete>
 
 </mapper>

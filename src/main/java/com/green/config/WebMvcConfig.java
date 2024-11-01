@@ -17,12 +17,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
    
    @Override
    public void addInterceptors(InterceptorRegistry registry) {
-      /* 로그인 기능 일시 정지 */
       
       registry.addInterceptor( authInterceptor )
              .addPathPatterns( "/**" )
-             .excludePathPatterns( "/css/**", "/img/**", "/js/**", "/", "/Resume/SearchAddress/**","/Users/RegisterForm/**" , "/Company/OneRecruit/**", "/Common/**"
-            		 
+             .excludePathPatterns( 
+            		 "/css/**", "/img/**", "/js/**", "/" 
+            		 , "/Resume/SearchAddress/**", "/Common/**"
+            		 , "/Users/CheckDuplication/**","/Company/CheckDuplication/**"
+            		 , "/Common/**", "/Resume/**"
             		 );
       
       WebMvcConfigurer.super.addInterceptors(registry);

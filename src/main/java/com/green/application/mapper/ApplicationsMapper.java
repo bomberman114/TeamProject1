@@ -17,15 +17,18 @@ public interface ApplicationsMapper {
       int countApplication(ApplicaionVo applicationVo);
 
       void updateApplicationData(ApplicaionVo applicationVo);
-
-
+  
       int getApplicationsCount(@Param("company_recruit_idx") int company_recruit_idx,@Param("userResumeIdxList") List<UserResumeVo> userResumeIdxList);
 
       void setApplicationStatusData(ApplicaionVo applicationVo);
 
       void deletApplicstionData(int company_recruit_idx);
 
-   void deletApplicstionCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
+       int getApplicationsCountByNoLog(int company_recruit_idx);
+
+       void deletApplicstionCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
+
+      void deleteApplicationResume(UserResumeVo userResumeVo);
 
 
 }

@@ -5,18 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" type="image/png" href="/img/favicon.png" />
+    <link rel="icon" type="image/png" href="https://github.com/bomberman114/TeamProject1/blob/develop/src/main/resources/static/img/apple-touch-icon.png" />
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 </head>
 <body>
   <main>  
     <h2>회원 수정</h2>
-
-    <form action="/Users/Update"  method="POST">
-    <table>
-     <tr>
-      <td>아이디</td>
-      <td><input type="text" name="user_id" value="${user.user_id}" readonly/></td>
 
     <form action="/Company/Update"  method="POST">
     <table>
@@ -48,11 +42,13 @@
       	<td><input type="email" name="user_email" value="${user.user_email}" /></td>
       	<td><select><option>@gmail.com</option></select></td>
      </tr>
+     <tr>
       <td colspan="3">
        <input type="submit" value="수정" />
-       <input type="button" value="목록" id="goList" />
       </td>
-
+     </tr>
+     
+	<tr>
       <td><input type="password" name="company_passwd" id="passwd1" value="${company.company_passwd}" /></td>
      </tr>
       <tr>
@@ -94,17 +90,13 @@
         <td><a href="/CompanyUsers/View?company_id=${CompanyUser.company_id}">완료</a></td>
      </tr>
 
-     </tr>
     
     </table>    
     </form>
 
   
     <script>
-       const  goList = document.getElementById('goList')
-       goList.onclick = function() {
-          location.href = '/Users/List'
-       } 
+
 
        // 서버에서 전달된 error 메시지가 있을 경우 alert로 출력
        <% if (request.getAttribute("error") != null) { %>

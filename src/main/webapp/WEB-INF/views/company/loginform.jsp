@@ -19,10 +19,12 @@
             height: 100vh;
             margin: 0;
         }
-        .logo-container { 
-            text-align: center; 
-            margin-bottom: 20px; 
-        }
+
+      .logo-container { 
+         text-align: center; 
+         margin-bottom: 20px; 
+      }
+
         .logo-container img {
             height: 100px;
             width: 150px;
@@ -76,24 +78,25 @@
             box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
         }
         input[type="submit"], .btn {
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            font-size: 20px; /* 동일한 글자 크기 */
-            font-weight: bold; /* 굵기 설정 */
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            background-color: #EBFFEE;
-            color: #470065;
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
-        }
-        .btn:hover {
-            background-color: #470065;
-        }
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 20px; /* 동일한 글자 크기 */
+    font-weight: bold; /* 굵기 설정 */
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #EBFFEE;
+    color: #470065;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
+}
+
+input[type="submit"]:hover, .btn:hover {
+    background-color: #88D8C0; /* 호버 색상 설정 */
+}
     </style>
 </head>
 
@@ -109,7 +112,6 @@
                 <button type="button" onclick="location.href='/Users/LoginForm'">개인회원</button>
                 <button type="button" onclick="location.href='/Company/LoginForm'">기업회원</button>
             </div>
-
             <div class="title">기업회원 로그인</div>
             <div style="color: red">${ loginFalseMessage }</div>
             <input type="text" name="company_id" placeholder="아이디" />
@@ -118,5 +120,6 @@
             <button class="btn" type="button" onclick="location.href='/Company/RegisterForm'">회원가입</button>
         </div>
     </form>
+
 </body>
 </html>
