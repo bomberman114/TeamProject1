@@ -25,7 +25,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             requestURI.equals("/Company/Login") || requestURI.equals("/Company/LoginForm") ||
             requestURI.equals("/Company/Logout") || requestURI.equals("/Users/Logout") ||
             requestURI.equals("/Company/RegisterForm")|| requestURI.equals("/Company/Register") || 
-            requestURI.equals("/Users/RegisterForm") || requestURI.equals("/Users/Register")
+            requestURI.equals("/Users/RegisterForm") || requestURI.equals("/Users/Register") ||
+
+            requestURI.equals("/Resume/ResgiterResumeForm") || requestURI.equals("/Resume/RegisterResume")
+
+            || requestURI.equals("/Resume/ViewResume")
 
             ) {
             return true;

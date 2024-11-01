@@ -44,12 +44,6 @@ public interface CompanyRecruitMapper {
                            @Param("skillListCheck") List<SkillVo> skillListCheck, 
                            @Param("regionListCheck")List<RegionVo> regionListCheck);
 
-
-
-
-   
-
-
    int getCompanyRecruitCount(CompanyUserVo companyUserVo);
 
 
@@ -83,7 +77,6 @@ public interface CompanyRecruitMapper {
 
    void deleteCompanyRecruit(int company_recruit_idx);
 
-   List<CompanyRecruitVo> getCompanyRecruitIdxsData(CompanyUserVo companyUserVo);
 
 
 	void deleteCompanyRecruitUserId(CompanyUserVo companyUserVo);

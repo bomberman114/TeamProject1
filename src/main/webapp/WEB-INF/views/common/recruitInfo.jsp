@@ -80,8 +80,8 @@
             const resumeListEl = document.getElementById('resumeList');
             const linkContainer = document.querySelector('.link-container'); // link-container 요소 가져오기
             const company_recruit_idxEl = document.getElementById('company_recruit_idx');
-			let company_recruit_idx = company_recruit_idxEl.value;
-			
+         let company_recruit_idx = company_recruit_idxEl.value;
+         
             resumeListEl.onclick = function(event) {
                 event.preventDefault(); // 기본 링크 클릭 동작 방지
 
@@ -97,13 +97,13 @@
                         // 데이터가 있는 경우
                         if (data && data.length > 0) {
                             data.forEach((resume, index) => {
-                            	console.log(company_recruit_idx);
-                            	//alert(resume.user_title);
+                               console.log(company_recruit_idx);
+                               //alert(resume.user_title);
                                 // 이력서 제목과 체크박스를 포함하는 HTML 생성
                                 const resumeItem = document.createElement('div');
                                 resumeItem.className = 'resume-item';
                                 resumeItem.innerHTML = 
-                                	'<input type="radio" name="selectedResume" id="resume' + index + 
+                                   '<input type="radio" name="selectedResume" id="resume' + index + 
                                     '" value="' + resume.user_resume_idx + '">' + 
                                     '<label for="resume' + index + '">' + resume.user_title + '</label>' +
                                     '<a href="/Resume/ResumeSubmit?user_resume_idx=' + resume.user_resume_idx +'&company_recruit_idx=' + company_recruit_idx + '">이력서내기</a>';
@@ -122,39 +122,43 @@
     </script>
 </head>
 <body>
+ <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
     <div class="container">
         <h1>채용공고</h1>
         <div class="info-box">
-	            <input type="hidden" id="company_recruit_idx" value="${ companyOneRecruit.COMPANY_RECRUIT_IDX }">
-	            <div class="info-item">채용공고 제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
-	            <div class="info-item">회사 이름: <span class="highlight">${companyOneRecruit.COMPANY_NAME}</span></div>
-	            <c:if test="${ companyOneRecruit.SKILL_NAME ne null }">
-	            	<div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
-	            </c:if>
-	            <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
-	            <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
-	            <div class="info-item">근무지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
-	            <div class="info-item">근무위치: <span class="highlight">${companyOneRecruit.COMPANY_ADDRESS}</span></div>
-	            <div class="info-item">기업정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
-	            <div class="info-item">접수기간: <span class="highlight">${companyOneRecruit.APPLICATION_DEADLINE}</span></div>
-	            <div class="info-item">기업설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
-	            <div class="info-item">조회수: <span class="highlight">${companyOneRecruit.VIEWS}</span></div>
+               <input type="hidden" id="company_recruit_idx" value="${ companyOneRecruit.COMPANY_RECRUIT_IDX }">
+               <div class="info-item">채용공고 제목: <span class="highlight">${companyOneRecruit.RECRUIT_TITLE}</span></div>
+               <div class="info-item">회사 이름: <span class="highlight">${companyOneRecruit.COMPANY_NAME}</span></div>
+               <c:if test="${ companyOneRecruit.SKILL_NAME ne null }">
+                  <div class="info-item">스킬: <span class="highlight">${ companyOneRecruit.SKILL_NAME }</span></div>
+               </c:if>
+               <div class="info-item">모집부문: <span class="highlight">${companyOneRecruit.COMPANY_JOB}</span></div>
+               <div class="info-item">모집인원: <span class="highlight">${companyOneRecruit.GETMAN}</span></div>
+               <div class="info-item">근무지역: <span class="highlight">${companyOneRecruit.REGION_NAME}</span></div>
+               <div class="info-item">근무위치: <span class="highlight">${companyOneRecruit.COMPANY_ADDRESS}</span></div>
+               <div class="info-item">기업정보: <span class="highlight">${companyOneRecruit.COMPANY_INFO}</span></div>
+               <div class="info-item">접수기간: <span class="highlight">${companyOneRecruit.APPLICATION_DEADLINE}</span></div>
+               <div class="info-item">기업설립일: <span class="highlight">${companyOneRecruit.COMPANY_ESTABLISH}</span></div>
+               <div class="info-item">조회수: <span class="highlight">${companyOneRecruit.VIEWS}</span></div>
         </div>
         
         <div class="link-container">
             <!-- 이력서 제목과 체크박스가 여기에 동적으로 추가됩니다. -->
         </div>
         <c:if test="${message eq '지원가능'}">
-        	<a href="#" id="resumeList">이력서 들고오기</a>
-    	</c:if>
-    	<c:if test="${ message eq '이미 지원한 공고입니다.' }">
-    		<div>${ message }</div>
-    	</c:if>
+           <a href="#" id="resumeList">이력서 들고오기</a>
+       </c:if>
+       <c:if test="${ message eq '이미 지원한 공고입니다.' }">
+          <div>${ message }</div>
+       </c:if>
         <c:if test="${message eq '비로그인 상태'}">
-        	<a href="#" id="resumeList">이력서 들고오기</a>
-    	</c:if>
+           <a href="#" id="resumeList">이력서 들고오기</a>
+       </c:if>
 
     </div>
 </body>
-</html>
 </html>

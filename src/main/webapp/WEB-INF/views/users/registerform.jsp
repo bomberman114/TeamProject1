@@ -232,18 +232,21 @@
  	                alert("중복 확인 중 오류가 발생했습니다.");
  	            });
  	        });
- 	        // 아이디 입력 필드에 영어와 숫자만 허용하는 기능
- 	        $('[name=user_id]').on('keyup', function() {
- 	            const value = $(this).val();
- 	            // 정규식을 사용하여 영어와 숫자 이외의 문자가 있으면 제거
- 	            const validValue = value.replace(/[^a-zA-Z0-9]/g, '');
 
- 	            if (value !== validValue) {
- 	                alert('아이디는 영어와 숫자만 입력 가능합니다.');
- 	                $(this).val(validValue);
- 	            }
- 	        });
- 	    });
+            // 아이디 입력 필드에 영어와 숫자만 허용하는 기능
+            $('[name=user_id]').on('keyup', function() {
+                const value = $(this).val();
+                // 정규식을 사용하여 영어와 숫자 이외의 문자가 있으면 제거
+                const validValue = value.replace(/[^a-zA-Z0-9]/g, '');
+
+                if (value !== validValue) {
+                    alert('아이디는 영어와 숫자만 입력 가능합니다.');
+                    $(this).val(validValue);
+                }
+            });
+        });
+    	 
+
     	</script>
 	
 	</main>

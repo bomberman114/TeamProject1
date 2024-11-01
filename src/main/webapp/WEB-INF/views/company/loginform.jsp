@@ -78,24 +78,25 @@
             box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
         }
         input[type="submit"], .btn {
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            font-size: 20px; /* 동일한 글자 크기 */
-            font-weight: bold; /* 굵기 설정 */
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            background-color: #EBFFEE;
-            color: #470065;
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
-        }
-        .btn:hover {
-            background-color: #470065;
-        }
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 20px; /* 동일한 글자 크기 */
+    font-weight: bold; /* 굵기 설정 */
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #EBFFEE;
+    color: #470065;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* 패딩과 경계선을 포함하여 너비 계산 */
+}
+
+input[type="submit"]:hover, .btn:hover {
+    background-color: #88D8C0; /* 호버 색상 설정 */
+}
     </style>
 </head>
 
