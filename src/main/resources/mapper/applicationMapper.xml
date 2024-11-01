@@ -2,93 +2,107 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.application.mapper.ApplicationsMapper">  
-	<insert id="setApplicationData">
-		 INSERT 
-		 	INTO 
-		 	APPLICATIONS (
-			      APPLICATIONS_IDX
-			    , USER_RESUME_IDX
-			    , COMPANY_RECRUIT_IDX
-			    , APPLICATION_STATUS
-		) VALUES (
-		      APPLICATIONS_SEQ.NEXTVAL
-		    , #{ user_resume_idx }
-			, #{ company_recruit_idx }
-			, #{ application_status }
-		)
-	
-	</insert>
-	
-	<select id="countApplication">
-		SELECT
-	    	COUNT(*)
-		FROM
-		    APPLICATIONS
-		 where
-		     USER_RESUME_IDX = #{ user_resume_idx }
-		   AND COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
-	</select>
-	
-	<select id="getApplicationsCount">
-		SELECT
-	    	COUNT(*)
-		FROM
-		    APPLICATIONS
-		 WHERE
-		     USER_RESUME_IDX IN 
-		      <foreach item="idx" index="index" collection="userResumeIdxList"
-	      		open="(" separator="," close=")">
-	        #{ idx.user_resume_idx }
-	  	 		</foreach>
-		   AND COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
-	</select>
-	<select id="getApplicationsCountByNoLog">
-		SELECT
-	    	COUNT(*)
-		FROM
-		    APPLICATIONS
-		 WHERE
-		   COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
-	</select>
-	
-	<update id="updateApplicationData">
-		  UPDATE APPLICATIONS
-			SET
-			    APPLICATION_STATUS = #{application_status}
-			WHERE    
-			       USER_RESUME_IDX = #{ user_resume_idx }
-			   AND COMPANY_RECRUIT_IDX = #{ company_recruit_iDX }
-	</update>
-	
-	<update id="setApplicationStatusData">
-		UPDATE APPLICATIONS
-			SET
-			    APPLICATION_STATUS = #{application_status}
-			WHERE    
-			     APPLICATIONS_IDX = #{ applications_idx }
-	</update>
-	
-	<delete id="deletApplicstionData">
-	
-	DELETE 
-	FROM 
-		APPLICATIONS
-	WHERE
-    	COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
-			
-	</delete>
-	
-	<delete id="deletApplicstionCompanyRecruitIdx">
-	DELETE 
-	FROM 
-		APPLICATIONS
-	WHERE
-    	COMPANY_RECRUIT_IDX IN
-    		<foreach item="idx" index="index" collection="comPanyRecruitList"
-	     		 open="(" separator="," close=")">
-        	 #{ idx.company_recruit_idx }
-  	 		
-  	 		</foreach>
-	
-	</delete>
+   <insert id="setApplicationData">
+       INSERT 
+          INTO 
+          APPLICATIONS (
+               APPLICATIONS_IDX
+             , USER_RESUME_IDX
+             , COMPANY_RECRUIT_IDX
+             , APPLICATION_STATUS
+      ) VALUES (
+            APPLICATIONS_SEQ.NEXTVAL
+          , #{ user_resume_idx }
+         , #{ company_recruit_idx }
+         , #{ application_status }
+      )
+   
+   </insert>
+   
+   <select id="countApplication">
+      SELECT
+          COUNT(*)
+      FROM
+          APPLICATIONS
+       where
+           USER_RESUME_IDX = #{ user_resume_idx }
+         AND COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+   </select>
+   
+   <select id="getApplicationsCount">
+      SELECT
+          COUNT(*)
+      FROM
+          APPLICATIONS
+       WHERE
+           USER_RESUME_IDX IN 
+            <foreach item="idx" index="index" collection="userResumeIdxList"
+               open="(" separator="," close=")">
+           #{ idx.user_resume_idx }
+               </foreach>
+         AND COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+   </select>
+   <select id="getApplicationsCountByNoLog">
+      SELECT
+          COUNT(*)
+      FROM
+          APPLICATIONS
+       WHERE
+         COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+   </select>
+   
+   <update id="updateApplicationData">
+        UPDATE APPLICATIONS
+         SET
+             APPLICATION_STATUS = #{application_status}
+         WHERE    
+                USER_RESUME_IDX = #{ user_resume_idx }
+            AND COMPANY_RECRUIT_IDX = #{ company_recruit_iDX }
+   </update>
+   
+   <update id="setApplicationStatusData">
+      UPDATE APPLICATIONS
+         SET
+             APPLICATION_STATUS = #{application_status}
+         WHERE    
+              APPLICATIONS_IDX = #{ applications_idx }
+   </update>
+   
+   <delete id="deletApplicstionData">
+   
+   DELETE 
+   FROM 
+      APPLICATIONS
+   WHERE
+       COMPANY_RECRUIT_IDX = #{ company_recruit_idx }
+         
+   </delete>
+   
+   <delete id="deletApplicstionCompanyRecruitIdx">
+   DELETE 
+   FROM 
+      APPLICATIONS
+   WHERE
+       COMPANY_RECRUIT_IDX IN
+          <foreach item="idx" index="index" collection="comPanyRecruitList"
+               open="(" separator="," close=")">
+            #{ idx.company_recruit_idx }
+            
+            </foreach>
+   
+   </delete>
+   
+   <!-- 회원탈퇴시 채용지원 이력서 삭제 -->
+   <delete id="deleteApplicationResume">
+    DELETE FROM
+         APPLICATIONS
+      WHERE USER_RESUME_IDX
+      IN (
+          SELECT UR.USER_RESUME_IDX
+          FROM USER_RESUME UR
+          JOIN USERS U 
+          ON UR.USER_ID = U.USER_ID
+          WHERE U.USER_ID = #{user_id}
+      )
+   </delete>
 </mapper>

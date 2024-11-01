@@ -269,7 +269,7 @@
             <!-- 자소서 -->
             <div class="form-group">
                 <label><span class="red">*</span> 자소서</label>
-                <textarea name="user_intro" required>ㄴㄷㄹ</textarea>
+                <textarea name="user_intro" required></textarea>
             </div>
 
             <div class="action-container">

@@ -123,6 +123,21 @@
             border: none; /* 테두리 제거 */
             font-weight: bold;
     	}
+    	.button1 {  
+            background-color: #EBFFEE;
+            color: #470065;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
+            border: none; /* 테두리 제거 */
+            font-weight: bold;
+            
+    	}
 
    		.button:hover {
             background-color: #495057;
@@ -144,6 +159,9 @@
         }
       
     </style>
+ <script type="text/javascript">
+ 
+ </script>
 </head>
 <body>
     <header class="logo-container">
@@ -167,19 +185,23 @@
             <div class="info-item">이메일: <span class="highlight">${companyUserVo.company_email}</span></div>
             <div class="info-item">설립일: <span class="highlight">${companyUserVo.company_establish}</span></div>
             <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
-            <input type="submit" class="button" value="수정"/>
+            <input type="submit" class="button" value="정보 수정"/>
             </form>
-            <button id = "delete">회원 탈퇴</button>
+              <button class="button1" id = "delete">회원 탈퇴</button>
+    
         </div>
     </div>
     
     <script>
     const company_id = document.querySelector('[data-name=company_id]').innerText;
-    console.log(company_id)
+    console.log(company_id);
     const deleteBtn = document.getElementById('delete');
+
     deleteBtn.onclick = function() {
-    	alert(company_id + " 계정을 정말 삭제하시겠습니까?")
-        location.href = '/Company/UserDelete?company_id=' + company_id
+        const isConfirmed = confirm(company_id + " 계정을 정말 삭제하시겠습니까?");
+        if (isConfirmed) {
+            location.href = '/Company/UserDelete?company_id=' + company_id;
+        }
     };
     </script>
 <footer>    

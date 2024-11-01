@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.application.mapper.ApplicationsMapper;
 import com.green.user.resume.mapper.UserResumeMapper;
 import com.green.user.resume.vo.UserResumeVo;
 import com.green.users.mapper.UserMapper;
@@ -32,6 +33,9 @@ public class UserController {
    
    @Autowired
    private  UserResumeMapper userResumeMapper;
+
+   @Autowired
+   private  ApplicationsMapper applicationsMapper;
    
    // 개인회원 추가
    // /Users/RegisterForm
@@ -47,7 +51,7 @@ public class UserController {
    @ResponseBody
    public String checkDuplication( @RequestParam( "user_id" ) String user_id ) {
      
-	   UserVo user = userMapper.getUserById(user_id);
+      UserVo user = userMapper.getUserById(user_id);
        if (user == null) {
            return "가능";  // 아이디가 존재하지 않으면 가능
        }
@@ -57,7 +61,7 @@ public class UserController {
 
    @RequestMapping("/Register")
    public  ModelAndView  register( UserVo userVo, @RequestParam( value="user_id", required=false ) String user_id) {
-	  ModelAndView  mv  =  new ModelAndView();
+     ModelAndView  mv  =  new ModelAndView();
       userMapper.insertUser( userVo );
       userMapper.getUserById( user_id );
       mv.setViewName("redirect:/Users/View?user_id"+user_id);
@@ -67,8 +71,10 @@ public class UserController {
    // 회원 삭제
    @RequestMapping( "/Delete" )
    public  ModelAndView delete( UserVo userVo, UserResumeVo userResumeVo, HttpSession session ) {
-	  userResumeMapper.deleteUserResumesSkills( userResumeVo );
-	  userResumeMapper.deleteUserResumes( userResumeVo );
+      
+     applicationsMapper.deleteApplicationResume( userResumeVo );
+     userResumeMapper.deleteUserResumesSkills( userResumeVo );
+     userResumeMapper.deleteUserResumes( userResumeVo );
       userMapper.deleteUser( userVo );
       session.invalidate();
       ModelAndView  mv  =  new ModelAndView();
@@ -149,24 +155,24 @@ public class UserController {
       HttpServletRequest   request,
       HttpServletResponse  response
       ) {
-	   ModelAndView mv = new ModelAndView();
+      ModelAndView mv = new ModelAndView();
       String userid  = request.getParameter( "user_id" );
       String passwd  = request.getParameter( "user_passwd" );
       
       UserVo userVo = userMapper.login( userid, passwd );
       String loginFalseMessage = "";
         if( userVo != null ) {
-        	
-        	HttpSession  session = request.getSession();
-        	session.setAttribute( "userLogin", userVo );
-        	session.setMaxInactiveInterval(60*60);
-        	mv.setViewName("redirect:/");
+           
+           HttpSession  session = request.getSession();
+           session.setAttribute( "userLogin", userVo );
+           session.setMaxInactiveInterval(60*60);
+           mv.setViewName("redirect:/");
         };
         if( userVo == null ) {
 
-        	loginFalseMessage = "다시 로그인 시도해주세요";
-        	mv.addObject("loginFalseMessage",loginFalseMessage);
-        	mv.setViewName("redirect:/Users/LoginForm");
+           loginFalseMessage = "다시 로그인 시도해주세요";
+           mv.addObject("loginFalseMessage",loginFalseMessage);
+           mv.setViewName("redirect:/Users/LoginForm");
     
         };
     
