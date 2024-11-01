@@ -275,11 +275,13 @@ button:hover, input[type="submit"]:hover {
                     </div>
                 </div>
 
+
                 <!-- 자소서 -->
                 <div class="form-group">
                     <label><span class="red"></span> 자기 소개서</label>
                     <textarea name="user_intro" required></textarea>
                 </div>
+
 
                 <div class="action-container">
                     <input type="submit" value="이력서 등록" onclick="return validateCheckbox()" />

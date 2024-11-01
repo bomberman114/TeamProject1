@@ -122,8 +122,10 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
             border: none; /* 테두리 제거 */
             font-weight: bold;
+
        }
        .button1 {  
+
             background-color: #EBFFEE;
             color: #470065;
             padding: 10px 20px;
@@ -137,6 +139,7 @@
             border: none; /* 테두리 제거 */
             font-weight: bold;
             
+
        }
 
          .button:hover {
@@ -177,6 +180,7 @@
     <div class="container">
         <h1>내 회사 정보</h1>
         <div class="info-box">
+
     <form action="/Company/InfoUpdateForm?company_id=${companyUserVo.company_id}" method="POST">
         <div class="info-item">회사 ID: <span class="highlight" data-name="company_id">${companyUserVo.company_id}</span></div>
         <div class="info-item">회사 이름: <span class="highlight">${companyUserVo.company_name}</span></div>
@@ -189,6 +193,7 @@
     </form>
     <div style="text-align: center;"> <!-- 중앙 정렬을 위한 div 추가 -->
         <button class="button1" id="delete">회원 탈퇴</button>
+
     </div>
 </div>
     

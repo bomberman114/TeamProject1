@@ -141,8 +141,10 @@ select:focus {
     };
     
     window.onload = function(){
+
        
         const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
+
 
          // 오늘부터 가능하도록 설정 (채용공고기간)
          const applicationDeadlineEl = document.querySelector('[name=application_deadline]');
@@ -151,6 +153,7 @@ select:focus {
          // 현재까지의 날짜만 가능하도록 설정 (회사설립일)
          const companyEstablishEl = document.querySelector('[name=company_establish]');
          companyEstablishEl.setAttribute("max", today);
+
        
        const formEl = document.querySelector('#form');
              formEl.onsubmit = function(event){
@@ -209,6 +212,7 @@ select:focus {
           
        };
        
+
     };
     
     
@@ -221,7 +225,7 @@ select:focus {
 <body>
     <header class="logo-container">
         <a href="/Company/RecruitInfo">
-          <img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
         </a>
     </header>
   <div class="container">

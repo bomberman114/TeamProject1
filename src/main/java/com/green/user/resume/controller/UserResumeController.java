@@ -1,7 +1,6 @@
 package com.green.user.resume.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,9 +46,9 @@ public class UserResumeController {
    public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
       
       UserVo userVo = (UserVo)session.getAttribute("userLogin");
-      System.out.println("userVo:"+userVo);
+
       List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeListData( userVo );
-      System.err.println("userResumeList:"+userResumeList);
+    
       return userResumeList;
       
    } 
