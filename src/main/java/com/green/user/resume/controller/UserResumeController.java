@@ -189,6 +189,7 @@ public class UserResumeController {
 
         mv.setViewName( "redirect:/Resume/ResumeList?user_id=" + user_id );
 
+
       return mv;
    }
    
@@ -235,6 +236,7 @@ public class UserResumeController {
       
    }
    
+
 
 }
    

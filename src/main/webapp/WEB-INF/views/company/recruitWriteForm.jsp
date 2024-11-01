@@ -153,7 +153,6 @@ select:focus {
          // 현재까지의 날짜만 가능하도록 설정 (회사설립일)
          const companyEstablishEl = document.querySelector('[name=company_establish]');
          companyEstablishEl.setAttribute("max", today);
-
        
        const formEl = document.querySelector('#form');
              formEl.onsubmit = function(event){
@@ -212,7 +211,6 @@ select:focus {
           
        };
        
-
     };
     
     

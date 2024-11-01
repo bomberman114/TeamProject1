@@ -66,7 +66,6 @@ public class CommonSearchController {
    
    // 검색기능
    @RequestMapping("/RecruitSearch")
-
    public ModelAndView recruitSearch (HttpServletRequest request,
                               @RequestParam(name = "recruit_title",required =false) String recruit_title,
                               @RequestParam(value="nowpage"    ,required =false) Integer nowpage ,
@@ -224,4 +223,5 @@ public class CommonSearchController {
    }
    
    
+
 }

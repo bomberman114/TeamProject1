@@ -30,5 +30,7 @@ public interface ApplicationsMapper {
 
       void deleteApplicationResume(UserResumeVo userResumeVo);
 
+		void deleteApplicationResume(UserResumeVo userResumeVo);
+
 
 }

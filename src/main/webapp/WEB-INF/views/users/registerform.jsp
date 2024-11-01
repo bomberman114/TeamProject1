@@ -232,6 +232,7 @@
  	                alert("중복 확인 중 오류가 발생했습니다.");
  	            });
  	        });
+
             // 아이디 입력 필드에 영어와 숫자만 허용하는 기능
             $('[name=user_id]').on('keyup', function() {
                 const value = $(this).val();
@@ -245,7 +246,7 @@
             });
         });
     	 
-    	 
+
     	</script>
 	
 	</main>
