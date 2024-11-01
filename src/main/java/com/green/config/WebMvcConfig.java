@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             		 "/css/**", "/img/**", "/js/**", "/" 
             		 , "/Resume/SearchAddress/**", "/Common/**"
             		 , "/Users/CheckDuplication/**","/Company/CheckDuplication/**"
-            		 , "/Common/**"
+            		 , "/Common/**", "/Resume/**"
             		 );
       
       WebMvcConfigurer.super.addInterceptors(registry);

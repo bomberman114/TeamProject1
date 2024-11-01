@@ -122,6 +122,11 @@
     </script>
 </head>
 <body>
+ <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
     <div class="container">
         <h1>채용공고</h1>
         <div class="info-box">
@@ -156,5 +161,4 @@
 
     </div>
 </body>
-</html>
 </html>

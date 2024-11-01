@@ -46,7 +46,9 @@ public class UserResumeController {
    public List<UserResumeVo> ResumeListSubmit (HttpSession session) {
       
       UserVo userVo = (UserVo)session.getAttribute("userLogin");
+
       List<UserResumeVo>  userResumeList = userResumeMapper.getUserResumeListData( userVo );
+    
       return userResumeList;
       
    } 

@@ -189,7 +189,9 @@ public class CommonSearchController {
       HashMap<String, String> companyOneRecruit = companyRecruitMapper.getCompanyOneRecruitData(companyRecruitVo);
       int applicationsCount = 0;
       if( userResumeIdxList.size() != 0 ) {
-    	   applicationsCount = applicationsMapper.getApplicationsCount(companyRecruitVo.getCompany_recruit_idx(), userResumeIdxList);
+
+          applicationsCount = applicationsMapper.getApplicationsCount(companyRecruitVo.getCompany_recruit_idx(), userResumeIdxList);
+
       };
       if( applicationsCount == 0 ) {
          message = "지원가능";

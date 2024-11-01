@@ -141,8 +141,10 @@ select:focus {
     };
     
     window.onload = function(){
-    	
-    	 const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
+
+       
+        const today = new Date().toISOString().split('T')[0];  // 현재 날짜를 'yyyy-MM-dd' 형식으로 가져옴
+
 
          // 오늘부터 가능하도록 설정 (채용공고기간)
          const applicationDeadlineEl = document.querySelector('[name=application_deadline]');
@@ -151,64 +153,66 @@ select:focus {
          // 현재까지의 날짜만 가능하도록 설정 (회사설립일)
          const companyEstablishEl = document.querySelector('[name=company_establish]');
          companyEstablishEl.setAttribute("max", today);
-    	
-    	const formEl = document.querySelector('#form');
-    			formEl.onsubmit = function(event){
-    			//event.preventDefault(); // 기본 제출 동작을 막음
-    	        const regionSelect           = document.getElementById('regionSelect');
-    	        const recruit_titleEl        = document.querySelector('[name=recruit_title]');
-    	        const company_nameEl         = document.querySelector('[name=company_name]');
-    	        const company_jobEl          = document.querySelector('[name=company_job]');
-    	        const getmanEl               = document.querySelector('[name=getman]');
-    	        const company_addressEl      = document.querySelector('[name=company_address]');
-    	        const application_deadlineEl = document.querySelector('[name=application_deadline]');
-    	        const company_establishEl    = document.querySelector('[name=company_establish]');
-    	        const company_infoEl         = document.querySelector('[name=company_info]');
-    	        if (recruit_titleEl.value == "") {
-    	            alert("공고제목을 입력하세요.");
-    	            recruit_titleEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	       
-    	        if (regionSelect.value == "") {
-    	            alert("지역을 선택하세요.");
-    	            regionSelect.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (company_jobEl.value == "") {
-    	            alert("모집부분을 입력하세요.");
-    	            company_jobEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (getmanEl.value == "") {
-    	            alert("모집인원을 입력하세요.");
-    	            getmanEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (company_addressEl.value == "") {
-    	            alert("상세주소를 입력하세요.");
-    	            company_addressEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (application_deadlineEl.value == "") {
-    	            alert("채용공고기간 입력하세요.");
-    	            application_deadlineEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (company_establishEl.value == "") {
-    	            alert(" 회사설립일을 립력하세요.");
-    	            company_establishEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        if (company_infoEl.value == "") {
-    	            alert("회사설명을 입력하세요.");
-    	            company_infoEl.focus();  // 지역 선택 dropdown에 포커스를 줌
-    	            return false;  // form 제출 방지
-    	        }
-    	        return true;  // 선택된 경우 form 제출
-    		
-    	};
-    	
+
+       
+       const formEl = document.querySelector('#form');
+             formEl.onsubmit = function(event){
+             //event.preventDefault(); // 기본 제출 동작을 막음
+               const regionSelect           = document.getElementById('regionSelect');
+               const recruit_titleEl        = document.querySelector('[name=recruit_title]');
+               const company_nameEl         = document.querySelector('[name=company_name]');
+               const company_jobEl          = document.querySelector('[name=company_job]');
+               const getmanEl               = document.querySelector('[name=getman]');
+               const company_addressEl      = document.querySelector('[name=company_address]');
+               const application_deadlineEl = document.querySelector('[name=application_deadline]');
+               const company_establishEl    = document.querySelector('[name=company_establish]');
+               const company_infoEl         = document.querySelector('[name=company_info]');
+               if (recruit_titleEl.value == "") {
+                   alert("공고제목을 입력하세요.");
+                   recruit_titleEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+              
+               if (regionSelect.value == "") {
+                   alert("지역을 선택하세요.");
+                   regionSelect.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (company_jobEl.value == "") {
+                   alert("모집부분을 입력하세요.");
+                   company_jobEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (getmanEl.value == "") {
+                   alert("모집인원을 입력하세요.");
+                   getmanEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (company_addressEl.value == "") {
+                   alert("상세주소를 입력하세요.");
+                   company_addressEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (application_deadlineEl.value == "") {
+                   alert("채용공고기간 입력하세요.");
+                   application_deadlineEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (company_establishEl.value == "") {
+                   alert(" 회사설립일을 립력하세요.");
+                   company_establishEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               if (company_infoEl.value == "") {
+                   alert("회사설명을 입력하세요.");
+                   company_infoEl.focus();  // 지역 선택 dropdown에 포커스를 줌
+                   return false;  // form 제출 방지
+               }
+               return true;  // 선택된 경우 form 제출
+          
+       };
+       
+
     };
     
     

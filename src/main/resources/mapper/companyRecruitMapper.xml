@@ -353,7 +353,7 @@
       WHERE COMPANY_RECRUIT = #{ company_recruit_idx }
    </select>
 
-  
+
 	<select id="getCompanyRecruitIdxsData">
 		SELECT 
 			*

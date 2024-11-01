@@ -73,16 +73,16 @@
         }
 
         .link-container {
-      		display: flex;
-      	    justify-content: center;
-      	    margin: 20px 0;
-       	    max-width: 600px; /* 고정된 최대 너비 */
-       	    width: 100%; /* 화면 크기에 따라 적응 */
-       		margin: 0 auto;
+            display: flex;
+             justify-content: center;
+             margin: 20px 0;
+              max-width: 600px; /* 고정된 최대 너비 */
+              width: 100%; /* 화면 크기에 따라 적응 */
+             margin: 0 auto;
         
-   	    }
+          }
 
- 	    .link-box {
+        .link-box {
             flex: 1;
             max-width: 280px; /* 각 링크 박스의 고정된 최대 너비 */
             background-color: #EBFFEE;
@@ -109,7 +109,7 @@
             margin-top: 20px;
         }
 
-    	.button {  
+       .button {  
             background-color: #EBFFEE;
             color: #470065;
             padding: 10px 20px;
@@ -122,8 +122,10 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.15);
             border: none; /* 테두리 제거 */
             font-weight: bold;
-    	}
-    	.button1 {  
+
+       }
+       .button1 {  
+
             background-color: #EBFFEE;
             color: #470065;
             padding: 10px 20px;
@@ -137,11 +139,12 @@
             border: none; /* 테두리 제거 */
             font-weight: bold;
             
-    	}
 
-   		.button:hover {
+       }
+
+         .button:hover {
             background-color: #495057;
-    	}
+       }
      
         form {
             text-align: center;
@@ -166,31 +169,33 @@
 <body>
     <header class="logo-container">
         <a href="/">
-    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+          <img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
         </a>
     </header>
     <div class="link-container">
         <a href="/Company/Info" class="link-box">내 정보</a>
-   		<a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
-    	<a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
+         <a href="/Company/RecruitInfo" class="link-box">채용 공고 관리</a>
+       <a href="/Company/RecruitWriteForm" class="link-box">채용 공고 등록</a>
     </div>
     <div class="container">
         <h1>내 회사 정보</h1>
         <div class="info-box">
-        <form action="/Company/InfoUpdateForm?company_id=${companyUserVo.company_id}" METHOD="POST">
-            <div class="info-item">회사 ID: <span class="highlight" data-name = "company_id" >${companyUserVo.company_id}</span></div>
-            <div class="info-item">회사 이름: <span class="highlight">${companyUserVo.company_name}</span></div>
-            <div class="info-item">대표자: <span class="highlight">${companyUserVo.company_boss_name}</span></div>
-            <div class="info-item">전화번호: <span class="highlight">${companyUserVo.company_phone}</span></div>
-            <div class="info-item">이메일: <span class="highlight">${companyUserVo.company_email}</span></div>
-            <div class="info-item">설립일: <span class="highlight">${companyUserVo.company_establish}</span></div>
-            <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
-            <input type="submit" class="button" value="정보 수정"/>
-            </form>
-              <button class="button1" id = "delete">회원 탈퇴</button>
-    
-        </div>
+
+    <form action="/Company/InfoUpdateForm?company_id=${companyUserVo.company_id}" method="POST">
+        <div class="info-item">회사 ID: <span class="highlight" data-name="company_id">${companyUserVo.company_id}</span></div>
+        <div class="info-item">회사 이름: <span class="highlight">${companyUserVo.company_name}</span></div>
+        <div class="info-item">대표자: <span class="highlight">${companyUserVo.company_boss_name}</span></div>
+        <div class="info-item">전화번호: <span class="highlight">${companyUserVo.company_phone}</span></div>
+        <div class="info-item">이메일: <span class="highlight">${companyUserVo.company_email}</span></div>
+        <div class="info-item">설립일: <span class="highlight">${companyUserVo.company_establish}</span></div>
+        <div class="info-item">등록일: <span class="highlight">${companyUserVo.company_regdate}</span></div>
+        <input type="submit" class="button" value="정보 수정"/>
+    </form>
+    <div style="text-align: center;"> <!-- 중앙 정렬을 위한 div 추가 -->
+        <button class="button1" id="delete">회원 탈퇴</button>
+
     </div>
+</div>
     
     <script>
     const company_id = document.querySelector('[data-name=company_id]').innerText;
@@ -204,9 +209,9 @@
         }
     };
     </script>
+</body>
 <footer>    
     <br/><span>이메일 : help@arabojob.co.kr<br/> Fax : 02-0000-0000(대표)</span><br/>
-	<p></p>
+   <p></p>
 </footer>
-</body>
 </html>

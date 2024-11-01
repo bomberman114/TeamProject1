@@ -9,6 +9,11 @@
 <title>채용공고 검색</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <style>
+
+		header {
+		
+		text-align: center;
+		}
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -179,6 +184,11 @@
     </style>
 </head>
 <body>
+ <header class="logo-container">
+        <a href="/">
+    		<img src="\css\NEXT.png" alt="사이트 로고" style="height: 8em;">
+        </a>
+    </header>
 
     <div class="container">
         <h2>채용공고 검색</h2>
