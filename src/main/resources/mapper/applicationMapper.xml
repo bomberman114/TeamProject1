@@ -91,4 +91,18 @@
   	 		</foreach>
 	
 	</delete>
+	
+	<!-- 회원탈퇴시 채용지원 이력서 삭제 -->
+	<delete id="deleteApplicationResume">
+    DELETE FROM
+   		APPLICATIONS
+   	WHERE USER_RESUME_IDX
+		IN (
+		    SELECT UR.USER_RESUME_IDX
+		    FROM USER_RESUME UR
+		    JOIN USERS U 
+		    ON UR.USER_ID = U.USER_ID
+		    WHERE U.USER_ID = #{user_id}
+		)
+	</delete>
 </mapper>

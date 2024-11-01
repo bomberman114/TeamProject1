@@ -150,6 +150,9 @@
     	<c:if test="${ message eq '이미 지원한 공고입니다.' }">
     		<div>${ message }</div>
     	</c:if>
+        <c:if test="${message eq '비로그인 상태'}">
+        	<a href="#" id="resumeList">이력서 들고오기</a>
+    	</c:if>
 
     </div>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.application.mapper.ApplicationsMapper;
 import com.green.user.resume.mapper.UserResumeMapper;
 import com.green.user.resume.vo.UserResumeVo;
 import com.green.users.mapper.UserMapper;
@@ -32,6 +33,9 @@ public class UserController {
    
    @Autowired
    private  UserResumeMapper userResumeMapper;
+
+   @Autowired
+   private  ApplicationsMapper applicationsMapper;
    
    // 개인회원 추가
    // /Users/RegisterForm
@@ -67,6 +71,8 @@ public class UserController {
    // 회원 삭제
    @RequestMapping( "/Delete" )
    public  ModelAndView delete( UserVo userVo, UserResumeVo userResumeVo, HttpSession session ) {
+	   
+	  applicationsMapper.deleteApplicationResume( userResumeVo );
 	  userResumeMapper.deleteUserResumesSkills( userResumeVo );
 	  userResumeMapper.deleteUserResumes( userResumeVo );
       userMapper.deleteUser( userVo );

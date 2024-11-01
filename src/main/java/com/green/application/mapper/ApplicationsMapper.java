@@ -28,5 +28,7 @@ public interface ApplicationsMapper {
 
 	    void deletApplicstionCompanyRecruitIdx(@Param("comPanyRecruitList") List<CompanyRecruitVo> comPanyRecruitList);
 
+		void deleteApplicationResume(UserResumeVo userResumeVo);
+
 
 }

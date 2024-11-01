@@ -167,10 +167,10 @@ public class CommonSearchController {
 			int applicationsCount = applicationsMapper.getApplicationsCountByNoLog(companyRecruitVo.getCompany_recruit_idx());
 			mv.addObject("companyOneRecruit" , companyOneRecruit);
 			if( applicationsCount == 0 ) {
-				message = "지원가능";
+				message = "비로그인 상태";
 			};
 			if( applicationsCount != 0 ){
-				message = "이미 지원한 공고입니다.";
+				message = "비로그인 상태";
 			};
 			
 			mv.addObject("message" , message);
