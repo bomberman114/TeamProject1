@@ -81,4 +81,6 @@ public interface CompanyRecruitMapper {
 
 	void deleteCompanyRecruitUserId(CompanyUserVo companyUserVo);
 
+	List<CompanyRecruitVo> getCompanyRecruitIdxsData(CompanyUserVo companyUserVo);
+
 }
